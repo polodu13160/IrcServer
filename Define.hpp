@@ -1,6 +1,22 @@
 #ifndef DEFINE_HPP
 #define DEFINE_HPP
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// SERVER OPTIONS
+
+#define INVALID_SOCKET  -1
+#define SOCKET_ERROR    -1
+
+typedef int SOCKET;
+typedef struct sockaddr_in SOCKADDR_IN;
+
 // LISTE DES ERREURS, BIEN REGARDER SI ELLES EXISTENT PAS DEJA.
 
 #define ERR_SERVERCRASH "Server crash."
