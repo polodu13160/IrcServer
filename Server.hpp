@@ -13,7 +13,7 @@ class Server {
     ~Server();
 
   private:
-    bool isServerWorking;
+  	bool	_isServerWorking;
 };
 
 #endif
