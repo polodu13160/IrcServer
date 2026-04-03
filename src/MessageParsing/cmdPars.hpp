@@ -8,13 +8,18 @@ class cmdPars{
 	cmdPars(void);
 	~cmdPars(void);
 
-	void	cmdParser(std::string cmd);
+	void	cmdParser(std::string cmd, const std::string *args);
 
-	std::map<std::string, void (cmdPars::*)(std::string*)>_handlerTab;
+	std::map<std::string, void (cmdPars::*)(const std::string*)>_handlerTab;
 
-	void	handleKick(std::string *args);
-	void	handleMode(std::string *args);
-	void	handleInvite(std::string *args);
-	void	handleTopic(std::string *args);
+	void	handleKick(const std::string *args);
+	void	handleMode(const std::string *args);
+	void	handleInvite(const std::string *args);
+	void	handleTopic(const std::string *args);
+	void	handlePart(const std::string *args);
+	void	handleNick(const std::string *args);
+	void	handleQuit(const std::string *args);
+	void	handleJoin(const std::string *args);
+	void	handleHelp(const std::string *args);
 };
 #endif
