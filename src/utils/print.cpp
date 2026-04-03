@@ -1,4 +1,5 @@
 
+#include "namespaces.hpp"
 #include <cstdarg>
 #include <string>
 #include <iostream>
@@ -6,7 +7,7 @@
 
 // finir par null dans le text a push
 // ex = messageToServer("tutu","toto",NULL);
-void messageToServer(const char *text, ...)
+void utilsMessage::messageToServer(const char *text, ...)
 {
     if (text == NULL)
         return;
@@ -23,11 +24,7 @@ void messageToServer(const char *text, ...)
     std::cout << std::endl;
 }
 
-// penser a mettre un @ sur les operateur si cest dans un channel,
-// dabord envoyer le fd a qui envoye, apres celui qui envoie le message
-// ensuite la commande par ex PRVMESSAGE
-// si pas de numericsCode envoyer -1
-// messageToClient(fd, NULL, Kaisss, NULL, PRIVMESSAGE, "Kaissot je te baise", NULL)
+
 /**
  * @brief message send to Irc Client FD;
  * 
@@ -40,7 +37,7 @@ void messageToServer(const char *text, ...)
  * @attention Don't forget the NULL for the end of variadics arguments
  * @return possible throw if send doesn't worked
  */
-void messageToClient(int fdClientReception, std::string *numericsCode, std::string &sender, std::string *channel, std::string command, ...)
+void utilsMessage::messageToClient(int fdClientReception, std::string *numericsCode, std::string &sender, std::string *channel, std::string command, ...)
 {
     std::string header;
     std::string msg;
