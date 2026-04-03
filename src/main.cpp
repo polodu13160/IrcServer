@@ -3,27 +3,29 @@
 
 typedef struct sockaddr SOCKADDR;
 
+void  initializeServer(Server &server) {
+
+	const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
+	if (serverId == SOCKET_ERROR) {
+		throw Server::errorServerSocket();
+	}
+	std::cout << "Socket crée : " << serverId << std::endl;
+	server.setServerId(serverId);
+
+}
+
+
+
 
 int main () {
 
-  SOCKET sock = socket(AF_INET, SOCK_STREAM, 0);
+	Server  server;
 
-  SOCKADDR_IN sin;
+	initializeServer(server);
 
-  sin.sin_addr.s_addr = htonl(INADDR_ANY);
-  sin.sin_family = AF_INET;
-  sin.sin_port = htons(6697);
+	SOCKADDR_IN sin;
 
-  bind(sock, (SOCKADDR*)&sin, sizeof(sin));
-
-  SOCKADDR_IN csin;
-  socklen_t size = sizeof(csin);
-
-  int sock_err = listen(sock, 5);
-  while (1) {
-    SOCKET csocket = accept(sock, (SOCKADDR *)&csin, &size);
-    if (csocket != SOCKET_ERROR) {
-      std::cout << "New client is connected";
-    }
-  }
+	sin.sin_addr.s_addr = htonl(INADDR_ANY);
+	sin.sin_family = AF_INET;
+	sin.sin_port = htons(6697);
 }

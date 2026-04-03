@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include "Define.hpp"
 
 class Server {
 
@@ -12,8 +13,19 @@ class Server {
     Server &operator=(Server &other);
     ~Server();
 
+    void  setServerId(const SOCKET socketId);
+
+    class errorServerSocket : public std::exception {
+      public:
+        virtual const char* what() const throw();
+    };
+
   private:
+
     static bool isServerWorking;
+    SOCKET      serverId;
+    SOCKADDR_IN sin;
+
 };
 
 #endif
