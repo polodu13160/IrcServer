@@ -13,7 +13,8 @@ class Server {
     Server &operator=(Server &other);
     ~Server();
 
-    void  setServerId(const SOCKET socketId);
+    void	setServerId(const SOCKET socketId);
+    int		getServerId();
 
     class errorServerSocket : public std::exception {
       public:
@@ -26,6 +27,10 @@ class Server {
     SOCKET      serverId;
     SOCKADDR_IN sin;
 
+	void	sockaddrInit();
+
 };
+
+std::ostream&	operator<<(std::ostream& os, Server &server);
 
 #endif

@@ -41,20 +41,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Add IDE configuration, update server variables, and refine formatting&#10;&#10;- Added `.idea` directory to include IntelliJ IDEA project configuration files for easier project setup.&#10;- Updated `Server.hpp` to make `isServerWorking` a static variable for shared access across instances.&#10;- Implemented basic definitions in `Server.cpp` for `isServerWorking` initialization and constructors.">
-      <change beforePath="$PROJECT_DIR$/.clang-format" beforeDir="false" afterPath="$PROJECT_DIR$/.clang-format" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Refactor server initialization and add build dependencies&#10;&#10;- Moved server socket initialization to a dedicated `initializeServer` function for modularity and clarity.&#10;- Introduced `setServerId` in `Server` class to encapsulate server ID assignment logic.&#10;- Added build dependencies files (`.build/src/main.d` and `.build/class/irc.d`) for improved compilation management.&#10;- Updated `.clang-format` for standardized code style, including tab indentation and customized brace wrapping.&#10;- Enhanced `Server` exception handling by implementing `errorServerSocket` with a descriptive error message.&#10;- Updated `.idea` project configuration to reflect new formatting and build rules.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Define.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
     <option name="cachedIndexableFilesCount" value="19" />
@@ -233,7 +233,7 @@
       <workItem from="1774543144389" duration="92000" />
       <workItem from="1774543238056" duration="1223000" />
       <workItem from="1774743451994" duration="30000" />
-      <workItem from="1775174527065" duration="1737000" />
+      <workItem from="1775174527065" duration="2492000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Add IntelliJ project configuration files and update server class variables&#10;&#10;This commit adds IntelliJ IDEA configuration files (.idea directory) to the repository for IDE-specific project settings. It also updates the `Server.hpp` class, renaming a private member variable to follow a consistent naming convention.">
       <option name="closed" value="true" />
@@ -251,7 +251,15 @@
       <option name="project" value="LOCAL" />
       <updated>1774544353047</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: Refactor server initialization and add build dependencies&#10;&#10;- Moved server socket initialization to a dedicated `initializeServer` function for modularity and clarity.&#10;- Introduced `setServerId` in `Server` class to encapsulate server ID assignment logic.&#10;- Added build dependencies files (`.build/src/main.d` and `.build/class/irc.d`) for improved compilation management.&#10;- Updated `.clang-format` for standardized code style, including tab indentation and customized brace wrapping.&#10;- Enhanced `Server` exception handling by implementing `errorServerSocket` with a descriptive error message.&#10;- Updated `.idea` project configuration to reflect new formatting and build rules.">
+      <option name="closed" value="true" />
+      <created>1775176412757</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1775176412757</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,7 +279,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: Add IntelliJ project configuration files and update server class variables&#10;&#10;This commit adds IntelliJ IDEA configuration files (.idea directory) to the repository for IDE-specific project settings. It also updates the `Server.hpp` class, renaming a private member variable to follow a consistent naming convention." />
     <MESSAGE value="feat: Add IDE configuration, update server variables, and refine formatting&#10;&#10;- Added `.idea` directory to include IntelliJ IDEA project configuration files for easier project setup.&#10;- Updated `Server.hpp` to make `isServerWorking` a static variable for shared access across instances.&#10;- Implemented basic definitions in `Server.cpp` for `isServerWorking` initialization and constructors." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add IDE configuration, update server variables, and refine formatting&#10;&#10;- Added `.idea` directory to include IntelliJ IDEA project configuration files for easier project setup.&#10;- Updated `Server.hpp` to make `isServerWorking` a static variable for shared access across instances.&#10;- Implemented basic definitions in `Server.cpp` for `isServerWorking` initialization and constructors." />
+    <MESSAGE value="feat: Refactor server initialization and add build dependencies&#10;&#10;- Moved server socket initialization to a dedicated `initializeServer` function for modularity and clarity.&#10;- Introduced `setServerId` in `Server` class to encapsulate server ID assignment logic.&#10;- Added build dependencies files (`.build/src/main.d` and `.build/class/irc.d`) for improved compilation management.&#10;- Updated `.clang-format` for standardized code style, including tab indentation and customized brace wrapping.&#10;- Enhanced `Server` exception handling by implementing `errorServerSocket` with a descriptive error message.&#10;- Updated `.idea` project configuration to reflect new formatting and build rules." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Refactor server initialization and add build dependencies&#10;&#10;- Moved server socket initialization to a dedicated `initializeServer` function for modularity and clarity.&#10;- Introduced `setServerId` in `Server` class to encapsulate server ID assignment logic.&#10;- Added build dependencies files (`.build/src/main.d` and `.build/class/irc.d`) for improved compilation management.&#10;- Updated `.clang-format` for standardized code style, including tab indentation and customized brace wrapping.&#10;- Enhanced `Server` exception handling by implementing `errorServerSocket` with a descriptive error message.&#10;- Updated `.idea` project configuration to reflect new formatting and build rules." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

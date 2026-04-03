@@ -11,8 +11,9 @@
 
 // SERVER OPTIONS
 
-#define INVALID_SOCKET  -1
-#define SOCKET_ERROR    -1
+#define INVALID_SOCKET  (-1)
+#define SOCKET_ERROR    (-1)
+#define PORT			6667
 
 typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;

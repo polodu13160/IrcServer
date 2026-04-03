@@ -9,8 +9,9 @@ void  initializeServer(Server &server) {
 	if (serverId == SOCKET_ERROR) {
 		throw Server::errorServerSocket();
 	}
-	std::cout << "Socket crée : " << serverId << std::endl;
 	server.setServerId(serverId);
+
+	std::cout << server;
 
 }
 
