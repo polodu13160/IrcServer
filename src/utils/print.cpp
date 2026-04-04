@@ -5,8 +5,13 @@
 #include <iostream>
 #include <sys/socket.h>
 
-// finir par null dans le text a push
-// ex = messageToServer("tutu","toto",NULL);
+/**
+ * @brief send message for terminal of server
+ * 
+ * @param text first message followed by a space
+ * @param ... others messages followed by  spaces, 
+ * @attention the last param must to be NULL 
+ */
 void utilsMessage::messageToServer(const char *text, ...)
 {
     if (text == NULL)
@@ -15,10 +20,14 @@ void utilsMessage::messageToServer(const char *text, ...)
     std::cout << text;
     va_start(args, text);
     const char *val = va_arg(args, const char *);
+    const char *valNext;
     while (val != NULL)
     {
-        std::cout << val;
-        val = va_arg(args, const char *);
+        if ((valNext = va_arg(args, const char *)) == NULL)
+            std::cout << val;
+        else 
+            std::cout << val << " ";
+        val = valNext;
     }
     va_end(args);
     std::cout << std::endl;
