@@ -8,9 +8,9 @@
 /**
  * @brief send message for terminal of server
  * 
- * @param text first message followed by a space
+ * @param text first message followed by a space (THE SPACE IS INCLUDED IN FUNC)
  * @param ... others messages followed by  spaces, 
- * @attention the last param must to be NULL 
+ * @attention the last param must to  be NULL 
  */
 void utilsMessage::messageToServer(const char *text, ...)
 {
