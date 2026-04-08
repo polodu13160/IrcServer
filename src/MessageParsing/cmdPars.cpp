@@ -16,7 +16,7 @@ cmdPars::cmdPars(void){
 
 cmdPars::~cmdPars(){}
 
-void	cmdPars::handleInvite(const std::string *arg){
+void	cmdPars::handleInvite(User &user, const std::string *arg){
 	// INVITE (nickname) (channel)
 	if(arg[1].empty()){
 		std::cout << "There must be 2 parameters for this command" << std::endl;
@@ -30,7 +30,7 @@ void	cmdPars::handleInvite(const std::string *arg){
 	std::cout << arg[0] << " has joined " << arg[1] << std::endl;
 }
 
-void	cmdPars::handleKick(const std::string *arg){
+void	cmdPars::handleKick(User &user, const std::string *arg){
 	// KICK (channel) (nickname) [comment]
 	if(!arg || arg[1].empty()){
 		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
@@ -46,21 +46,27 @@ void	cmdPars::handleKick(const std::string *arg){
 		std::cout << arg[2] << std::endl;
 }
 
-void	cmdPars::handleMode(const std::string *arg){
+void	cmdPars::handleMode(User &user, const std::string *arg){
 	// MODE (channel/user) (mode : -i, -o...) (param)
 	if(arg[1].empty()){
 		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
 		return;
 	}
 	if(arg[0][0] == '#'){
-		//channel
+		if(arg[1][0] != '+' && arg[1][0] != '-')
+			std::cout << "Second parameter must begin with '+' or '-' (set/remove)" << std::endl;
+		else if(arg[1][1] != 'i' && arg[1][1] != 't' && arg[1][1] != 'k' && arg[1][1] != 'o' && arg[1][1] != 'l')
+			std::cout << "available modes : -i, -t, -k, -o, -l" << std::endl;
+		else{
+			// exec MODE
+		}
 	}
 	else{
-		//user
+		std::cout << "First parameter must be a channel beginning with '#'" << std::endl;
 	}
 }
 
-void	cmdPars::handleTopic(const std::string *arg){
+void	cmdPars::handleTopic(User &user, const std::string *arg){
 	// TOPIC (channel) [newtopic]
 	if(arg[0].empty()){
 		std::cout << "There must be 1 or 2 parameters for this command" << std::endl;
@@ -80,7 +86,7 @@ void	cmdPars::handleTopic(const std::string *arg){
 	}
 }
 
-void	cmdPars::handlePart(const std::string *arg){
+void	cmdPars::handlePart(User &user, const std::string *arg){
 	// PART (channel) [channel] ...
 	if(arg[0].empty()){
 		std::cout << "There must be at least 1 parameter for this command" << std::endl;
@@ -96,7 +102,7 @@ void	cmdPars::handlePart(const std::string *arg){
 	}
 }
 
-void	cmdPars::handleNick(const std::string *arg){
+void	cmdPars::handleNick(User &user, const std::string *arg){
 	// NICK (new nickname)
 	if(arg[0].empty()){
 		std::cout << "There must be 1 parameter for this command" << std::endl;
@@ -106,7 +112,7 @@ void	cmdPars::handleNick(const std::string *arg){
 	std::cout << "[User] has changed nickname to " << arg[0] << std::endl;
 }
 
-void	cmdPars::handleQuit(const std::string *arg){
+void	cmdPars::handleQuit(User &user, const std::string *arg){
 	// QUIT [message]
 	if(!arg[0].empty()){
 		// laisse un message de depart arg[0]
@@ -116,7 +122,7 @@ void	cmdPars::handleQuit(const std::string *arg){
 	std::cout << "[User] has left the server" << std::endl;
 }
 
-void	cmdPars::handleJoin(const std::string *arg){
+void	cmdPars::handleJoin(User &user, const std::string *arg){
 	//JOIN (channel) [mdp]
 	if(arg[0].empty()){
 		std::cout << "There must be 1 or 2 parameters for this command" << std::endl;
@@ -127,11 +133,11 @@ void	cmdPars::handleJoin(const std::string *arg){
 	std::cout << "[User] has joined " << arg[0] << std::endl;
 }
 
-void	cmdPars::handleHelp(const std::string *arg){
+void	cmdPars::handleHelp(User &user, const std::string *arg){
 	// HELP [cmd]
 	if(!arg[0].empty()){
 		// aide sur cmd arg[0]
-		std::cout << "[How to use] " << arg[0] << std::endl;
+		std::cout << "[How to use] [cmd]" << arg[0] << std::endl;
 	}
 	else{
 		//liste des commandes
@@ -139,10 +145,10 @@ void	cmdPars::handleHelp(const std::string *arg){
 	}
 }
 
-void	cmdPars::cmdParser(std::string cmd, const std::string *args){
-	std::map<std::string, void (cmdPars::*)(const std::string*)>::iterator it = this->_handlerTab.find(cmd);
+void	cmdPars::cmdParser(User &user, std::string cmd, const std::string *args){
+	std::map<std::string, void (cmdPars::*)(User&, const std::string*)>::iterator it = this->_handlerTab.find(cmd);
 	if(it != this->_handlerTab.end()){
-		(this->*(it->second))(args);
+		(this->*(it->second))(user, args);
 	}
 	else{
 		std::cout << "This command does not exist here" << std::endl;

@@ -1,7 +1,9 @@
 #ifndef CMD_HPP
 # define CMD_HPP
+
 #include <iostream>
 #include <map>
+#include "User.hpp"
 using namespace	std;
 
 class cmd{
@@ -18,7 +20,7 @@ class cmd{
 	void	join(void);
 	void	part(void);
 	void	msg(void);
-	void	nick(void);
+	void	nick(User &user, std::string name);
 	void	quit(void);
 	void	help(void);
 };

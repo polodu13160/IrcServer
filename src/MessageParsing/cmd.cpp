@@ -35,8 +35,9 @@ void	cmd::msg(void){
 	std::cout << "user sent a message" <<std::endl;
 }
 
-void	cmd::nick(void){
-	std::cout << "user changed nickname" <<std::endl;
+void	cmd::nick(User &user, std::string nickname){
+	user.setNickname(nickname);
+	std::cout << "user changed nickname to " << nickname << std::endl;
 }
 
 void	cmd::quit(void){

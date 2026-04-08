@@ -1,6 +1,7 @@
 #ifndef CMDPARS_HPP
 # define CMDPARS_HPP
 #include <iostream>
+#include "User.hpp"
 #include <map>
 
 class cmdPars{
@@ -8,18 +9,18 @@ class cmdPars{
 	cmdPars(void);
 	~cmdPars(void);
 
-	void	cmdParser(std::string cmd, const std::string *args);
+	void	cmdParser(User &user, std::string cmd, const std::string *args);
 
-	std::map<std::string, void (cmdPars::*)(const std::string*)>_handlerTab;
+	std::map<std::string, void (cmdPars::*)(User&, const std::string*)>_handlerTab;
 
-	void	handleKick(const std::string *args);
-	void	handleMode(const std::string *args);
-	void	handleInvite(const std::string *args);
-	void	handleTopic(const std::string *args);
-	void	handlePart(const std::string *args);
-	void	handleNick(const std::string *args);
-	void	handleQuit(const std::string *args);
-	void	handleJoin(const std::string *args);
-	void	handleHelp(const std::string *args);
+	void	handleKick(User &user, const std::string *args);
+	void	handleMode(User &user, const std::string *args);
+	void	handleInvite(User &user, const std::string *args);
+	void	handleTopic(User &user, const std::string *args);
+	void	handlePart(User &user, const std::string *args);
+	void	handleNick(User &user, const std::string *args);
+	void	handleQuit(User &user, const std::string *args);
+	void	handleJoin(User &user, const std::string *args);
+	void	handleHelp(User &user, const std::string *args);
 };
 #endif
