@@ -2,6 +2,9 @@
 
 #include <fstream>
 
+
+// SERVER CLASS CREATION
+
 bool Server::isServerWorking = false;
 
 Server::Server() {
@@ -19,20 +22,18 @@ Server &Server::operator=(Server &other) {
 	return *this;
 }
 
-const char *Server::errorServerSocket::what() const throw() {
-  return "Error\nServer Socket ID is equal to SOCKET_ERROR";
-}
-
 Server::~Server() {
 
 }
+
+// SERVER CLASS MEMBER FUNCTIONS
 
 
 void Server::setServerId(const SOCKET socketId){
 	this->serverId = socketId;
 }
 
-int	Server::getServerId() {
+int	Server::getServerId() const {
 	return this->serverId;
 }
 
@@ -43,6 +44,12 @@ void Server::sockaddrInit() {
 	this->sin.sin_port =		htons(PORT);
 }
 
+
+// SERVER CLASS OUT AND EXCEPTIONS
+
+const char *Server::errorServerSocket::what() const throw() {
+	return "Error\nServer Socket ID is equal to SOCKET_ERROR";
+}
 
 std::ostream& operator<<(std::ostream& os, Server& server) {
 

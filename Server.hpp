@@ -14,7 +14,7 @@ class Server {
     ~Server();
 
     void	setServerId(const SOCKET socketId);
-    int		getServerId();
+    int		getServerId() const;
 
     class errorServerSocket : public std::exception {
       public:
