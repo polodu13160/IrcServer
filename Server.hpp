@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <sys/epoll.h>
 #include "Define.hpp"
 
 class Server {
@@ -17,6 +18,7 @@ class Server {
 	void	setServerPass(const std::string &password);
     int		getServerId() const;
 	int		getServerPort();
+	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
     void	sockaddrInit(std::string port);
 

@@ -42,11 +42,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Add logging for server details and improve initialization&#10;&#10;- Added `operator&lt;&lt;` to `Server` class for logging server socket details to `std::ostream`.  &#10;- Introduced `sockaddrInit` in `Server` for initializing `SOCKADDR_IN` structure with default values.  &#10;- Added `getServerId` method to retrieve the server ID for improved encapsulation.  &#10;- Updated `Define.hpp` to include a default `PORT` value and adjusted macro formatting for readability.">
-      <change beforePath="$PROJECT_DIR$/.build/src/main.d" beforeDir="false" afterPath="$PROJECT_DIR$/.build/src/main.d" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.build/src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/.build/src/main.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Enhance server initialization and logging&#10;&#10;- Updated `initializeServer` to accept command-line arguments for port and password.&#10;- Modified `main` to validate the required number of arguments and handle exceptions.&#10;- Enhanced `Server` class:&#10;  - Added `setServerPass` to set server password.&#10;  - Updated `sockaddrInit` to parse and bind the server port dynamically.&#10;  - Added methods to retrieve server port and password for better encapsulation.&#10;  - Extended `operator&lt;&lt;` to log server port and password.&#10;- Adjusted structure in `Server` to improve readability and encapsulation.&#10;- Updated IDE configuration files to include formatting rules for consistency.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server.hpp" afterDir="false" />
@@ -267,7 +263,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775177151833</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: Enhance server initialization and logging&#10;&#10;- Updated `initializeServer` to accept command-line arguments for port and password.&#10;- Modified `main` to validate the required number of arguments and handle exceptions.&#10;- Enhanced `Server` class:&#10;  - Added `setServerPass` to set server password.&#10;  - Updated `sockaddrInit` to parse and bind the server port dynamically.&#10;  - Added methods to retrieve server port and password for better encapsulation.&#10;  - Extended `operator&lt;&lt;` to log server port and password.&#10;- Adjusted structure in `Server` to improve readability and encapsulation.&#10;- Updated IDE configuration files to include formatting rules for consistency.">
+      <option name="closed" value="true" />
+      <created>1775669659582</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1775669659582</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,14 +293,15 @@
     <MESSAGE value="feat: Add IDE configuration, update server variables, and refine formatting&#10;&#10;- Added `.idea` directory to include IntelliJ IDEA project configuration files for easier project setup.&#10;- Updated `Server.hpp` to make `isServerWorking` a static variable for shared access across instances.&#10;- Implemented basic definitions in `Server.cpp` for `isServerWorking` initialization and constructors." />
     <MESSAGE value="feat: Refactor server initialization and add build dependencies&#10;&#10;- Moved server socket initialization to a dedicated `initializeServer` function for modularity and clarity.&#10;- Introduced `setServerId` in `Server` class to encapsulate server ID assignment logic.&#10;- Added build dependencies files (`.build/src/main.d` and `.build/class/irc.d`) for improved compilation management.&#10;- Updated `.clang-format` for standardized code style, including tab indentation and customized brace wrapping.&#10;- Enhanced `Server` exception handling by implementing `errorServerSocket` with a descriptive error message.&#10;- Updated `.idea` project configuration to reflect new formatting and build rules." />
     <MESSAGE value="feat: Add logging for server details and improve initialization&#10;&#10;- Added `operator&lt;&lt;` to `Server` class for logging server socket details to `std::ostream`.  &#10;- Introduced `sockaddrInit` in `Server` for initializing `SOCKADDR_IN` structure with default values.  &#10;- Added `getServerId` method to retrieve the server ID for improved encapsulation.  &#10;- Updated `Define.hpp` to include a default `PORT` value and adjusted macro formatting for readability." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add logging for server details and improve initialization&#10;&#10;- Added `operator&lt;&lt;` to `Server` class for logging server socket details to `std::ostream`.  &#10;- Introduced `sockaddrInit` in `Server` for initializing `SOCKADDR_IN` structure with default values.  &#10;- Added `getServerId` method to retrieve the server ID for improved encapsulation.  &#10;- Updated `Define.hpp` to include a default `PORT` value and adjusted macro formatting for readability." />
+    <MESSAGE value="feat: Enhance server initialization and logging&#10;&#10;- Updated `initializeServer` to accept command-line arguments for port and password.&#10;- Modified `main` to validate the required number of arguments and handle exceptions.&#10;- Enhanced `Server` class:&#10;  - Added `setServerPass` to set server password.&#10;  - Updated `sockaddrInit` to parse and bind the server port dynamically.&#10;  - Added methods to retrieve server port and password for better encapsulation.&#10;  - Extended `operator&lt;&lt;` to log server port and password.&#10;- Adjusted structure in `Server` to improve readability and encapsulation.&#10;- Updated IDE configuration files to include formatting rules for consistency." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Enhance server initialization and logging&#10;&#10;- Updated `initializeServer` to accept command-line arguments for port and password.&#10;- Modified `main` to validate the required number of arguments and handle exceptions.&#10;- Enhanced `Server` class:&#10;  - Added `setServerPass` to set server password.&#10;  - Updated `sockaddrInit` to parse and bind the server port dynamically.&#10;  - Added methods to retrieve server port and password for better encapsulation.&#10;  - Extended `operator&lt;&lt;` to log server port and password.&#10;- Adjusted structure in `Server` to improve readability and encapsulation.&#10;- Updated IDE configuration files to include formatting rules for consistency." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Server.hpp</url>
-          <line>20</line>
+          <line>21</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

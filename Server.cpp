@@ -46,6 +46,9 @@ std::string Server::getServerPassword() {
 	return this->serverPassword;
 }
 
+SOCKADDR_IN &Server::getServerSin() {
+	return this->sin;
+}
 
 void Server::sockaddrInit(std::string port) {
 
