@@ -14,21 +14,24 @@ class Server {
     ~Server();
 
     void	setServerId(const SOCKET socketId);
+	void	setServerPass(const std::string &password);
     int		getServerId() const;
+	int		getServerPort();
+	std::string getServerPassword();
+    void	sockaddrInit(std::string port);
+
 
     class errorServerSocket : public std::exception {
       public:
         virtual const char* what() const throw();
     };
 
-  private:
-
+private:
     static bool isServerWorking;
+	int			port;
+    std::string	serverPassword;
     SOCKET      serverId;
     SOCKADDR_IN sin;
-
-	void	sockaddrInit();
-
 };
 
 std::ostream&	operator<<(std::ostream& os, Server &server);

@@ -8,17 +8,14 @@
 bool Server::isServerWorking = false;
 
 Server::Server() {
-	sockaddrInit();
 }
 
 Server::Server(Server &other) {
 	(void)other;
-	sockaddrInit();
 }
 
 Server &Server::operator=(Server &other) {
 	(void)other;
-	sockaddrInit();
 	return *this;
 }
 
@@ -33,15 +30,39 @@ void Server::setServerId(const SOCKET socketId){
 	this->serverId = socketId;
 }
 
+void Server::setServerPass(const std::string &password) {
+	this->serverPassword = password;
+}
+
 int	Server::getServerId() const {
 	return this->serverId;
 }
 
+int Server::getServerPort() {
+	return this->port;
+}
 
-void Server::sockaddrInit() {
+std::string Server::getServerPassword() {
+	return this->serverPassword;
+}
+
+
+void Server::sockaddrInit(std::string port) {
+
+	int portValue = 0;
+	try {
+		portValue = stoi(port);
+	}
+	catch (std::exception &e) {
+		std::cout << e.what();
+	}
 	this->sin.sin_addr.s_addr = INADDR_ANY;
 	this->sin.sin_family =		AF_INET;
-	this->sin.sin_port =		htons(PORT);
+	this->sin.sin_port =		htons(portValue);
+	this->port = portValue;
+
+	bind(this->serverId, reinterpret_cast<sockaddr *>(&this->sin), sizeof(this->sin));
+
 }
 
 
@@ -53,6 +74,7 @@ const char *Server::errorServerSocket::what() const throw() {
 
 std::ostream& operator<<(std::ostream& os, Server& server) {
 
-	os << "Server socket = " << server.getServerId() << std::endl;
+	os << "Server socket = " << server.getServerId() << std::endl <<
+		"Server Ports = " << server.getServerPort() << std::endl << "Server Password =  " << server.getServerPassword();
 	return os;
 }
