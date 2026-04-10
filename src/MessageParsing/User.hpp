@@ -4,7 +4,7 @@
 
 class User{
 	public :
-	User(std::string nickname, std::string username, int userfd);
+	User(int userfd);
 	~User(void);
 
 	const std::string	&getNickname(void)const;

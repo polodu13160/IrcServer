@@ -1,6 +1,6 @@
 #include "User.hpp"
 
-User::User(std::string nickname, std::string username, int userfd) : _nickname(nickname), _username(username), _userFd(userfd){}
+User::User(int userfd) : _userFd(userfd){}
 
 User::~User(void){}
 
