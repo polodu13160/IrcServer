@@ -56,7 +56,7 @@ SOCKADDR_IN &Server::getServerSin() {
 	return this->_sin;
 }
 
-void Server::sockaddrInit(std::string port) {
+void Server::sockaddrInit() {
 
 	std::memset(&(this->_sin), 0, sizeof(SOCKADDR_IN));
 

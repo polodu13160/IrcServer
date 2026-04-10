@@ -6,6 +6,8 @@
 #include <sys/epoll.h>
 #include "../../Define.hpp"
 
+
+
 class Server {
 
   public:
@@ -21,7 +23,7 @@ class Server {
 	int		getServerPort();
 	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
-    void	sockaddrInit(std::string port);
+    void	sockaddrInit();
 
 
     class errorServerSocket : public std::exception {
