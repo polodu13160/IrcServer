@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sys/epoll.h>
-#include "Define.hpp"
+#include "../../Define.hpp"
 
 class Server {
 
@@ -16,6 +16,7 @@ class Server {
 
     void	setServerId(const SOCKET socketId);
 	void	setServerPass(const std::string &password);
+	void	setServerPort(const int port);
     int		getServerId() const;
 	int		getServerPort();
 	SOCKADDR_IN	&getServerSin();
@@ -29,11 +30,11 @@ class Server {
     };
 
 private:
-    static bool isServerWorking;
-	int			port;
-    std::string	serverPassword;
-    SOCKET      serverId;
-    SOCKADDR_IN sin;
+    static bool _isServerWorking;
+	int			_port;
+    std::string	_serverPassword;
+    SOCKET      _serverFd;
+    SOCKADDR_IN _sin;
 };
 
 std::ostream&	operator<<(std::ostream& os, Server &server);

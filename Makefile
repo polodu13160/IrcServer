@@ -2,7 +2,7 @@
 CXX = c++
 FLAGS = -Wall -Wextra -Werror -MMD -MP -g3 -std=c++98 -Iinc
 NAME = IrcServer
-FILES =  src/main src/Channel/channel
+FILES =  src/main src/Channel/Channel src/MessageParsing src/Server
 OBJ_DIR = .build/
 SRCS = $(addsuffix .cpp,$(FILES))
 OBJS = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRCS))

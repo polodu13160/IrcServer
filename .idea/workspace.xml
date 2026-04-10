@@ -42,30 +42,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Enhance server initialization and logging&#10;&#10;- Updated `initializeServer` to accept command-line arguments for port and password.&#10;- Modified `main` to validate the required number of arguments and handle exceptions.&#10;- Enhanced `Server` class:&#10;  - Added `setServerPass` to set server password.&#10;  - Updated `sockaddrInit` to parse and bind the server port dynamically.&#10;  - Added methods to retrieve server port and password for better encapsulation.&#10;  - Extended `operator&lt;&lt;` to log server port and password.&#10;- Adjusted structure in `Server` to improve readability and encapsulation.&#10;- Updated IDE configuration files to include formatting rules for consistency.">
-      <change afterPath="$PROJECT_DIR$/inc/Channel.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inc/namespaces.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inc/namespaces.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Channel/Channel.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/Message.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/Message.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/User.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/User.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/cmd.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/cmd.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/cmdPars.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/cmdPars.hpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/doc.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/main.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/MessageParsing/user_pars.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/print.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.build/class/irc.d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.build/class/irc.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.build/src/main.d" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.build/src/main.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +58,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="20" />
+    <option name="cachedIndexableFilesCount" value="35" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -169,7 +151,7 @@
     "cidr.known.project.marker": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "Merging Comm/StartCommunication",
+    "git-widget-placeholder": "Comm/StartCommunication",
     "junie.onboarding.icon.badge.shown": "true",
     "last_opened_file_path": "/Users/kaissramirez/Desktop/dev/42/IrcServer",
     "node.js.detected.package.eslint": "true",
@@ -189,6 +171,11 @@
   </component>
   <component name="RecapUselessUpdatesCounter">
     <option name="suspendCountdown" value="9" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/Server" />
+    </key>
   </component>
   <component name="RunManager" selected="Native Application.all">
     <configuration name="IrcServer" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IrcServer" TARGET_NAME="IrcServer" CONFIG_NAME="IrcServer" version="1">
@@ -247,7 +234,7 @@
       <workItem from="1774543238056" duration="1223000" />
       <workItem from="1774743451994" duration="30000" />
       <workItem from="1775174527065" duration="2920000" />
-      <workItem from="1775800957403" duration="69000" />
+      <workItem from="1775800957403" duration="1856000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Add IntelliJ project configuration files and update server class variables&#10;&#10;This commit adds IntelliJ IDEA configuration files (.idea directory) to the repository for IDE-specific project settings. It also updates the `Server.hpp` class, renaming a private member variable to follow a consistent naming convention.">
       <option name="closed" value="true" />
@@ -289,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775669659582</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: Enhance server initialization and logging&#10;&#10;- Updated `initializeServer` to accept command-line arguments for port and password.&#10;- Modified `main` to validate the required number of arguments and handle exceptions.&#10;- Enhanced `Server` class:&#10;  - Added `setServerPass` to set server password.&#10;  - Updated `sockaddrInit` to parse and bind the server port dynamically.&#10;  - Added methods to retrieve server port and password for better encapsulation.&#10;  - Extended `operator&lt;&lt;` to log server port and password.&#10;- Adjusted structure in `Server` to improve readability and encapsulation.&#10;- Updated IDE configuration files to include formatting rules for consistency.">
+      <option name="closed" value="true" />
+      <created>1775801080173</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1775801080173</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -318,8 +313,8 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Server.hpp</url>
-          <line>22</line>
+          <url>file://$PROJECT_DIR$/src/Server/Server.hpp</url>
+          <line>21</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

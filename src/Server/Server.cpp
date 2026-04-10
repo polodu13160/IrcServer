@@ -5,7 +5,7 @@
 
 // SERVER CLASS CREATION
 
-bool Server::isServerWorking = false;
+bool Server::_isServerWorking = false;
 
 Server::Server() {
 }
@@ -27,27 +27,31 @@ Server::~Server() {
 
 
 void Server::setServerId(const SOCKET socketId){
-	this->serverId = socketId;
+	this->_serverFd = socketId;
 }
 
 void Server::setServerPass(const std::string &password) {
-	this->serverPassword = password;
+	this->_serverPassword = password;
+}
+
+void Server::setServerPort(const int port) {
+	this->_port = port;
 }
 
 int	Server::getServerId() const {
-	return this->serverId;
+	return this->_serverFd;
 }
 
 int Server::getServerPort() {
-	return this->port;
+	return this->_port;
 }
 
 std::string Server::getServerPassword() {
-	return this->serverPassword;
+	return this->_serverPassword;
 }
 
 SOCKADDR_IN &Server::getServerSin() {
-	return this->sin;
+	return this->_sin;
 }
 
 void Server::sockaddrInit(std::string port) {
@@ -59,12 +63,12 @@ void Server::sockaddrInit(std::string port) {
 	catch (std::exception &e) {
 		std::cout << e.what();
 	}
-	this->sin.sin_addr.s_addr = INADDR_ANY;
-	this->sin.sin_family =		AF_INET;
-	this->sin.sin_port =		htons(portValue);
-	this->port = portValue;
+	this->_sin.sin_addr.s_addr = INADDR_ANY;
+	this->_sin.sin_family =		AF_INET;
+	this->_sin.sin_port =		htons(portValue);
+	this->_port = portValue;
 
-	bind(this->serverId, reinterpret_cast<sockaddr *>(&this->sin), sizeof(this->sin));
+	bind(this->_serverFd, reinterpret_cast<sockaddr *>(&this->_sin), sizeof(this->_sin));
 
 }
 

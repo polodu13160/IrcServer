@@ -1,7 +1,23 @@
 #include "../Define.hpp"
-#include "../Server.hpp"
+#include "Server/Server.hpp"
+#include <sstream>
 
 typedef struct sockaddr SOCKADDR;
+
+int	convertPort(const char *arg, Server *server) {
+
+	std::stringstream	ss;
+	int					tmp = 0;
+	char				rest;
+	ss << arg;
+
+	if (!(ss >> tmp) || (ss >> rest))
+		return -1;
+	if (tmp < 1024 || tmp > 65535)
+		return -1;
+	server->setServerPort(tmp);
+	return 0;
+}
 
 void  initializeServer(Server &server, char **args) {
 
@@ -11,28 +27,12 @@ void  initializeServer(Server &server, char **args) {
 	}
 	server.setServerId(serverId);
 
-	server.setServerPass(std::string(args[2]));
-	server.sockaddrInit(std::string(args[1]));
-
-	listen(server.getServerId(), 3);
-
-	socklen_t addrlen = sizeof(server.getServerSin());
-
-	int new_socket = accept(server.getServerId(),  reinterpret_cast<sockaddr *>(&server.getServerSin()), &addrlen);
-
-	std::cout << "New client is connect with fd : " << new_socket <<std::endl;
-	std::cout << server;
-
-	std::string msg[1024];
-	size_t value = read(new_socket, msg, -1);
-	std::cout << msg << std::endl;
-
-	int epfd = epoll_create1(EPOLL_CLOEXEC);
-
-	epoll_event epEvent = {};
-
-	epoll_ctl(epfd, EPOLL_CTL_ADD, new_socket, &epEvent);
-	epoll_wait(epfd, &epEvent,1000, 0);
+	const int opt = 1;
+	if (setsockopt(server.getServerId(), SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int)) != 0)
+		throw Server::errorServerSocket();
+	if (convertPort(args[2], &server) == -1)
+		throw Server::errorServerSocket();
+	std::cout << server << std::endl;
 
 }
 
