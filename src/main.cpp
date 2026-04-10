@@ -32,6 +32,11 @@ void  initializeServer(Server &server, char **args) {
 		throw Server::errorServerSocket();
 	if (convertPort(args[2], &server) == -1)
 		throw Server::errorServerSocket();
+	if (bind(server.getServerId(), reinterpret_cast<sockaddr *>(&server.getServerSin()), sizeof(server.getServerSin())) == -1)
+		throw Server::errorServerSocket();
+	listen(server.getServerId(), SOMAXCONN);
+
+
 	std::cout << server << std::endl;
 
 }

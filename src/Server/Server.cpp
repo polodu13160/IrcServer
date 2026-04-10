@@ -1,6 +1,8 @@
 #include "Server.hpp"
 
 #include <fstream>
+#include <cstring>
+
 
 
 // SERVER CLASS CREATION
@@ -56,19 +58,12 @@ SOCKADDR_IN &Server::getServerSin() {
 
 void Server::sockaddrInit(std::string port) {
 
-	int portValue = 0;
-	try {
-		portValue = stoi(port);
-	}
-	catch (std::exception &e) {
-		std::cout << e.what();
-	}
+	std::memset(&(this->_sin), 0, sizeof(SOCKADDR_IN));
+
 	this->_sin.sin_addr.s_addr = INADDR_ANY;
 	this->_sin.sin_family =		AF_INET;
-	this->_sin.sin_port =		htons(portValue);
-	this->_port = portValue;
+	this->_sin.sin_port =		htons(this->_port);
 
-	bind(this->_serverFd, reinterpret_cast<sockaddr *>(&this->_sin), sizeof(this->_sin));
 
 }
 
