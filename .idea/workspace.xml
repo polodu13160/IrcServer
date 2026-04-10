@@ -29,11 +29,10 @@
   <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="IrcServer" targetName="all" />
-      <config projectName="IrcServer" targetName="IRC" />
       <config projectName="IrcServer" targetName="fclean" />
       <config projectName="IrcServer" targetName="init" />
       <config projectName="IrcServer" targetName="re" />
-      <config projectName="IrcServer" targetName="create_files" />
+      <config projectName="IrcServer" targetName="IrcServer" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -43,11 +42,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Enhance server initialization and logging&#10;&#10;- Updated `initializeServer` to accept command-line arguments for port and password.&#10;- Modified `main` to validate the required number of arguments and handle exceptions.&#10;- Enhanced `Server` class:&#10;  - Added `setServerPass` to set server password.&#10;  - Updated `sockaddrInit` to parse and bind the server port dynamically.&#10;  - Added methods to retrieve server port and password for better encapsulation.&#10;  - Extended `operator&lt;&lt;` to log server port and password.&#10;- Adjusted structure in `Server` to improve readability and encapsulation.&#10;- Updated IDE configuration files to include formatting rules for consistency.">
+      <change afterPath="$PROJECT_DIR$/inc/Channel.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inc/namespaces.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inc/namespaces.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Channel/Channel.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/Message.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/Message.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/User.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/User.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/cmd.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/cmd.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/cmdPars.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/cmdPars.hpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/doc.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/main.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/MessageParsing/user_pars.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/print.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.build/class/irc.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.build/class/irc.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.build/src/main.d" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.build/src/main.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Server.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +76,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="19" />
+    <option name="cachedIndexableFilesCount" value="20" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -75,12 +93,12 @@
     &quot;assignee&quot;: &quot;kaissott&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;git@github.com:polodu13160/IrcServer.git&quot;,
-    &quot;accountId&quot;: &quot;20f6fcc8-b938-43ca-aaeb-659b52114d76&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/polodu13160/IrcServer.git",
+    "accountId": "20f6fcc8-b938-43ca-aaeb-659b52114d76"
   }
-}</component>
+}]]></component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="wj3Dsnan" />
   </component>
@@ -135,36 +153,36 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Comm/StartCommunication&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kaissramirez/Desktop/dev/42/IrcServer&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C++&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "cf.advertisement.text.overridden": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "Merging Comm/StartCommunication",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "/Users/kaissramirez/Desktop/dev/42/IrcServer",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "org.rust.first.attach.projects": "true",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C++",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecapSpentCounter">
     <option name="endsOfQuotaMs" value="1776794421247" />
     <option name="spentUsd" value="0.01761925" />
@@ -173,17 +191,12 @@
     <option name="suspendCountdown" value="9" />
   </component>
   <component name="RunManager" selected="Native Application.all">
-    <configuration name="IRC" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IrcServer" TARGET_NAME="IRC" CONFIG_NAME="IRC" version="1">
+    <configuration name="IrcServer" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IrcServer" TARGET_NAME="IrcServer" CONFIG_NAME="IrcServer" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IrcServer" TARGET_NAME="all" CONFIG_NAME="all" version="1">
-      <method v="2">
-        <option name="CLION.COMPOUND.BUILD" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="create_files" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IrcServer" TARGET_NAME="create_files" CONFIG_NAME="create_files" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
@@ -203,13 +216,17 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <list>
-      <item itemvalue="Native Application.IRC" />
       <item itemvalue="Native Application.all" />
-      <item itemvalue="Native Application.create_files" />
       <item itemvalue="Native Application.fclean" />
       <item itemvalue="Native Application.init" />
       <item itemvalue="Native Application.re" />
+      <item itemvalue="Native Application.IrcServer" />
     </list>
   </component>
   <component name="RustProjectSettings">
@@ -230,6 +247,7 @@
       <workItem from="1774543238056" duration="1223000" />
       <workItem from="1774743451994" duration="30000" />
       <workItem from="1775174527065" duration="2920000" />
+      <workItem from="1775800957403" duration="69000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Add IntelliJ project configuration files and update server class variables&#10;&#10;This commit adds IntelliJ IDEA configuration files (.idea directory) to the repository for IDE-specific project settings. It also updates the `Server.hpp` class, renaming a private member variable to follow a consistent naming convention.">
       <option name="closed" value="true" />
@@ -301,7 +319,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Server.hpp</url>
-          <line>21</line>
+          <line>22</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

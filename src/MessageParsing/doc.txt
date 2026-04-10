@@ -1,0 +1,57 @@
+
+structure type message IRC:
+[{:}{prefix}{SP}]{COMMANDE}[{SP}{PARAMETRES}]{CRLF}
+
+exemples :
+
+PRIVMSG #tardis : Amelia!
+[commande][parametre][parametre]
+
+:doctor!doctor@baz.ecample.com PRIVMSG #tardis :Amelia!
+:[prefix]                     [commande][parametre][parametre]
+
+512 char max/message CR/LF inclus
+
+ PREFIX : id serveur ou user, commence par ':' (uniquement envoye par le serveur?)
+
+ COMMANDE :
+ en lettres, ou code a 3 chiffre (code uniquement pour une reponse server => client, pour confirmer ou indiquer une erreur de commande)
+
+ [] : obligatoire		() : optionnel
+ -Channel operator : KICK, INVITE, TOPIC, MODE (i, t, k, o, l)
+	KICK : KICK [channel] [nickname] (message)
+	INVITE : INVITE [channel] [nickname]
+	TOPIC : TOPIC [channel] (message)
+	MODE :
+	sur un channel:
+	MODE [channel] [+/-] (+ = set, - = remove) [mode : i, t, k, o, l] (parametre)
+	sur un user :
+	MODE [nickname] [+/-] [mode]
+
+ -standard user : JOIN, PART, PRIVMSG/MSG, NICK, QUIT, HELP...
+
+	JOIN : JOIN [channel] (mdp)
+	rejoindre un channel, ou le creer si non existant(le user devient alors operator du channel)
+
+	PART : PART [channel] (chanel)....
+	partir d'un channel
+
+	MSG/PRIVMSG : MSG [channel/user] [message]
+	ecrire un message a un user ou dans un channel
+
+	NICK : NICK [new nickname]
+	changer de nickname
+
+	QUIT : QUIT (message)
+	quitter IRC
+
+	HELP : HELP (nom commande)
+	aide sur des commandes specifiques, ou liste des commandes si sans parametres(?)
+
+ PARAMETRE : 15 max, separes par espace
+
+ le dernier parametre peux etre precede de ':', apres ce caractere, tout ce qui suit est un seul parametre, espaces inclus
+
+CR = '\r'		LF = '\n'
+
+Channel toujours precede d'un '#'
