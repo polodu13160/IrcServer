@@ -14,11 +14,15 @@ class User{
 
 	const std::string	&getNickname(void)const;
 	const std::string	&getUsername(void)const;
+	const std::string	&getRealname(void)const;
 	const int			&getUserFd(void)const;
+	std::string	&User::getMessage(void);
 
 	void	setNickname(std::string nickname);
 	void	setUsername(std::string username);
+	void	setRealname(std::string realname);
 	void	setUserFd(int userFd);
+	void	setMessage(std::string realname);
 
 
 	// CMD
@@ -30,6 +34,8 @@ class User{
 	int			_userFd;
 	std::string	_nickname;
 	std::string	_username;
+	std::string	_realname;
+	std::string	message;
 
 	bool	hasANickName;
 	bool	hasAUserName;
@@ -40,5 +46,6 @@ class User{
 };
 
 void	TokenizeMsg(std::string msg);
+void	getMessage(Server &server, std::string msg, int userFd);
 
 #endif

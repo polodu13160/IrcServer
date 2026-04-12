@@ -6,6 +6,7 @@
 #include <map>
 #include <vector>
 #include <sys/epoll.h>
+#include "../../inc/Channel.hpp"
 #include "../../Define.hpp"
 #include "../MessageParsing/User.hpp"
 
@@ -36,6 +37,8 @@ class Server {
       public:
         virtual const char* what() const throw();
     };
+
+	User	*getUser(int fd, Server server);
 
 private:
     static bool _isServerWorking;

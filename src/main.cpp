@@ -52,6 +52,8 @@ void  initializeServer(Server &server, char **args) {
 	epoll_event userEvent[64];
 	std::cout << server << std::endl;
 
+	int clientFd = 0;
+
 	while (true) {
 		int ready = epoll_wait(epollInstance, userEvent, 64, -1);
 
@@ -60,7 +62,7 @@ void  initializeServer(Server &server, char **args) {
 				struct sockaddr_in clientAddr;
 				socklen_t clientAddrLen = sizeof(clientAddr);
 
-				int clientFd = accept(server.getServerId(), reinterpret_cast<struct sockaddr*>(&clientAddr), &clientAddrLen);
+				clientFd = accept(server.getServerId(), reinterpret_cast<struct sockaddr*>(&clientAddr), &clientAddrLen);
 
 				if (clientFd != -1) {
 					fcntl(clientFd, F_SETFL, fcntl(clientFd, F_GETFL) | O_NONBLOCK);
@@ -80,7 +82,8 @@ void  initializeServer(Server &server, char **args) {
 				std::memset(buffer, 0, 128);
 
 				recv(userEvent[i].data.fd, &buffer, 128, 0);
-				TokenizeMsg(buffer);
+				getMessage(server, buffer, clientFd);
+				// TokenizeMsg(buffer);
 				// std::cout << buffer << std::endl;
 				// if (std::strstr(buffer, "\r\n") ) {
 				// 	std::cout << "YES" << std::endl;

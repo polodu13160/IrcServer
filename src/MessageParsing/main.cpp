@@ -30,7 +30,7 @@ void	tokenizeParams(Message *message, std::string msg, int start, int end){
 	}
 }
 
-void	TokenizeMsg(std::string msg){
+void	TokenizeMsg(std::string msg, User &user){
 	Message	message;
 	std::string	tmp;
 	unsigned long	start;
@@ -60,6 +60,16 @@ void	TokenizeMsg(std::string msg){
 	message.printParams();
 	cmdPars parser;
 	// parser.cmdParser(message.getCmd(), message.getParam());
+}
+
+void	getMessage(Server &server, std::string msg, int userFd){
+	User	*user = server.getUser(userFd, server);
+	if(!user)
+		return;
+	user->setMessage(msg);
+	std::string finalMsg = user->getMessage();
+	if(!finalMsg.empty())
+		TokenizeMsg(finalMsg, *user);
 }
 
 // int	main(int argc, char **argv){

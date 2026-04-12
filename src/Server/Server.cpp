@@ -11,6 +11,8 @@
 bool Server::_isServerWorking = false;
 
 Server::Server() {
+	Channel	test("test", "");
+	this->chanVector.push_back(test);
 }
 
 Server::Server(Server &other) {
@@ -109,4 +111,13 @@ std::ostream& operator<<(std::ostream& os, Server& server) {
 	os << "Server socket = " << server.getServerId() << std::endl <<
 		"Server Ports = " << server.getServerPort() << std::endl << "Server Password =  " << server.getServerPassword();
 	return os;
+}
+
+User	*Server::getUser(int fd, Server server){
+	std::map<int, User>::iterator	it;
+	for(it = server._users.begin(); it != server._users.end(); ++it){
+		if(it->second._userFd == fd)
+			return &it->second;
+	}
+	return NULL;
 }

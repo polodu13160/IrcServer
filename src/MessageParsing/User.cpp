@@ -17,6 +17,20 @@ const std::string	&User::getUsername(void)const{
 	return this->_username;
 }
 
+const std::string	&User::getRealname(void)const{
+	return this->_realname;
+}
+
+std::string	&User::getMessage(void){
+	if(this->message.find("\r\n") != std::string::npos){
+		std::string	msg(this->message);
+		this->message = "";
+		return msg;
+	}
+	std::string str("");
+	return str;
+}
+
 const int	&User::getUserFd(void)const{
 	return this->_userFd;
 }
@@ -29,6 +43,14 @@ void	User::setUsername(std::string username){
 	this->_username = username;
 }
 
+void	User::setRealname(std::string realname){
+	this->_realname = realname;
+}
+
 void	User::setUserFd(int userFd){
 	this->_userFd = userFd;
+}
+
+void	User::setMessage(std::string message){
+	this->message += message;
 }
