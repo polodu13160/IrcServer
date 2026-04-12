@@ -43,6 +43,10 @@ void	User::nickCmd(Server &server, const std::string& nickName) {
 	if (!nickAlreadyUsed(nickName, server._users)) {
 		const std::string line = ":127.0.0.1 433 " + nickName + " :Nickname is already in use\r\n";
 		send(this->_userFd, line.c_str(), line.length(), 0);
+		return;
 	}
+	const std::string line = ":" + this->_nickname + "!" + this->_username + "@127.0.0.1 NICK :" + nickName + "\r\n";
+	send(this->_userFd, line.c_str(), line.length(), 0);
 	this->setNickname(nickName);
+	std::cout << RED << "USER NICKNAME = " << nickName << RESET << std::endl;
 }

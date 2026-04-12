@@ -5,10 +5,11 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <sys/epoll.h>
 #include "../../Define.hpp"
 #include "../MessageParsing/User.hpp"
 
-
+class User;
 class Server {
 
   public:

@@ -1,7 +1,7 @@
 #ifndef USER_HPP
 # define USER_HPP
 #include <iostream>
-#include "Server/Server.hpp"
+#include "../Server/Server.hpp"
 
 class Server;
 
