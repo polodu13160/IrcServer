@@ -17,7 +17,7 @@ class cmd{
 	void	invite(void);
 	void	topic(void);
 	void	mode(void);
-	void	join(void);
+	void	join(Server server, User &user, std::string channel, std::string pass);
 	void	part(void);
 	void	msg(void);
 	void	nick(User &user, std::string name);

@@ -9,16 +9,20 @@ class User{
 
 	const std::string	&getNickname(void)const;
 	const std::string	&getUsername(void)const;
+	const std::string	&getRealname(void)const;
 	const int			&getUserFd(void)const;
 
 	void	setNickname(std::string nickname);
 	void	setUsername(std::string username);
+	void	setRealname(std::string realname);
 	void	setUserFd(int userFd);
 
 	private :
 	int			_userFd;
 	std::string	_nickname;
 	std::string	_username;
+	std::string	_realname;
+	std::string	message;
 
 	bool hasu
 };

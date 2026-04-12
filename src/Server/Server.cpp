@@ -11,6 +11,8 @@
 bool Server::_isServerWorking = false;
 
 Server::Server() {
+	Channel	test("test", "");
+	this->chanVector.push_back(test);
 }
 
 Server::Server(Server &other) {

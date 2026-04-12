@@ -4,8 +4,11 @@
 #include <iostream>
 #include <string>
 #include <sys/epoll.h>
+#include <vector>
 #include "../../Define.hpp"
 #include "../MessageParsing/User.hpp"
+#include "../inc/Channel.hpp"
+using namespace std;
 
 
 class Server {
@@ -33,6 +36,8 @@ class Server {
       public:
         virtual const char* what() const throw();
     };
+
+	vector<Channel> chanVector;
 
 private:
     static bool _isServerWorking;

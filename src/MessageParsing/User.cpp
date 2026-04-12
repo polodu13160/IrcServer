@@ -12,6 +12,10 @@ const std::string	&User::getUsername(void)const{
 	return this->_username;
 }
 
+const std::string	&User::getRealname(void)const{
+	return this->_realname;
+}
+
 const int	&User::getUserFd(void)const{
 	return this->_userFd;
 }
@@ -22,6 +26,10 @@ void	User::setNickname(std::string nickname){
 
 void	User::setUsername(std::string username){
 	this->_username = username;
+}
+
+void	User::setRealname(std::string realname){
+	this->_realname = realname;
 }
 
 void	User::setUserFd(int userFd){
