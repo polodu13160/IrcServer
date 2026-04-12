@@ -1,5 +1,5 @@
 #include "../MessageParsing/User.hpp"
-#include "../MessageParsing/cmdPars.hpp"
+#include "../cmd/cmdPars.hpp"
 #include <functional>
 
 cmdPars::cmdPars(void){
@@ -21,6 +21,7 @@ std::string	removeChannelHashtag(std::string *arg, int i){
 
 	newStr = arg[i].substr(1, arg[i].size() - 1);
 	arg[i] = newStr;
+	return "";
 }
 
 void	cmdPars::handleInvite(User &user, std::string *arg){
