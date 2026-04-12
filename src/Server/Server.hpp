@@ -12,7 +12,7 @@
 #include "../inc/Channel.hpp"
 using namespace std;
 
-
+class User;
 class Server {
 
   public:
@@ -50,6 +50,8 @@ private:
     SOCKADDR_IN _sin;
 
     std::map<int, User> _users;
+
+	friend class User;
 
 };
 

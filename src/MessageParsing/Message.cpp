@@ -1,5 +1,7 @@
 #include "Message.hpp"
-#include "../cmd/cmd.hpp"
+
+#include <cstring>
+// #include "../cmd/cmd.hpp"
 
 Message::Message(void){}
 
@@ -31,7 +33,12 @@ const std::string	*Message::getParam(void)const{
 
 void	Message::printParams(void){
 	std::cout << "printParams" << std::endl;
+
+
+
 	for(int i = 0; !this->_param[i].empty(); i++){
+		if (std::strstr(this->_param[i].c_str(), "NICK"))
+
 		std::cout << "Param number " << i << " : " << this->_param[i] << std::endl;
 	}
 }

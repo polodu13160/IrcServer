@@ -1,6 +1,10 @@
 #ifndef USER_HPP
 # define USER_HPP
 #include <iostream>
+#include <sstream>
+#include "../Server/Server.hpp"
+
+class Server;
 
 class User{
 	public :
@@ -18,6 +22,12 @@ class User{
 	void	setRealname(std::string realname);
 	void	setUserFd(int userFd);
 
+
+	// CMD
+
+	void nickCmd(Server& server, const std::string& nickName);
+	void userCmd(Server& server, const std::string& userName);
+
 	private :
 	int			_userFd;
 	std::string	_nickname;
@@ -26,6 +36,10 @@ class User{
 	std::string	message;
 
 	bool	hasANickName;
+	bool	hasAUserName;
+	bool	registered;
+
+	friend class Server;
 
 };
 
