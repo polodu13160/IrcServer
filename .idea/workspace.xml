@@ -41,8 +41,23 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="refactor: Cleanup build scripts and optimize event-handling loop&#10;&#10;- Removed legacy `.d` build dependency files to declutter the project structure.&#10;- Updated IntelliJ workspace settings to reflect reduced file dependencies and streamlined project management.&#10;- Adjusted epoll event-handling loop in `main.cpp` for better client connection handling and buffer management.&#10;- Refactored `sockaddrInit` in `Server.cpp` to remove unnecessary parameters and simplify initialization.&#10;- Configured non-blocking I/O for client file descriptors in the event loop to improve responsiveness.">
+    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Add prohibited words list&#10;&#10;- Introduced a new `insult` file in the `bot` directory to store prohibited words.&#10;- Listed common offensive terms for content moderation purposes.">
+      <change afterPath="$PROJECT_DIR$/.build/src/Channel/Channel.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.build/src/main.d" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.build/src/main.o" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cmd/JOIN.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cmd/NICK.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cmd/USER.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cmd/join.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/User.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/User.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/cmd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmd.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/cmd.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmd.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/cmdPars.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/cmdPars.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmdPars.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -257,7 +272,7 @@
       <workItem from="1775174527065" duration="2920000" />
       <workItem from="1775800957403" duration="6159000" />
       <workItem from="1775827280924" duration="3045000" />
-      <workItem from="1775990089363" duration="723000" />
+      <workItem from="1775990089363" duration="3336000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Add IntelliJ project configuration files and update server class variables&#10;&#10;This commit adds IntelliJ IDEA configuration files (.idea directory) to the repository for IDE-specific project settings. It also updates the `Server.hpp` class, renaming a private member variable to follow a consistent naming convention.">
       <option name="closed" value="true" />
@@ -331,7 +346,23 @@
       <option name="project" value="LOCAL" />
       <updated>1775830093535</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="refactor: Improve client connection setup and IntelliJ configurations&#10;&#10;- Replaced C-style cast with `reinterpret_cast` for safer type casting in client acceptance logic.&#10;- Enabled non-blocking mode for client file descriptors to enhance responsiveness.&#10;- Reintroduced and initialized the `User` object to handle client-specific data.&#10;- Updated IntelliJ `.idea` configuration files for streamlined build and run task management.&#10;- Adjusted task durations and added new configurations in IntelliJ workspace for improved project organization.">
+      <option name="closed" value="true" />
+      <created>1775993414674</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1775993414674</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat: Add prohibited words list&#10;&#10;- Introduced a new `insult` file in the `bot` directory to store prohibited words.&#10;- Listed common offensive terms for content moderation purposes.">
+      <option name="closed" value="true" />
+      <created>1775993562648</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1775993562648</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +388,9 @@
     <MESSAGE value="refactor: Relocate and refactor `Server` class and project structure  &#10;&#10;- Moved `Server` class implementation files to `src/Server` for better modularity.  &#10;- Renamed private member variables in `Server` to follow consistent naming (`_` prefix added).  &#10;- Added `setServerPort` method in `Server` for explicit port assignment.  &#10;- Refactored `sockaddrInit` to directly bind socket with private members.  &#10;- Modified `Makefile` to include updated file paths.  &#10;- Updated includes in `main.cpp` and `Server.hpp` to reflect new structure.  &#10;- Removed redundant and unused code in `main.cpp` related to client socket interaction.  &#10;- Adjusted IDE-specific configuration files for file structure changes and dependency indexing." />
     <MESSAGE value="refactor: Simplify socket binding and modularize `Server` methods&#10;&#10;- Refactored `sockaddrInit` to use private member `_port` directly for streamlined initialization.&#10;- Added explicit socket binding and listening in `main.cpp` to separate concerns.&#10;- Introduced `std::memset` in `sockaddrInit` for robust zero-initialization of `SOCKADDR_IN`.&#10;- Removed redundant `bind` call from `sockaddrInit` to maintain modularity.&#10;- Updated `Server.cpp` to include missing `cstring` header for compatibility." />
     <MESSAGE value="refactor: Cleanup build scripts and optimize event-handling loop&#10;&#10;- Removed legacy `.d` build dependency files to declutter the project structure.&#10;- Updated IntelliJ workspace settings to reflect reduced file dependencies and streamlined project management.&#10;- Adjusted epoll event-handling loop in `main.cpp` for better client connection handling and buffer management.&#10;- Refactored `sockaddrInit` in `Server.cpp` to remove unnecessary parameters and simplify initialization.&#10;- Configured non-blocking I/O for client file descriptors in the event loop to improve responsiveness." />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor: Cleanup build scripts and optimize event-handling loop&#10;&#10;- Removed legacy `.d` build dependency files to declutter the project structure.&#10;- Updated IntelliJ workspace settings to reflect reduced file dependencies and streamlined project management.&#10;- Adjusted epoll event-handling loop in `main.cpp` for better client connection handling and buffer management.&#10;- Refactored `sockaddrInit` in `Server.cpp` to remove unnecessary parameters and simplify initialization.&#10;- Configured non-blocking I/O for client file descriptors in the event loop to improve responsiveness." />
+    <MESSAGE value="refactor: Improve client connection setup and IntelliJ configurations&#10;&#10;- Replaced C-style cast with `reinterpret_cast` for safer type casting in client acceptance logic.&#10;- Enabled non-blocking mode for client file descriptors to enhance responsiveness.&#10;- Reintroduced and initialized the `User` object to handle client-specific data.&#10;- Updated IntelliJ `.idea` configuration files for streamlined build and run task management.&#10;- Adjusted task durations and added new configurations in IntelliJ workspace for improved project organization." />
+    <MESSAGE value="feat: Add prohibited words list&#10;&#10;- Introduced a new `insult` file in the `bot` directory to store prohibited words.&#10;- Listed common offensive terms for content moderation purposes." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Add prohibited words list&#10;&#10;- Introduced a new `insult` file in the `bot` directory to store prohibited words.&#10;- Listed common offensive terms for content moderation purposes." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

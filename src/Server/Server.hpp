@@ -5,7 +5,7 @@
 #include <string>
 #include <sys/epoll.h>
 #include "../../Define.hpp"
-
+#include "../MessageParsing/User.hpp"
 
 
 class Server {
@@ -24,6 +24,9 @@ class Server {
 	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
     void	sockaddrInit();
+    User createUserInstance(int userFd, char* info);
+
+    // User	*createUserInstance(int userFd, char *info);
 
 
     class errorServerSocket : public std::exception {

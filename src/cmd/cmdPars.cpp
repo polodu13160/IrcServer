@@ -1,5 +1,5 @@
-#include "User.hpp"
-#include "cmdPars.hpp"
+#include "../MessageParsing/User.hpp"
+#include "../MessageParsing/cmdPars.hpp"
 #include <functional>
 
 cmdPars::cmdPars(void){

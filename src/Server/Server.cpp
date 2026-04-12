@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <cstring>
+#include <sstream>
 
 
 
@@ -64,6 +65,32 @@ void Server::sockaddrInit() {
 	this->_sin.sin_family =		AF_INET;
 	this->_sin.sin_port =		htons(this->_port);
 
+
+}
+
+
+User Server::createUserInstance(int userFd, char* info) {
+
+	std::string nickname;
+	std::string	username;
+	std::string realname;
+	std::string cmd;
+
+	User test(1, "caca", "caca");
+	std::string msg(info);
+
+	std::stringstream ss(msg);
+
+	ss >> cmd;
+	ss >> cmd;
+	ss >> cmd;
+	ss >> cmd;
+	ss >> nickname;
+	ss >> cmd;
+	ss >> username;
+
+	std::cout << "Nickname = " << nickname << " Username = " << username << std::endl;
+	return test;
 
 }
 

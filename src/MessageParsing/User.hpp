@@ -19,6 +19,8 @@ class User{
 	int			_userFd;
 	std::string	_nickname;
 	std::string	_username;
+
+	bool hasu
 };
 
 #endif

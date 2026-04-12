@@ -71,9 +71,6 @@ void  initializeServer(Server &server, char **args) {
 					ev.data.fd = clientFd;
 
 					epoll_ctl(epollInstance, EPOLL_CTL_ADD, clientFd, &ev);
-
-					User newUser;
-
 					std::cout << "Connexion acceptée Nouveau FD client : " << clientFd << std::endl;
 				}
 			}
@@ -83,6 +80,7 @@ void  initializeServer(Server &server, char **args) {
 				std::memset(buffer, 0, 128);
 
 				recv(userEvent[i].data.fd, &buffer, 128, 0);
+				server.createUserInstance(3, buffer);
 				std::cout << buffer << std::endl;
 				if (std::strstr(buffer, "\r\n") ) {
 					std::cout << "YES" << std::endl;
