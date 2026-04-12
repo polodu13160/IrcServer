@@ -6,7 +6,7 @@
 /*   By: lpaysant <lpaysant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/12 15:46:03 by lpaysant         ###   ########.fr       */
+/*   Updated: 2026/04/12 18:07:11 by lpaysant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "string"
 #include "map"
 #include "../src/MessageParsing/User.hpp"
+
+class User;
 
 class Channel
 {

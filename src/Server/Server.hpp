@@ -6,11 +6,9 @@
 #include <map>
 #include <vector>
 #include <sys/epoll.h>
-#include <vector>
+#include "../../inc/Channel.hpp"
 #include "../../Define.hpp"
 #include "../MessageParsing/User.hpp"
-#include "../inc/Channel.hpp"
-using namespace std;
 
 class User;
 class Server {
@@ -40,7 +38,7 @@ class Server {
         virtual const char* what() const throw();
     };
 
-	vector<Channel> chanVector;
+	User	*getUser(int fd, Server server);
 
 private:
     static bool _isServerWorking;

@@ -1,4 +1,3 @@
-#include "cmd.hpp"
 #include <sys/socket.h>
 #include "../inc/Channel.hpp"
 #include "../Server/Server.hpp"
