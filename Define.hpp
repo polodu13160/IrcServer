@@ -14,6 +14,7 @@
 #define INVALID_SOCKET  (-1)
 #define SOCKET_ERROR    (-1)
 #define PORT			6667
+#define HOST			"127.0.0.1"
 
 typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;
@@ -35,6 +36,10 @@ typedef struct sockaddr_in SOCKADDR_IN;
 #define YELLOW  		"\033[33m"
 #define CYAN    		"\033[36m"
 #define BOLD    		"\033[1m"
+
+// NUMERIC CODE
+
+
 
 
 

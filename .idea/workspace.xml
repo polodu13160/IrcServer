@@ -44,18 +44,11 @@
   <component name="ChangeListManager">
     <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MessageParsing/Message.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/Message.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MessageParsing/User.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/User.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Define.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Define.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MessageParsing/User.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/User.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MessageParsing/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmd/NICK.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/NICK.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmd/USER.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/USER.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmd/join.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/mcp/mcp.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/cmd.hpp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,7 +358,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775993562648</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="feat: Add user mapping and command parsing logic&#10;&#10;- Introduced a `_users` map in `Server` class to manage users by file descriptor.&#10;- Added `setUserfd` method in `Server` to initialize users in `_users` map upon connection.&#10;- Implemented `nickCmd` and `userCmd` functions for handling nickname and username updates.&#10;- Refactored file imports across codebase (`cmd.hpp` and `cmdPars.hpp`) to fix path inconsistencies.&#10;- Added a default `User` constructor for enhanced flexibility in user creation.&#10;- Removed outdated `createUserInstance` method and associated logic to simplify user initialization.&#10;- Updated `main.cpp` to integrate `setUserfd` and replace deprecated user parsing logic with `TokenizeMsg`.">
+      <option name="closed" value="true" />
+      <created>1775999253082</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1775999253082</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,14 +394,15 @@
     <MESSAGE value="refactor: Cleanup build scripts and optimize event-handling loop&#10;&#10;- Removed legacy `.d` build dependency files to declutter the project structure.&#10;- Updated IntelliJ workspace settings to reflect reduced file dependencies and streamlined project management.&#10;- Adjusted epoll event-handling loop in `main.cpp` for better client connection handling and buffer management.&#10;- Refactored `sockaddrInit` in `Server.cpp` to remove unnecessary parameters and simplify initialization.&#10;- Configured non-blocking I/O for client file descriptors in the event loop to improve responsiveness." />
     <MESSAGE value="refactor: Improve client connection setup and IntelliJ configurations&#10;&#10;- Replaced C-style cast with `reinterpret_cast` for safer type casting in client acceptance logic.&#10;- Enabled non-blocking mode for client file descriptors to enhance responsiveness.&#10;- Reintroduced and initialized the `User` object to handle client-specific data.&#10;- Updated IntelliJ `.idea` configuration files for streamlined build and run task management.&#10;- Adjusted task durations and added new configurations in IntelliJ workspace for improved project organization." />
     <MESSAGE value="feat: Add prohibited words list&#10;&#10;- Introduced a new `insult` file in the `bot` directory to store prohibited words.&#10;- Listed common offensive terms for content moderation purposes." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add prohibited words list&#10;&#10;- Introduced a new `insult` file in the `bot` directory to store prohibited words.&#10;- Listed common offensive terms for content moderation purposes." />
+    <MESSAGE value="feat: Add user mapping and command parsing logic&#10;&#10;- Introduced a `_users` map in `Server` class to manage users by file descriptor.&#10;- Added `setUserfd` method in `Server` to initialize users in `_users` map upon connection.&#10;- Implemented `nickCmd` and `userCmd` functions for handling nickname and username updates.&#10;- Refactored file imports across codebase (`cmd.hpp` and `cmdPars.hpp`) to fix path inconsistencies.&#10;- Added a default `User` constructor for enhanced flexibility in user creation.&#10;- Removed outdated `createUserInstance` method and associated logic to simplify user initialization.&#10;- Updated `main.cpp` to integrate `setUserfd` and replace deprecated user parsing logic with `TokenizeMsg`." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Add user mapping and command parsing logic&#10;&#10;- Introduced a `_users` map in `Server` class to manage users by file descriptor.&#10;- Added `setUserfd` method in `Server` to initialize users in `_users` map upon connection.&#10;- Implemented `nickCmd` and `userCmd` functions for handling nickname and username updates.&#10;- Refactored file imports across codebase (`cmd.hpp` and `cmdPars.hpp`) to fix path inconsistencies.&#10;- Added a default `User` constructor for enhanced flexibility in user creation.&#10;- Removed outdated `createUserInstance` method and associated logic to simplify user initialization.&#10;- Updated `main.cpp` to integrate `setUserfd` and replace deprecated user parsing logic with `TokenizeMsg`." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/Server/Server.hpp</url>
-          <line>24</line>
+          <line>23</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

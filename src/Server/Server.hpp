@@ -5,7 +5,6 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <sys/epoll.h>
 #include "../../Define.hpp"
 #include "../MessageParsing/User.hpp"
 
@@ -45,6 +44,8 @@ private:
     SOCKADDR_IN _sin;
 
     std::map<int, User> _users;
+
+	friend class User;
 
 };
 
