@@ -55,3 +55,6 @@ PRIVMSG #tardis : Amelia!
 CR = '\r'		LF = '\n'
 
 Channel toujours precede d'un '#'
+
+
+Channel != topic, rajouter une string topic a la classe Channel.

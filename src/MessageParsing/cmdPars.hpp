@@ -1,6 +1,7 @@
 #ifndef CMDPARS_HPP
 # define CMDPARS_HPP
 #include <iostream>
+#include "User.hpp"
 #include <map>
 
 class cmdPars{
@@ -8,13 +9,18 @@ class cmdPars{
 	cmdPars(void);
 	~cmdPars(void);
 
-	void	cmdParser(std::string cmd);
+	void	cmdParser(User &user, std::string cmd, std::string *args);
 
-	std::map<std::string, void (cmdPars::*)(std::string*)>_handlerTab;
+	std::map<std::string, void (cmdPars::*)(User&, std::string*)>_handlerTab;
 
-	void	handleKick(std::string *args);
-	void	handleMode(std::string *args);
-	void	handleInvite(std::string *args);
-	void	handleTopic(std::string *args);
+	void	handleKick(User &user, std::string *args);
+	void	handleMode(User &user, std::string *args);
+	void	handleInvite(User &user, std::string *args);
+	void	handleTopic(User &user, std::string *args);
+	void	handlePart(User &user, std::string *args);
+	void	handleNick(User &user, std::string *args);
+	void	handleQuit(User &user, std::string *args);
+	void	handleJoin(User &user, std::string *args);
+	void	handleHelp(User &user, std::string *args);
 };
 #endif
