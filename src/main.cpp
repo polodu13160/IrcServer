@@ -69,8 +69,8 @@ void  initializeServer(Server &server, char **args) {
 					std::memset(&ev, 0, sizeof(ev));
 					ev.events = EPOLLIN;
 					ev.data.fd = clientFd;
-
 					epoll_ctl(epollInstance, EPOLL_CTL_ADD, clientFd, &ev);
+					server.setUserfd(clientFd);
 					std::cout << "Connexion acceptée Nouveau FD client : " << clientFd << std::endl;
 				}
 			}
@@ -80,7 +80,7 @@ void  initializeServer(Server &server, char **args) {
 				std::memset(buffer, 0, 128);
 
 				recv(userEvent[i].data.fd, &buffer, 128, 0);
-				server.createUserInstance(3, buffer);
+				TokenizeMsg(buffer);
 				std::cout << buffer << std::endl;
 				if (std::strstr(buffer, "\r\n") ) {
 					std::cout << "YES" << std::endl;

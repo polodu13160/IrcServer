@@ -2,6 +2,11 @@
 
 User::User(int userfd, std::string nickname, std::string username) : _userFd(userfd), _nickname(nickname), _username(username){}
 
+
+User::User() {
+
+}
+
 User::~User(void){}
 
 const std::string	&User::getNickname(void)const{

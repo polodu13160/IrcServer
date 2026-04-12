@@ -57,6 +57,10 @@ SOCKADDR_IN &Server::getServerSin() {
 	return this->_sin;
 }
 
+void Server::setUserfd(int fd) {
+	this->_users[fd] = User(fd, "", "");
+}
+
 void Server::sockaddrInit() {
 
 	std::memset(&(this->_sin), 0, sizeof(SOCKADDR_IN));
@@ -65,34 +69,33 @@ void Server::sockaddrInit() {
 	this->_sin.sin_family =		AF_INET;
 	this->_sin.sin_port =		htons(this->_port);
 
-
 }
 
 
-User Server::createUserInstance(int userFd, char* info) {
-
-	std::string nickname;
-	std::string	username;
-	std::string realname;
-	std::string cmd;
-
-	User test(1, "caca", "caca");
-	std::string msg(info);
-
-	std::stringstream ss(msg);
-
-	ss >> cmd;
-	ss >> cmd;
-	ss >> cmd;
-	ss >> cmd;
-	ss >> nickname;
-	ss >> cmd;
-	ss >> username;
-
-	std::cout << "Nickname = " << nickname << " Username = " << username << std::endl;
-	return test;
-
-}
+// User Server::createUserInstance(int userFd, char* info) {
+//
+// 	std::string nickname;
+// 	std::string	username;
+// 	std::string realname;
+// 	std::string cmd;
+//
+// 	User test(1, "caca", "caca");
+// 	std::string msg(info);
+//
+// 	std::stringstream ss(msg);
+//
+// 	ss >> cmd;
+// 	ss >> cmd;
+// 	ss >> cmd;
+// 	ss >> cmd;
+// 	ss >> nickname;
+// 	ss >> cmd;
+// 	ss >> username;
+//
+// 	std::cout << "Nickname = " << nickname << " Username = " << username << std::endl;
+// 	return test;
+//
+// }
 
 
 // SERVER CLASS OUT AND EXCEPTIONS

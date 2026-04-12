@@ -4,6 +4,7 @@
 
 class User{
 	public :
+	User();
 	User(int userfd, std::string nickname, std::string username);
 	~User(void);
 
@@ -20,7 +21,10 @@ class User{
 	std::string	_nickname;
 	std::string	_username;
 
-	bool hasu
+	bool	hasANickName;
+
 };
+
+void	TokenizeMsg(std::string msg);
 
 #endif

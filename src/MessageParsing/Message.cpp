@@ -1,5 +1,5 @@
 #include "Message.hpp"
-#include "cmd.hpp"
+#include "../cmd/cmd.hpp"
 
 Message::Message(void){}
 

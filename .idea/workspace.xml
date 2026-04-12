@@ -31,6 +31,7 @@
       <config projectName="IrcServer" targetName="all" />
       <config projectName="IrcServer" targetName="fclean" />
       <config projectName="IrcServer" targetName="init" />
+      <config projectName="IrcServer" targetName="Makefile" />
       <config projectName="IrcServer" targetName="re" />
       <config projectName="IrcServer" targetName="IrcServer" />
     </generated>
@@ -41,23 +42,19 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Add prohibited words list&#10;&#10;- Introduced a new `insult` file in the `bot` directory to store prohibited words.&#10;- Listed common offensive terms for content moderation purposes.">
-      <change afterPath="$PROJECT_DIR$/.build/src/Channel/Channel.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.build/src/main.d" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.build/src/main.o" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cmd/JOIN.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cmd/NICK.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cmd/USER.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cmd/join.cpp" afterDir="false" />
+    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" afterPath="$PROJECT_DIR$/a.out" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/Message.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/Message.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/User.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/User.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MessageParsing/User.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/User.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MessageParsing/cmd.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmd.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MessageParsing/cmd.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmd.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MessageParsing/cmdPars.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MessageParsing/cmdPars.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmdPars.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/NICK.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/NICK.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/USER.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/USER.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/join.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.ai/mcp/mcp.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -199,6 +196,11 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Makefile" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IrcServer" TARGET_NAME="Makefile" CONFIG_NAME="Makefile" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="IrcServer" TARGET_NAME="all" CONFIG_NAME="all" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -250,6 +252,7 @@
       <item itemvalue="Native Application.init" />
       <item itemvalue="Native Application.re" />
       <item itemvalue="Native Application.IrcServer" />
+      <item itemvalue="Native Application.Makefile" />
     </list>
   </component>
   <component name="RustProjectSettings">
@@ -397,7 +400,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/src/Server/Server.hpp</url>
-          <line>21</line>
+          <line>24</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

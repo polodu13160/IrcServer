@@ -1,6 +1,6 @@
 #include <iostream>
 #include "Message.hpp"
-#include "cmdPars.hpp"
+#include "../cmd/cmdPars.hpp"
 
 void	tokenizeParams(Message *message, std::string msg, int start, int end){
 	std::string	tmp;
@@ -57,13 +57,13 @@ void	TokenizeMsg(std::string msg){
 	if(end < msg.size()){
 		tokenizeParams(&message, msg, start, end);
 	}
-	// message.printParams();
+	message.printParams();
 	cmdPars parser;
-	parser.cmdParser(message.getCmd(), message.getParam());
+	// parser.cmdParser(message.getCmd(), message.getParam());
 }
 
-int	main(int argc, char **argv){
-	(void)argc;
-	std::string msg = argv[1];
-	TokenizeMsg(msg);
-}
+// int	main(int argc, char **argv){
+// 	(void)argc;
+// 	std::string msg = argv[1];
+// 	TokenizeMsg(msg);
+// }

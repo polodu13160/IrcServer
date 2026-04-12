@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <map>
+#include <vector>
 #include <sys/epoll.h>
 #include "../../Define.hpp"
 #include "../MessageParsing/User.hpp"
@@ -19,12 +21,13 @@ class Server {
     void	setServerId(const SOCKET socketId);
 	void	setServerPass(const std::string &password);
 	void	setServerPort(const int port);
+	void	setUserfd(int fd);
     int		getServerId() const;
 	int		getServerPort();
 	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
     void	sockaddrInit();
-    User createUserInstance(int userFd, char* info);
+    // User createUserInstance(int userFd, char* info);
 
     // User	*createUserInstance(int userFd, char *info);
 
@@ -40,6 +43,9 @@ private:
     std::string	_serverPassword;
     SOCKET      _serverFd;
     SOCKADDR_IN _sin;
+
+    std::map<int, User> _users;
+
 };
 
 std::ostream&	operator<<(std::ostream& os, Server &server);
