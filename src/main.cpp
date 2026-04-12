@@ -60,7 +60,7 @@ void  initializeServer(Server &server, char **args) {
 				struct sockaddr_in clientAddr;
 				socklen_t clientAddrLen = sizeof(clientAddr);
 
-				int clientFd = accept(server.getServerId(), (struct sockaddr *)&clientAddr, &clientAddrLen);
+				int clientFd = accept(server.getServerId(), reinterpret_cast<struct sockaddr*>(&clientAddr), &clientAddrLen);
 
 				if (clientFd != -1) {
 					fcntl(clientFd, F_SETFL, fcntl(clientFd, F_GETFL) | O_NONBLOCK);
@@ -72,7 +72,7 @@ void  initializeServer(Server &server, char **args) {
 
 					epoll_ctl(epollInstance, EPOLL_CTL_ADD, clientFd, &ev);
 
-					// User newUser;
+					User newUser;
 
 					std::cout << "Connexion acceptée Nouveau FD client : " << clientFd << std::endl;
 				}
