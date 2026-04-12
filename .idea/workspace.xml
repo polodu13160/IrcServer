@@ -44,8 +44,9 @@
   <component name="ChangeListManager">
     <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Refactor and enhance NICK command handling&#10;&#10;- Added `epoll` include in `Server.hpp` for improved event handling.&#10;- Updated `NICK.cpp` to send appropriate responses when nicknames are in use or updated, ensuring better user feedback.&#10;- Improved debug logging for nickname changes using `std::cout`.&#10;- Replaced unnecessary include of `cmd.hpp` in `Message.cpp` and removed outdated references.&#10;- Added basic validation in `Message.cpp` to handle parameters containing &quot;NICK&quot;. &#10;- Updated include paths in `User.hpp` for consistency with project structure.&#10;- Commented out unused debug logic in `main.cpp` for cleaner execution flow.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MessageParsing/User.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/User.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/NICK.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/NICK.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cmd/USER.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/USER.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

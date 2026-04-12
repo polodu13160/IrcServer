@@ -16,7 +16,7 @@ bool	nickInvalidChar(std::string nickName) {
 	return true;
 }
 
-bool	nickAlreadyUsed(const std::string& nickName, std::map<int, User> &_users) {
+bool	nickAlreadyUsed(const std::string& nickName, std::map<int, User>& _users) {
 
 	std::map<int, User>::iterator it;
 

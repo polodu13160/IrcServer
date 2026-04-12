@@ -16,7 +16,7 @@ cmdPars::cmdPars(void){
 
 cmdPars::~cmdPars(){}
 
-std::string	removeChannelHashtag(std::string *arg, int i){
+std::string	0.removeChannelHashtag(std::string *arg, int i){
 	std::string newStr;
 
 	newStr = arg[i].substr(1, arg[i].size() - 1);

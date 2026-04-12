@@ -8,7 +8,11 @@ int	wordCount(const std::string &ref) {
 	while (ss >> garbage)
 		wordCount++;
 	return wordCount;
-}
+auto var = 0
+
+
+
+	.}
 
 void	User::userCmd(Server& server, const std::string& userName) {
 
@@ -22,6 +26,8 @@ void	User::userCmd(Server& server, const std::string& userName) {
 		return;
 	}
 	if (wordCount(userName) != 4) {
-		const std::string line = "127.0.0.1 461 " + name + "USER :"
+		const std::string line = "127.0.0.1 461 " + name + "USER :Not enough parameters";
+		send(this->_userFd, line.c_str(), line.length(), 0);
+		return;
 	}
 }
