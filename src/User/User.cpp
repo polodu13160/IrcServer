@@ -1,4 +1,4 @@
-#include "User.hpp"
+#include "../../inc/User.hpp"
 
 User::User(int userfd, std::string nickname, std::string username) : _userFd(userfd), _nickname(nickname), _username(username){}
 
@@ -21,7 +21,7 @@ const std::string	&User::getRealname(void)const{
 	return this->_realname;
 }
 
-std::string	&User::getMessage(void){
+std::string	User::getMessage(void){
 	if(this->message.find("\r\n") != std::string::npos){
 		std::string	msg(this->message);
 		this->message = "";

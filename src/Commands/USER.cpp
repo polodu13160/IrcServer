@@ -1,4 +1,4 @@
-#include "../MessageParsing/User.hpp"
+#include "../../inc/User.hpp"
 
 int	wordCount(const std::string &ref) {
 	std::istringstream ss(ref);
@@ -8,14 +8,11 @@ int	wordCount(const std::string &ref) {
 	while (ss >> garbage)
 		wordCount++;
 	return wordCount;
-auto var = 0
-
-
-
-	.}
+}
 
 void	User::userCmd(Server& server, const std::string& userName) {
 
+	(void)server;
 	std::string name = this->_nickname;
 	if (name.empty())
 		name = "*";

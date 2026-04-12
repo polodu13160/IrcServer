@@ -1,8 +1,14 @@
 #ifndef USER_HPP
 # define USER_HPP
+
 #include <iostream>
 #include <sstream>
-#include "../Server/Server.hpp"
+#include <vector>
+
+#include "Message.hpp"
+#include "Channel.hpp"
+#include "Server.hpp"
+#include "cmdPars.hpp"
 
 class Server;
 
@@ -16,7 +22,7 @@ class User{
 	const std::string	&getUsername(void)const;
 	const std::string	&getRealname(void)const;
 	const int			&getUserFd(void)const;
-	std::string	&User::getMessage(void);
+	std::string			getMessage(void);
 
 	void	setNickname(std::string nickname);
 	void	setUsername(std::string username);
@@ -29,6 +35,7 @@ class User{
 
 	void nickCmd(Server& server, const std::string& nickName);
 	void userCmd(Server& server, const std::string& userName);
+	void joinCmd(Server& server, User& user, std::string channel, std::string pass);
 
 	private :
 	int			_userFd;
@@ -46,6 +53,6 @@ class User{
 };
 
 void	TokenizeMsg(std::string msg);
-void	getMessage(Server &server, std::string msg, int userFd);
+void	getMsg(Server &server, std::string msg, int userFd);
 
 #endif

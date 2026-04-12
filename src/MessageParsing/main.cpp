@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Message.hpp"
-#include "../cmd/cmdPars.hpp"
+#include "../../inc/User.hpp"
+#include "../../inc/cmdPars.hpp"
 
 void	tokenizeParams(Message *message, std::string msg, int start, int end){
 	std::string	tmp;
@@ -31,6 +31,7 @@ void	tokenizeParams(Message *message, std::string msg, int start, int end){
 }
 
 void	TokenizeMsg(std::string msg, User &user){
+	(void)user;
 	Message	message;
 	std::string	tmp;
 	unsigned long	start;
@@ -62,7 +63,7 @@ void	TokenizeMsg(std::string msg, User &user){
 	// parser.cmdParser(message.getCmd(), message.getParam());
 }
 
-void	getMessage(Server &server, std::string msg, int userFd){
+void	getMsg(Server &server, std::string msg, int userFd){
 	User	*user = server.getUser(userFd, server);
 	if(!user)
 		return;

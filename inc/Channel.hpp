@@ -15,7 +15,7 @@
 
 #include "string"
 #include "map"
-#include "../src/MessageParsing/User.hpp"
+#include "User.hpp"
 
 class User;
 
@@ -23,6 +23,7 @@ class Channel
 {
 public:
     Channel(std::string name, std::string password);
+	Channel(const Channel& other);
     ~Channel();
     void kick(User &user, User &userKick);
     void invite(User &user,User &userInvite );
@@ -37,10 +38,9 @@ public:
 	void				setPassword(std::string name);
 
     std::map<User*, bool> _users;
-	protected:
+
 	private:
 	std::string _name;
-    Channel(const Channel& other);
     Channel();
     Channel& operator=(const Channel& other);
     bool _inviteOnly;

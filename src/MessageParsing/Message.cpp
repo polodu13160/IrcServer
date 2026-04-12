@@ -1,4 +1,4 @@
-#include "Message.hpp"
+#include "../../inc/Message.hpp"
 
 #include <cstring>
 // #include "../cmd/cmd.hpp"

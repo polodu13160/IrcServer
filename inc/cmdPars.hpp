@@ -1,8 +1,10 @@
 #ifndef CMDPARS_HPP
 # define CMDPARS_HPP
 #include <iostream>
-#include "../MessageParsing/User.hpp"
+#include "User.hpp"
 #include <map>
+
+class User;
 
 class cmdPars{
 	public :

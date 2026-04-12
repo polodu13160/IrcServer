@@ -1,4 +1,4 @@
-#include "Server.hpp"
+#include "../../inc/Server.hpp"
 
 #include <fstream>
 #include <cstring>
@@ -11,8 +11,8 @@
 bool Server::_isServerWorking = false;
 
 Server::Server() {
-	Channel	test("test", "");
-	this->chanVector.push_back(test);
+	// Channel	test("test", "");
+	// this->chanVector.push_back(test);
 }
 
 Server::Server(Server &other) {

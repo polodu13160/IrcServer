@@ -5,12 +5,12 @@
 #include <string>
 #include <map>
 #include <vector>
-#include <sys/epoll.h>
-#include "../../inc/Channel.hpp"
-#include "../../Define.hpp"
-#include "../MessageParsing/User.hpp"
+#include "Channel.hpp"
+#include "../Define.hpp"
+#include "User.hpp"
 
 class User;
+class Channel;
 class Server {
 
   public:
@@ -48,6 +48,7 @@ private:
     SOCKADDR_IN _sin;
 
     std::map<int, User> _users;
+	std::vector<Channel> _chanVector;
 
 	friend class User;
 

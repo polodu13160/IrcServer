@@ -3,6 +3,15 @@
 
 Channel::Channel(std::string name, std::string password) : _name(name), _password(password){}
 
+Channel::Channel(const Channel& other) {
+	*this = other;
+}
+
+Channel& Channel::operator=(const Channel& other) {
+	(void)other;
+	return *this;
+}
+
 Channel::~Channel() {}
 
 void	Channel::setName(std::string name){

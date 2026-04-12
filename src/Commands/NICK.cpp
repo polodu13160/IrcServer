@@ -1,7 +1,6 @@
 #include <sys/socket.h>
 
-#include "../MessageParsing/User.hpp"
-#include "../Server/Server.hpp"
+#include "../../inc/User.hpp"
 
 bool	nickInvalidChar(std::string nickName) {
 

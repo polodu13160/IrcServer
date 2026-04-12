@@ -42,11 +42,44 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="feat: Refactor and enhance NICK command handling&#10;&#10;- Added `epoll` include in `Server.hpp` for improved event handling.&#10;- Updated `NICK.cpp` to send appropriate responses when nicknames are in use or updated, ensuring better user feedback.&#10;- Improved debug logging for nickname changes using `std::cout`.&#10;- Replaced unnecessary include of `cmd.hpp` in `Message.cpp` and removed outdated references.&#10;- Added basic validation in `Message.cpp` to handle parameters containing &quot;NICK&quot;. &#10;- Updated include paths in `User.hpp` for consistency with project structure.&#10;- Commented out unused debug logic in `main.cpp` for cleaner execution flow.">
+    <list default="true" id="791f0bb8-f206-4c13-a18f-9eff882c14e4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Commands/JOIN.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Unused/cmd.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Unused/namespaces.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.build/src/Channel/Channel.d" beforeDir="false" afterPath="$PROJECT_DIR$/.build/src/Channel/Channel.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.build/src/main.d" beforeDir="false" afterPath="$PROJECT_DIR$/.build/src/main.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.build/src/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/.build/src/main.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmd/NICK.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/NICK.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmd/USER.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/USER.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/irc.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/irc.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/Channel.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Channel.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/namespaces.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/inc/namespaces.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Unused/namespaces.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Channel/Channel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Channel/Channel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/Message.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/Message.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/Message.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Message.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/User.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/User/User.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/User.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/User.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/MessageParsing/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/msgParser" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/obj/Message.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/obj/User.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/obj/cmd.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/obj/cmdPars.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MessageParsing/obj/main.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/Server.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/JOIN.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/NICK.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Commands/NICK.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/USER.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Commands/USER.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/cmd.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/cmdPars.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Commands/cmdPars.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cmd/cmdPars.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/inc/cmdPars.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/print.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Unused/print.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +90,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="33" />
+    <option name="cachedIndexableFilesCount" value="47" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExternalProjectsData">
@@ -74,12 +107,12 @@
     &quot;assignee&quot;: &quot;kaissott&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/polodu13160/IrcServer.git&quot;,
-    &quot;accountId&quot;: &quot;20f6fcc8-b938-43ca-aaeb-659b52114d76&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:polodu13160/IrcServer.git",
+    "accountId": "20f6fcc8-b938-43ca-aaeb-659b52114d76"
   }
-}</component>
+}]]></component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="wj3Dsnan" />
   </component>
@@ -150,7 +183,7 @@
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
     &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Comm/StartCommunication&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
     &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/kaissramirez/Desktop/dev/42/IrcServer&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -173,6 +206,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/inc" />
+      <recent name="$PROJECT_DIR$/src/Unused" />
+      <recent name="$PROJECT_DIR$/src/User" />
       <recent name="$PROJECT_DIR$/src/Server" />
     </key>
   </component>
@@ -232,11 +268,6 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Native Application.all" />
       <item itemvalue="Native Application.fclean" />
@@ -267,6 +298,7 @@
       <workItem from="1775800957403" duration="6159000" />
       <workItem from="1775827280924" duration="3045000" />
       <workItem from="1775990089363" duration="3336000" />
+      <workItem from="1776028736458" duration="1913000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Add IntelliJ project configuration files and update server class variables&#10;&#10;This commit adds IntelliJ IDEA configuration files (.idea directory) to the repository for IDE-specific project settings. It also updates the `Server.hpp` class, renaming a private member variable to follow a consistent naming convention.">
       <option name="closed" value="true" />
@@ -417,9 +449,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/Server/Server.hpp</url>
-          <line>24</line>
+          <url>file://$PROJECT_DIR$/inc/Server.hpp</url>
+          <line>25</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/inc/User.hpp</url>
+          <line>2</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/inc/cmdPars.hpp</url>
+          <line>2</line>
+          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
