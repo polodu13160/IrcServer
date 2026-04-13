@@ -3,6 +3,7 @@
 #include <sstream>
 #include <fcntl.h>
 #include <cstring>
+#include <sys/epoll.h>
 
 #include "../inc/User.hpp"
 
