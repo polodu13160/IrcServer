@@ -6,7 +6,7 @@
 /*   By: pololinux <pololinux@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/13 17:22:20 by pololinux        ###   ########.fr       */
+/*   Updated: 2026/04/13 17:44:57 by pololinux        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,30 +27,28 @@ class Channel
 public:
     Channel(std::string &name);
     ~Channel();
-    void kick(User &user, User &userKick);
-    void invite(User &user, User &userInvite);
-    void topic(User &user, std::string topic);
-    void mode(char type, User &user);
-    void join(User &user, std::string password = "");
 
-	const std::string	&getName(void)const;
-	const std::string	&getPassword(void)const;
+    const std::string &getName(void) const;
+    const std::string &getPassword(void) const;
 
-	void				setName(std::string name);
-	void				setPassword(std::string name);
+    void setName(std::string name);
+    void setPassword(std::string name);
+    bool checkUser(User &user);
+    bool Channel::checkUserAdmin(User &user);
 
-    std::map<User*, bool> _users;
+    std::map<User *, bool> _users;
+    std::set<User *> _usersInvit;
 
-	private:
-	std::string _name;
+private:
+    std::string _name;
     Channel();
-    Channel(const Channel& other);
-    Channel& operator=(const Channel& other);
+    Channel(const Channel &other);
+    Channel &operator=(const Channel &other);
+
     bool _inviteOnly;
     bool _topicRestrictions;
     std::string _password;
     size_t _userLimit;
-    static const std::string TYPEMODE;
 };
 
 #endif // _CHANNEL_H
