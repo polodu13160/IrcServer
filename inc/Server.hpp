@@ -38,7 +38,7 @@ class Server {
         virtual const char* what() const throw();
     };
 
-	User	*getUser(int fd, Server server);
+	User	*getUser(int fd, Server &server);
 
 private:
     static bool _isServerWorking;

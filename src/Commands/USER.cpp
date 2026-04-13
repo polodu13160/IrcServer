@@ -40,7 +40,19 @@ void	User::userCmd(Server& server, const std::vector<std::string>& userName) {
 	// 	return;
 	// }
 	this->_username = userName[0];
-	const std::string line = "Welcome to the Internet Relay Network " + this->_nickname + "!" + this->_username + "@" + "127.0.0.1";
+	std::string line =  ":127.0.0.1 001 " + this->_nickname + " :Welcome to the Internet Relay Network\r\n";
+	send(this->_userFd, line.c_str(), line.length(), 0);
+	line = ":127.0.0.1 002 " + this->_nickname + " :Your host is 127.0.0.1, tunning version 0.1\r\n";
+	send(this->_userFd, line.c_str(), line.length(), 0);
+	line = ":127.0.0.1 003 " + this->_nickname + " :This Server was created the 13 April 2027\r\n";
+	send(this->_userFd, line.c_str(), line.length(), 0);
+	line = ":127.0.0.1 004 " + this->_nickname + " 127.0.0.1 1.0 o i\r\n";
+	send(this->_userFd, line.c_str(), line.length(), 0);
+	line = ":127.0.0.1 375 " + this->_nickname + " :- 127.0.0.1 Message of the day - \r\n";
+	send(this->_userFd, line.c_str(), line.length(), 0);
+	line = ":127.0.0.1 372 " + this->_nickname + " :- WELCOME LES BB ! \r\n";
+	send(this->_userFd, line.c_str(), line.length(), 0);
+	line = ":127.0.0.1 376 " + this->_nickname + " :End of MOTD command\r\n";
 	send(this->_userFd, line.c_str(), line.length(), 0);
 
 

@@ -28,8 +28,7 @@ void	tokenizeParams(Message *message, std::string msg, int start, int end){
 	}
 }
 
-void	TokenizeMsg(std::string msg, User &user){
-	(void)user;
+void	TokenizeMsg(Server &server, std::string msg, User &user){
 	Message	message;
 	std::string	tmp;
 	unsigned long	start;
@@ -56,19 +55,31 @@ void	TokenizeMsg(std::string msg, User &user){
 	if(end < msg.size()){
 		tokenizeParams(&message, msg, start, end);
 	}
-	message.printParams();
+	// message.printParams();
 	cmdPars parser;
-	parser.cmdParser(user, message.getCmd(), message.getParam());
+	parser.cmdParser(server, user, message.getCmd(), message.getParam());
 }
 
 void	getMsg(Server &server, std::string msg, int userFd){
 	User	*user = server.getUser(userFd, server);
-	if(!user)
+
+	std::string result;
+	// for (size_t i = 0; i < msg.length(); ++i) {
+	// 	if (msg[i] == '\r') result += "\\r";
+	// 	else if (msg[i] == '\n') result += "\\n";
+	// 	else result += msg[i];
+	// }
+
+	if(!user) {
+		std::cout << "caca";
 		return;
+	}
 	user->setMessage(msg);
 	std::string finalMsg = user->getMessage();
-	if(!finalMsg.empty())
-		TokenizeMsg(finalMsg, *user);
+	while (!finalMsg.empty()) {
+		TokenizeMsg(server, finalMsg, *user);
+		finalMsg = user->getMessage();
+	}
 }
 
 // int	main(int argc, char **argv){

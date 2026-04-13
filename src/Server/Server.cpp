@@ -113,7 +113,7 @@ std::ostream& operator<<(std::ostream& os, Server& server) {
 	return os;
 }
 
-User	*Server::getUser(int fd, Server server){
+User	*Server::getUser(int fd, Server &server){
 	std::map<int, User>::iterator	it;
 	for(it = server._users.begin(); it != server._users.end(); ++it){
 		if(it->second._userFd == fd)
