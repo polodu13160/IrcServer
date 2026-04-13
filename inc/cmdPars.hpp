@@ -11,6 +11,7 @@ class cmdPars{
 	cmdPars(void);
 	~cmdPars(void);
 
+	void	cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args);
 
 	std::map<std::string, void (cmdPars::*)(Server&, User&, std::vector<std::string>)>_handlerTab;
 
@@ -24,6 +25,5 @@ class cmdPars{
 	void	handleJoin(Server &server, User &user, std::vector<std::string> args);
 	void	handleHelp(Server &server, User &user, std::vector<std::string> args);
 	void	handleUser(Server &server, User &user, std::vector<std::string> arg);
-	void	cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args);
 };
 #endif

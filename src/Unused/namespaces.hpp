@@ -5,7 +5,7 @@
 
 namespace utilsMessage
 {
-    void messageToClient(int fdClientReception, std::string *numericsCode, std::string sender, std::string *channel, std::string command, ...);
+    void messageToClient(int fdClientReception, std::string *numericsCode, std::string &sender, std::string *channel, std::string command, ...);
     void messageToServer(const char *text, ...);
 }
 

@@ -28,7 +28,8 @@ void	tokenizeParams(Message *message, std::string msg, int start, int end){
 	}
 }
 
-void	TokenizeMsg(Server &server, std::string msg, User &user){
+void	TokenizeMsg(std::string msg, User &user){
+	(void)user;
 	Message	message;
 	std::string	tmp;
 	unsigned long	start;
@@ -42,7 +43,7 @@ void	TokenizeMsg(Server &server, std::string msg, User &user){
 		}
 		tmp = msg.substr(0, end);
 		message.setPrfx(tmp);
-		std::cout << "Prefix : " << message.getPrfx() << std::endl;
+		// std::cout << "Prefix : " << message.getPrfx() << std::endl;
 		end++;
 	}
 	start = end;
@@ -57,21 +58,17 @@ void	TokenizeMsg(Server &server, std::string msg, User &user){
 	}
 	message.printParams();
 	cmdPars parser;
-	parser.cmdParser(server, user, message.getCmd(), message.getParam());
+	parser.cmdParser(user, message.getCmd(), message.getParam());
 }
 
 void	getMsg(Server &server, std::string msg, int userFd){
-
-	server.printUsers();
-
 	User	*user = server.getUser(userFd, server);
-	if(!user) {
+	if(!user)
 		return;
-	}
 	user->setMessage(msg);
 	std::string finalMsg = user->getMessage();
 	if(!finalMsg.empty())
-		TokenizeMsg(server, finalMsg, *user);
+		TokenizeMsg(finalMsg, *user);
 }
 
 // int	main(int argc, char **argv){

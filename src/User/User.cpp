@@ -1,7 +1,5 @@
 #include "../../inc/User.hpp"
 
-const std::string User::TYPEMODE("itkol");
-
 User::User(int userfd, std::string nickname, std::string username) : _userFd(userfd), _nickname(nickname), _username(username){}
 
 
@@ -55,5 +53,4 @@ void	User::setUserFd(int userFd){
 
 void	User::setMessage(std::string message){
 	this->message += message;
-	std::cout << "Message : " << this->message << std::endl;
 }
