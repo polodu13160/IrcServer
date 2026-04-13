@@ -1,18 +1,8 @@
 #include "Channel.hpp"
+#include "numeric"
 
 
-Channel::Channel(std::string name, std::string password) : _name(name), _password(password){}
 
-Channel::Channel(const Channel& other) {
-	*this = other;
-}
-
-Channel& Channel::operator=(const Channel& other) {
-	(void)other;
-	return *this;
-}
-
-Channel::~Channel() {}
 
 void	Channel::setName(std::string name){
 	this->_name = name;
@@ -30,37 +20,40 @@ const std::string	&Channel::getPassword(void)const{
 	return this->_password;
 }
 
-// void Channel::kick(User &user, User &userKick)
-// {
-// }
-
-// void Channel::invite(User &user, User &userInvite)
-// {
-// }
-
-// void Channel::topic(User &user, std::string topic)
-// {
-// }
-
-// void Channel::mode(char type, User &user)
-// {
-// }
-
-// void Channel::join(User &user, std::string _password)
-// {
-// }
 
 
+bool Channel::checkUser(User &user) {
+    std::map<User *, bool>::iterator itUser = this->_users.find(&user);
+    if (itUser == this->_users.end())
+	return false;
+    else
+	return true;
+}
 
-// //Don't use
-// Channel::Channel(const Channel &other)
-// {
-// }
+bool Channel::checkUserAdmin(User &user) {
+    std::map<User *, bool>::iterator itUser = this->_users.find(&user);
+    if (itUser->second == true)
+	return true;
+    else
+	return false;
+}
 
-// Channel::Channel()
-// {
-// }
 
-// Channel &Channel::operator=(const Channel &other)
-// {
-// }
+Channel::Channel(std::string &name) : _name(name) {
+   // utilsMessage::messageToServer(name.c_str(), "channel created");
+    this->_inviteOnly = false;
+    this->_topicRestrictions = false;
+	this->_userLimit = (size_t)-1;
+}
+
+Channel::~Channel() {}
+
+
+	// Don't use
+	Channel::Channel(const Channel &other) {}
+
+	Channel::Channel() {}
+
+	Channel &Channel::operator=(const Channel &other) {}
+
+	

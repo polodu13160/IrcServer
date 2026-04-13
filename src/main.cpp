@@ -56,7 +56,7 @@ void  initializeServer(Server &server, char **args) {
 	int clientFd = 0;
 
 	while (true) {
-		int ready = epoll_wait(epollInstance, userEvent, 64, -1);
+		const int ready = epoll_wait(epollInstance, userEvent, 64, -1);
 
 		for (int i = 0; i < ready; i++) {
 			if (userEvent[i].data.fd == server.getServerId()) {
@@ -85,7 +85,7 @@ void  initializeServer(Server &server, char **args) {
 				recv(userEvent[i].data.fd, &buffer, 128, 0);
 				getMsg(server, buffer, clientFd);
 				// TokenizeMsg(buffer);
-				// std::cout << buffer << std::endl;
+				std::cout << buffer << std::endl;
 				// if (std::strstr(buffer, "\r\n") ) {
 				// 	std::cout << "YES" << std::endl;
 				// }

@@ -8,9 +8,9 @@
 /**
  * @brief send message for terminal of server
  * 
- * @param text first message followed by a space
+ * @param text first message followed by a space (THE SPACE IS INCLUDED IN FUNC)
  * @param ... others messages followed by  spaces, 
- * @attention the last param must to be NULL 
+ * @attention the last param must to  be NULL 
  */
 void utilsMessage::messageToServer(const char *text, ...)
 {
@@ -46,7 +46,7 @@ void utilsMessage::messageToServer(const char *text, ...)
  * @attention Don't forget the NULL for the end of variadics arguments
  * @return possible throw if send doesn't worked
  */
-void utilsMessage::messageToClient(int fdClientReception, std::string *numericsCode, std::string &sender, std::string *channel, std::string command, ...)
+void utilsMessage::messageToClient(int fdClientReception, std::string *numericsCode, std::string sender, std::string *channel, std::string command, ...)
 {
     std::string header;
     std::string msg;
@@ -56,7 +56,7 @@ void utilsMessage::messageToClient(int fdClientReception, std::string *numericsC
         header.append(*numericsCode + " ");
     header.append(command);
     if (channel != NULL)
-        header.append(*channel + " ");
+        header.append("#"+*channel + " ");
     std::va_list args;
     va_start(args, command);
     const char *text = va_arg(args, const char *);
