@@ -28,6 +28,7 @@ class Server {
 	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
     void	sockaddrInit();
+	void	printUsers();
     // User createUserInstance(int userFd, char* info);
 
     // User	*createUserInstance(int userFd, char *info);
@@ -38,7 +39,7 @@ class Server {
         virtual const char* what() const throw();
     };
 
-	User	*getUser(int fd, Server server);
+	User	*getUser(int fd, Server &server);
 
 private:
     static bool _isServerWorking;
