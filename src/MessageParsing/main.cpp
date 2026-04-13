@@ -60,7 +60,7 @@ void	TokenizeMsg(std::string msg, User &user){
 	}
 	message.printParams();
 	cmdPars parser;
-	// parser.cmdParser(message.getCmd(), message.getParam());
+	parser.cmdParser(user, message.getCmd(), message.getParam());
 }
 
 void	getMsg(Server &server, std::string msg, int userFd){
