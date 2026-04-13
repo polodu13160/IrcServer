@@ -24,7 +24,10 @@ const std::string	&User::getRealname(void)const{
 std::string	User::getMessage(void){
 	if(this->message.find("\r\n") != std::string::npos){
 		std::string	msg(this->message);
-		this->message = "";
+		this->message = msg += msg.find("\r\n");
+		msg.erase(msg.find("\r\n"));
+		std::string	leftover = this->message.substr(4, this->message.size() - 4);
+		this->message = leftover;
 		return msg;
 	}
 	std::string str("");
