@@ -3,7 +3,7 @@
 #include <cstring>
 // #include "../cmd/cmd.hpp"
 
-Message::Message(void){}
+Message::Message(void) : fullParams(0){}
 
 Message::~Message(void){}
 
@@ -15,8 +15,10 @@ void	Message::setPrfx(std::string prefix){
 	this->_prfx = prefix;
 }
 
-void	Message::setParam(std::string param, int i){
-	this->_params[i] = param;
+void	Message::pushBackParam(std::string param){
+	this->_params.push_back(param);
+	if(this->_params.size() == 15)
+		this->fullParams = 1;
 }
 
 const std::string	&Message::getPrfx(void)const{
@@ -27,7 +29,7 @@ const std::string	&Message::getCmd(void)const{
 	return this->_cmd;
 }
 
-std::array<std::string, 15>	Message::getParam(void)const{
+std::vector<std::string>	Message::getParam(void)const{
 	return this->_params;
 }
 
