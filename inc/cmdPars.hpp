@@ -11,18 +11,19 @@ class cmdPars{
 	cmdPars(void);
 	~cmdPars(void);
 
-	void	cmdPars::cmdParser(User &user, std::string cmd, std::array<std::string, 15> args);
+	void	cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args);
 
-	std::map<std::string, void (cmdPars::*)(User&, std::array<std::string, 15>)>_handlerTab;
+	std::map<std::string, void (cmdPars::*)(Server&, User&, std::vector<std::string>)>_handlerTab;
 
-	void	handleKick(User &user, std::array<std::string, 15> args);
-	void	handleMode(User &user, std::array<std::string, 15> args);
-	void	handleInvite(User &user, std::array<std::string, 15> args);
-	void	handleTopic(User &user, std::array<std::string, 15> args);
-	void	handlePart(User &user, std::array<std::string, 15> args);
-	void	handleNick(User &user, std::array<std::string, 15> args);
-	void	handleQuit(User &user, std::array<std::string, 15> args);
-	void	handleJoin(User &user, std::array<std::string, 15> args);
-	void	handleHelp(User &user, std::array<std::string, 15> args);
+	void	handleKick(Server &server, User &user, std::vector<std::string> args);
+	void	handleMode(Server &server, User &user, std::vector<std::string> args);
+	void	handleInvite(Server &server, User &user, std::vector<std::string> args);
+	void	handleTopic(Server &server, User &user, std::vector<std::string> args);
+	void	handlePart(Server &server, User &user, std::vector<std::string> args);
+	void	handleNick(Server &server, User &user, std::vector<std::string> args);
+	void	handleQuit(Server &server, User &user, std::vector<std::string> args);
+	void	handleJoin(Server &server, User &user, std::vector<std::string> args);
+	void	handleHelp(Server &server, User &user, std::vector<std::string> args);
+	void	handleUser(Server &server, User &user, std::vector<std::string> arg);
 };
 #endif

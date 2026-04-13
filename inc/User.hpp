@@ -5,10 +5,8 @@
 #include <sstream>
 #include <vector>
 
-#include "Message.hpp"
 #include "Channel.hpp"
 #include "Server.hpp"
-#include "cmdPars.hpp"
 
 class Server;
 
