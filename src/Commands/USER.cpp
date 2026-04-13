@@ -1,26 +1,29 @@
 #include "../../inc/User.hpp"
 
-// int	wordCountInUser(const std::vector<std::string> &ref) {
-//
-// 	std::istringstream	tmp(ref);
-// 	std::string			params;
-// 	int					mode;
-//
-//
-// 	std::string invalidChar = "\0 @\n\r";
-//
-// 	tmp >> params;
-// 	if (params.find_first_of(invalidChar))
-// 		return false;
-//
-// 	// Verif charactere valid [0]
-//
-// 	// Verif bon int [1]
-//
-// 	//	Verif Unused + :
-//
-// 	// Verif REal NAme
-// }
+int	wordCountInUser(const std::vector<std::string> &ref) {
+
+	std::string			params;
+
+
+	std::string invalidChar = "\0 @\n\r";
+
+	if (ref[0].find_first_of(invalidChar))
+		return false;
+
+	std::istringstream ss(ref[1]);
+	std::string	garbage;
+	int					mode;
+
+	if (!(ss >> mode) || (ss >> garbage))
+		return false;
+	else if (checkMode)
+
+	// Verif bon int [1]
+
+	//	Verif Unused + :
+
+	// Verif REal NAme
+}
 
 void	User::userCmd(Server& server, const std::vector<std::string>& userName) {
 
@@ -34,11 +37,11 @@ void	User::userCmd(Server& server, const std::vector<std::string>& userName) {
 		send(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	// if (wordCountInUser(userName) < 4) {
-	// 	const std::string line = "127.0.0.1 461 " + name + "USER :Not enough parameters";
-	// 	send(this->_userFd, line.c_str(), line.length(), 0);
-	// 	return;
-	// }
+	if (wordCountInUser(userName) < 4) {
+		const std::string line = "127.0.0.1 461 " + name + "USER :Not enough parameters";
+		send(this->_userFd, line.c_str(), line.length(), 0);
+		return;
+	}
 	this->_username = userName[0];
 	std::string line =  ":127.0.0.1 001 " + this->_nickname + " :Welcome to the Internet Relay Network\r\n";
 	send(this->_userFd, line.c_str(), line.length(), 0);
