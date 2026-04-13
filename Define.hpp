@@ -1,6 +1,24 @@
 #ifndef DEFINE_HPP
 #define DEFINE_HPP
 
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+// SERVER OPTIONS
+
+#define INVALID_SOCKET  (-1)
+#define SOCKET_ERROR    (-1)
+#define PORT			6667
+#define HOST			"127.0.0.1"
+
+typedef int SOCKET;
+typedef struct sockaddr_in SOCKADDR_IN;
+
 // LISTE DES ERREURS, BIEN REGARDER SI ELLES EXISTENT PAS DEJA.
 
 #define ERR_SERVERCRASH "Server crash."
@@ -18,6 +36,10 @@
 #define YELLOW  		"\033[33m"
 #define CYAN    		"\033[36m"
 #define BOLD    		"\033[1m"
+
+// NUMERIC CODE
+
+
 
 
 

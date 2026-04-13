@@ -1,5 +1,7 @@
-#include "Message.hpp"
-#include "cmd.hpp"
+#include "../../inc/Message.hpp"
+
+#include <cstring>
+// #include "../cmd/cmd.hpp"
 
 Message::Message(void){}
 
@@ -14,7 +16,7 @@ void	Message::setPrfx(std::string prefix){
 }
 
 void	Message::setParam(std::string param, int i){
-	this->_param[i] = param;
+	this->_params[i] = param;
 }
 
 const std::string	&Message::getPrfx(void)const{
@@ -25,13 +27,16 @@ const std::string	&Message::getCmd(void)const{
 	return this->_cmd;
 }
 
-const std::string	*Message::getParam(void)const{
-	return this->_param;
+std::array<std::string, 15>	Message::getParam(void)const{
+	return this->_params;
 }
 
 void	Message::printParams(void){
 	std::cout << "printParams" << std::endl;
-	for(int i = 0; !this->_param[i].empty(); i++){
-		std::cout << "Param number " << i << " : " << this->_param[i] << std::endl;
+
+
+
+	for(int i = 0; !this->_params[i].empty(); i++){
+		std::cout << "Param number " << i << " : " << this->_params[i] << std::endl;
 	}
 }

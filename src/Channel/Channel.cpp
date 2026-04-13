@@ -4,6 +4,25 @@
 
 const std::string Channel::TYPEMODE("itkol");
 
+
+void	Channel::setName(std::string name){
+	this->_name = name;
+}
+
+void	Channel::setPassword(std::string password){
+	this->_password = password;
+}
+
+const std::string	&Channel::getName(void)const{
+	return this->_name;
+}
+
+const std::string	&Channel::getPassword(void)const{
+	return this->_password;
+}
+
+
+
 bool Channel::checkUser(User &user) {
     std::map<User *, bool>::iterator itUser = this->_users.find(&user);
     if (itUser == this->_users.end())

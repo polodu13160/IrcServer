@@ -1,10 +1,14 @@
-#include "cmd.hpp"
+#include <sys/socket.h>
+#include "../inc/Channel.hpp"
+#include "../../inc/Server.hpp"
+#include "../../inc/User.hpp"
 
 cmd::cmd(void){
 	this->_cmdMap["KICK"] = &cmd::kick;
 	this->_cmdMap["INVITE"] = &cmd::invite;
 	this->_cmdMap["TOPIC"] = &cmd::topic;
 	this->_cmdMap["MODE"] = &cmd::mode;
+	this->_cmdMap["JOIN"] = &cmd::join;
 }
 
 void	cmd::kick(void){
@@ -23,10 +27,6 @@ void	cmd::mode(void){
 	std::cout << "mode activated" <<std::endl;
 }
 
-void	cmd::join(void){
-	std::cout << "user has joined [channel]" <<std::endl;
-}
-
 void	cmd::part(void){
 	std::cout << "user left [channel]" <<std::endl;
 }
@@ -35,8 +35,9 @@ void	cmd::msg(void){
 	std::cout << "user sent a message" <<std::endl;
 }
 
-void	cmd::nick(void){
-	std::cout << "user changed nickname" <<std::endl;
+void	cmd::nick(User &user, std::string nickname){
+	user.setNickname(nickname);
+	std::cout << "user changed nickname to " << nickname << std::endl;
 }
 
 void	cmd::quit(void){

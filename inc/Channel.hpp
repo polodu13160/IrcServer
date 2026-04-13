@@ -6,7 +6,7 @@
 /*   By: pololinux <pololinux@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/04 19:24:05 by pololinux        ###   ########.fr       */
+/*   Updated: 2026/04/13 17:22:20 by pololinux        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,35 @@
 #include "map"
 #include "set"
 #include "string"
+#include "map"
+#include "User.hpp"
 
-class Channel {
-  public:
+class User;
+
+class Channel
+{
+public:
     Channel(std::string &name);
     ~Channel();
     void kick(User &user, User &userKick);
     void invite(User &user, User &userInvite);
     void topic(User &user, std::string topic);
-    void msg(User &user, std::string &text);
+    void mode(char type, User &user);
     void join(User &user, std::string password = "");
-    bool checkUser(User &user);
-    bool checkUserAdmin(User &user);
 
-    //mode :
-    void setInviteOnly(char Sign); //i
-    void setTopicRestictions(char Sign); //t
-    void setChannelPassword(char Sign, std::string *password); //k
-    void setOperator(char Sign, User &user); //o
-    void setUserLimit(char Sign, size_t limits); //l
+	const std::string	&getName(void)const;
+	const std::string	&getPassword(void)const;
 
-  protected:
-  private:
-    Channel(const Channel &other);
+	void				setName(std::string name);
+	void				setPassword(std::string name);
+
+    std::map<User*, bool> _users;
+
+	private:
+	std::string _name;
     Channel();
-    Channel &operator=(const Channel &other);
-    std::string _name;
-    std::map<User *, bool> _users;
-    std::set<User *> _usersInvite;
+    Channel(const Channel& other);
+    Channel& operator=(const Channel& other);
     bool _inviteOnly;
     bool _topicRestrictions;
     std::string _password;
