@@ -10,7 +10,7 @@ int	wordCount(const std::string &ref) {
 	return wordCount;
 }
 
-void	User::userCmd(Server& server, const std::string& userName) {
+void	User::userCmd(Server& server, std::vector<std::string> arg) {
 
 	(void)server;
 	std::string name = this->_nickname;

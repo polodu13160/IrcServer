@@ -26,7 +26,7 @@ bool	nickAlreadyUsed(const std::string& nickName, std::map<int, User>& _users) {
 	return false;
 }
 
-void	User::nickCmd(Server &server, const std::string& nickName) {
+void	User::nickCmd(Server &server, std::vector<std::string> arg) {
 	if (nickName.empty()) {
 
 		const std::string line = ":127.0.0.1 431 * :No nickname given\r\n";

@@ -31,7 +31,7 @@ void	cmdPars::handleUser(Server &server, User &user, std::vector<std::string> ar
 		std::cout << "There must be at least 1 parameter for this command" << std::endl;
 		return;
 	}
-	user.nickCmd(server, arg[0]);
+	user.userCmd(server, arg);
 }
 
 void	cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> arg){
@@ -138,7 +138,7 @@ void	cmdPars::handleNick(Server &server, User &user, std::vector<std::string> ar
 		return;
 	}
 	// changer nickname
-	std::cout << "[User] has changed nickname to " << arg[0] << std::endl;
+	user.nickCmd(server, arg);
 }
 
 void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> arg){
