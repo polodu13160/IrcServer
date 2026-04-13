@@ -1,5 +1,7 @@
 #include "../../inc/User.hpp"
 
+const std::string User::TYPEMODE("itkol");
+
 User::User(int userfd, std::string nickname, std::string username) : _userFd(userfd), _nickname(nickname), _username(username){}
 
 
