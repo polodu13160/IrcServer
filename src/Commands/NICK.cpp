@@ -26,26 +26,30 @@ bool	nickAlreadyUsed(const std::string& nickName, std::map<int, User>& _users) {
 	return false;
 }
 
-void	User::nickCmd(Server &server, std::vector<std::string> arg) {
+void	User::nickCmd(Server &server, const std::vector<std::string>& nickName) {
 	if (nickName.empty()) {
 
 		const std::string line = ":127.0.0.1 431 * :No nickname given\r\n";
 		send(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	if (!nickInvalidChar(nickName)) {
+	if (!nickInvalidChar(nickName[0])) {
 
-		const std::string line = ":127.0.0.1 432 " + nickName + " :Erroneous nickname\r\n";
+		const std::string line = ":127.0.0.1 432 " + nickName[0] + " :Erroneous nickname\r\n";
 		send(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	if (!nickAlreadyUsed(nickName, server._users)) {
-		const std::string line = ":127.0.0.1 433 " + nickName + " :Nickname is already in use\r\n";
+	if (!nickAlreadyUsed(nickName[0], server._users)) {
+		const std::string line = ":127.0.0.1 433 " + nickName[0] + " :Nickname is already in use\r\n";
 		send(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	const std::string line = ":" + this->_nickname + "!" + this->_username + "@127.0.0.1 NICK :" + nickName + "\r\n";
+	if (this->_nickname.empty()) {
+		this->setNickname(nickName[0]);
+		return;
+	}
+	const std::string line = ":" + this->_nickname + "!" + this->_username + "@127.0.0.1 NICK :" + nickName[0] + "\r\n";
 	send(this->_userFd, line.c_str(), line.length(), 0);
-	this->setNickname(nickName);
-	std::cout << RED << "USER NICKNAME = " << nickName << RESET << std::endl;
+	this->setNickname(nickName[0]);
+	std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 }
