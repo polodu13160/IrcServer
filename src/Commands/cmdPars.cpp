@@ -180,8 +180,6 @@ void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> ar
 
 void	cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args){
 	std::map<std::string, void (cmdPars::*)(Server&, User&, std::vector<std::string>)>::iterator it = this->_handlerTab.find(cmd);
-
-	std::cout << "Premier arg" << args[0] << std::endl;
 	if(it != this->_handlerTab.end()){
 		(this->*(it->second))(server, user, args);
 	}

@@ -73,17 +73,6 @@ void Server::sockaddrInit() {
 
 }
 
-void	Server::printUsers() {
-
-	std::map<int, User>::iterator it;
-
-	for (it = this->_users.begin(); it != this->_users.end(); ++it) {
-
-		std::cout << "User FD "<< it->first << std::endl;
-	}
-
-}
-
 
 // User Server::createUserInstance(int userFd, char* info) {
 //
@@ -124,12 +113,11 @@ std::ostream& operator<<(std::ostream& os, Server& server) {
 	return os;
 }
 
-User	*Server::getUser(int fd, Server &server){
+User	*Server::getUser(int fd, Server server){
 	std::map<int, User>::iterator	it;
 	for(it = server._users.begin(); it != server._users.end(); ++it){
 		if(it->second._userFd == fd)
 			return &it->second;
 	}
-	std::cout << "User marche pas " << fd << std::endl;
 	return NULL;
 }
