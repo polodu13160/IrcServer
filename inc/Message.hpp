@@ -1,6 +1,8 @@
 #ifndef MESSAGE_HPP
 # define MESSAGE_HPP
+
 #include <iostream>
+#include <array>
 
 class Message{
 	public :
@@ -9,7 +11,7 @@ class Message{
 
 	const std::string	&getPrfx(void)const;
 	const std::string	&getCmd(void)const;
-	const std::string	*getParam(void)const;
+	std::array<std::string, 15>	getParam(void)const;
 
 	void	setPrfx(std::string prefix);
 	void	setCmd(std::string cmd);
@@ -17,10 +19,12 @@ class Message{
 
 	void	printParams(void);
 
+	bool	fullParams;
+
 	private:
 	std::string	_prfx;
 	std::string	_cmd;
-	std::string	_param[15];
+	std::array<std::string, 15>	_params;
 };
 
 #endif

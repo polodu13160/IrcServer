@@ -16,7 +16,7 @@ cmdPars::cmdPars(void){
 
 cmdPars::~cmdPars(){}
 
-std::string	removeChannelHashtag(std::string *arg, int i){
+std::string	removeChannelHashtag(std::array<std::string, 15> arg, int i){
 	std::string newStr;
 
 	newStr = arg[i].substr(1, arg[i].size() - 1);
@@ -24,7 +24,7 @@ std::string	removeChannelHashtag(std::string *arg, int i){
 	return "";
 }
 
-void	cmdPars::handleInvite(User &user, std::string *arg){
+void	cmdPars::handleInvite(User &user, std::array<std::string, 15> arg){
 	// INVITE (nickname) (channel)
 	if(arg[1].empty()){
 		std::cout << "There must be 2 parameters for this command" << std::endl;
@@ -39,9 +39,9 @@ void	cmdPars::handleInvite(User &user, std::string *arg){
 	std::cout << arg[0] << " has joined " << arg[1] << std::endl;
 }
 
-void	cmdPars::handleKick(User &user, std::string *arg){
+void	cmdPars::handleKick(User &user, std::array<std::string, 15> arg){
 	// KICK (channel) (nickname) [comment]
-	if(!arg || arg[1].empty()){
+	if(arg.empty() || arg[1].empty()){
 		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
 		return;
 	}
@@ -56,7 +56,7 @@ void	cmdPars::handleKick(User &user, std::string *arg){
 		std::cout << arg[2] << std::endl;
 }
 
-void	cmdPars::handleMode(User &user, std::string *arg){
+void	cmdPars::handleMode(User &user, std::array<std::string, 15> arg){
 	// MODE (channel/user) (mode : -i, -o...) (param)
 	if(arg[1].empty()){
 		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
@@ -77,7 +77,7 @@ void	cmdPars::handleMode(User &user, std::string *arg){
 	}
 }
 
-void	cmdPars::handleTopic(User &user, std::string *arg){
+void	cmdPars::handleTopic(User &user, std::array<std::string, 15> arg){
 	// TOPIC (channel) [newtopic]
 	if(arg[0].empty()){
 		std::cout << "There must be 1 or 2 parameters for this command" << std::endl;
@@ -98,7 +98,7 @@ void	cmdPars::handleTopic(User &user, std::string *arg){
 	}
 }
 
-void	cmdPars::handlePart(User &user, std::string *arg){
+void	cmdPars::handlePart(User &user, std::array<std::string, 15> arg){
 	// PART (channel) [channel] ...
 	if(arg[0].empty()){
 		std::cout << "There must be at least 1 parameter for this command" << std::endl;
@@ -115,7 +115,7 @@ void	cmdPars::handlePart(User &user, std::string *arg){
 	}
 }
 
-void	cmdPars::handleNick(User &user, std::string *arg){
+void	cmdPars::handleNick(User &user, std::array<std::string, 15> arg){
 	// NICK (new nickname)
 	if(arg[0].empty()){
 		std::cout << "There must be 1 parameter for this command" << std::endl;
@@ -125,7 +125,7 @@ void	cmdPars::handleNick(User &user, std::string *arg){
 	std::cout << "[User] has changed nickname to " << arg[0] << std::endl;
 }
 
-void	cmdPars::handleQuit(User &user, std::string *arg){
+void	cmdPars::handleQuit(User &user, std::array<std::string, 15> arg){
 	// QUIT [message]
 	if(!arg[0].empty()){
 		// laisse un message de depart arg[0]
@@ -135,7 +135,7 @@ void	cmdPars::handleQuit(User &user, std::string *arg){
 	std::cout << "[User] has left the server" << std::endl;
 }
 
-void	cmdPars::handleJoin(User &user, std::string *arg){
+void	cmdPars::handleJoin(User &user, std::array<std::string, 15> arg){
 	//JOIN (channel) [mdp]
 	if(arg[0].empty()){
 		std::cout << "There must be 1 or 2 parameters for this command" << std::endl;
@@ -147,7 +147,7 @@ void	cmdPars::handleJoin(User &user, std::string *arg){
 	std::cout << "[User] has joined " << arg[0] << std::endl;
 }
 
-void	cmdPars::handleHelp(User &user, std::string *arg){
+void	cmdPars::handleHelp(User &user, std::array<std::string, 15> arg){
 	// HELP [cmd]
 	if(!arg[0].empty()){
 		// aide sur cmd arg[0]
@@ -159,8 +159,8 @@ void	cmdPars::handleHelp(User &user, std::string *arg){
 	}
 }
 
-void	cmdPars::cmdParser(User &user, std::string cmd, std::string *args){
-	std::map<std::string, void (cmdPars::*)(User&, std::string*)>::iterator it = this->_handlerTab.find(cmd);
+void	cmdPars::cmdParser(User &user, std::string cmd, std::array<std::string, 15> args){
+	std::map<std::string, void (cmdPars::*)(User&, std::array<std::string, 15>)>::iterator it = this->_handlerTab.find(cmd);
 	if(it != this->_handlerTab.end()){
 		(this->*(it->second))(user, args);
 	}
