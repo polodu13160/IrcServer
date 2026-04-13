@@ -31,8 +31,8 @@ class User{
 
 	// CMD
 
-	void nickCmd(Server& server, std::vector<std::string> arg);
-	void userCmd(Server& server, std::vector<std::string> arg);
+	void nickCmd(Server& server, const std::vector<std::string>& userName);
+	void userCmd(Server& server,  const std::vector<std::string>& nickName);
 	void joinCmd(Server& server, User& user, std::string channel, std::string pass);
 
 	private :

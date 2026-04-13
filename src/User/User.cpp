@@ -53,4 +53,5 @@ void	User::setUserFd(int userFd){
 
 void	User::setMessage(std::string message){
 	this->message += message;
+	std::cout << "Message : " << this->message << std::endl;
 }
