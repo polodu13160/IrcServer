@@ -44,8 +44,8 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 	}
 	std::vector<std::string>	channel;
 	channel = getChannels(arg);
-	std::string	channel = arg[0];
-	std::string	pass = arg[1];
+	// std::string	channel = arg[0];
+	// std::string	pass = arg[1];
 	for(int i = 0; i < arg.size(); i++){
 		if((arg[i][0] != '#' && arg[i][0] != '&') || arg[i].find(" ") != std::string::npos || arg[i].size() > 50){
 			const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel";
@@ -54,10 +54,16 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 		Channel	*dest = findChannel(channel[i], server._chanVector);
 		if(dest){
 			// check si invite only chan quand les getters sont fait dans channel X
-
+			if(dest->getInviteOnly()){
+				const std::string line = ":127.0.0.1 473 " + this->getNickname() + " #" + channel[i] + " : Cannot join channel (invite only)";
+				send(this->getUserFd(), line.c_str(), line.size(), 0);
+			}
 			// check si full channel
-			// check si ban du chan
-			if(!dest->getPassword().empty() && dest->getPassword().compare(pass)){
+			else if(dest->_users.size() == dest->getUserLimit()){
+				const std::string line = ":127.0.0.1 471 " + this->getNickname() + " #" + channel[i] + " : Cannot join channel (Channel is full)";
+				send(this->getUserFd(), line.c_str(), line.size(), 0);
+			}
+			else if(!dest->getPassword().empty() && dest->getPassword().compare(arg[1])){
 				const std::string	line = ":127.0.0.1 475 " + this->getNickname() + " #" + channel[i] + " : Cannot join channel";
 				send(this->getUserFd(), line.c_str(), line.size(), 0);
 			}
@@ -69,7 +75,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 		else{
 			//check si user a atteint maxChanRegistered
 			if(this->nbChannelRegistered == server._maxChanPerUser){
-				const std::string line = ":127.0.0.1 475 " + this->getNickname() + " #" + channel[i] + " : You have joined too many channels";
+				const std::string line = ":127.0.0.1 405 " + this->getNickname() + " #" + channel[i] + " : You have joined too many channels";
 			}
 			Channel newChan("channel", "");
 			server._chanVector.push_back(newChan);
@@ -85,9 +91,9 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 
 
 // 461 ERR_NEEDMOREPARAMS (X)             474 ERR_BANNEDFROMCHAN ()
-// 473 ERR_INVITEONLYCHAN ()             475 ERR_BADCHANNELKEY (X)
-// 471 ERR_CHANNELISFULL ()              476 ERR_BADCHANMASK ()
-// 403 ERR_NOSUCHCHANNEL (x)              405 ERR_TOOMANYCHANNELS ()
+// 473 ERR_INVITEONLYCHAN (X)             475 ERR_BADCHANNELKEY (X)
+// 471 ERR_CHANNELISFULL (X)              476 ERR_BADCHANMASK ()
+// 403 ERR_NOSUCHCHANNEL (x)              405 ERR_TOOMANYCHANNELS (X)
 // 407 ERR_TOOMANYTARGETS (?)             437 ERR_UNAVAILRESOURCE (?)
 // 332 RPL_TOPIC ()
 
