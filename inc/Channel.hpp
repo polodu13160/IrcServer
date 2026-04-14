@@ -6,7 +6,7 @@
 /*   By: pololinux <pololinux@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/14 17:22:18 by pololinux        ###   ########.fr       */
+/*   Updated: 2026/04/14 18:55:48 by pololinux        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "string"
 #include "map"
 #include "User.hpp"
+#include <set>
 
 class User;
 
@@ -37,14 +38,19 @@ public:
     const bool getTopicRestrictions(void) const;
     const unsigned int getUserLimit() const;
     const bool checkPassword(std::string &password) const;
+    const bool checkUser(User &user) const;
+    const bool checkUserAdmin(User &user) const;
+    const std::map<User *, bool> &getUsers() const;
 
     void setInviteOnly(bool val);
     void setName(std::string name);
     void setPassword(std::string name);
     void setUserLimit(unsigned int val);
+    void addUser(User &user, bool admin);
+    void addUserInvite(User &user);
+    
     
 
-    std::map<User *, bool> _users;
 
 private:
     std::string _name;
@@ -54,6 +60,8 @@ private:
     bool _topicRestrictions;
     std::string _password;
     unsigned int _userLimit;
+    std::map<User *, bool> _users;
+    std::set<User *> _usersInvite;
 };
 
 #endif // _CHANNEL_H
