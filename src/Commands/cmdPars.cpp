@@ -156,7 +156,7 @@ void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> ar
 	(void)user;
 	//JOIN (channel) [mdp]
 	if(arg[0].empty()){
-		std::cout << "There must be 1 or 2 parameters for this command" << std::endl;
+		std::string	line = ":127.0.0.1 461 " + user.getNickname() + " JOIN :Not enough parameters";
 		return;
 	}
 	removeFirstChar(arg, 0);
