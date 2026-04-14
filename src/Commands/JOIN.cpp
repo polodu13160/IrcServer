@@ -9,14 +9,14 @@ Channel	*findChannel(std::string channel, std::vector<Channel> &channels){
 	return NULL;
 }
 
-bool	isMember(Channel *channel, User &user){
-	std::map<User*, bool>::iterator	it;
-	for(it = channel->_users.begin(); it != channel->_users.end(); it++){
-		if(it->first->getUserFd() == user.getUserFd())
-			return 1;
-	}
-	return 0;
-}
+// bool	isMember(Channel *channel, User &user){
+// 	std::map<User*, bool>::iterator	it;
+// 	for(it = channel->_users.begin(); it != channel->_users.end(); it++){
+// 		if(it->first->getUserFd() == user.getUserFd())
+// 			return 1;
+// 	}
+// 	return 0;
+// }
 
 std::vector<std::string>	getChannels(const std::vector<std::string> &arg){
 	std::vector<std::string>	chanTab;
@@ -59,7 +59,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 				send(this->getUserFd(), line.c_str(), line.size(), 0);
 			}
 			// check si full channel
-			else if(dest->_users.size() == dest->getUserLimit()){
+			else if(dest->getUsers().size() == dest->getUserLimit()){
 				const std::string line = ":127.0.0.1 471 " + this->getNickname() + " #" + channel[i] + " : Cannot join channel (Channel is full)";
 				send(this->getUserFd(), line.c_str(), line.size(), 0);
 			}
@@ -67,10 +67,10 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 				const std::string	line = ":127.0.0.1 475 " + this->getNickname() + " #" + channel[i] + " : Cannot join channel";
 				send(this->getUserFd(), line.c_str(), line.size(), 0);
 			}
-			else if(isMember(dest, *this))
+			else if(dest->checkUser(*this))
 				;
 			else
-				dest->_users.insert(std::pair<User*, bool>(this,0));
+				dest->addUser(*this, 0);
 		}
 		else{
 			//check si user a atteint maxChanRegistered
@@ -79,7 +79,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 			}
 			Channel newChan("channel", "");
 			server._chanVector.push_back(newChan);
-			newChan._users.insert(std::make_pair(this, 1));
+			newChan.addUser(*this, 1);
 		}
 		this->nbChannelRegistered++;
 		// RPL_TOPIC

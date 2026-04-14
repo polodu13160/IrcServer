@@ -33,7 +33,10 @@ class User{
 
 	void nickCmd(Server& server, const std::vector<std::string> &nickName);
 	void userCmd(Server& server, const std::vector<std::string> &userName);
+
 	void joinCmd(Server& server, const std::vector<std::string>& arg);
+
+	void listCmd() const;
 
 	private :
 	int			_userFd;

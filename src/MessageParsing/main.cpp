@@ -83,44 +83,44 @@
 // 	}
 // }
 
-void	printVector(std::vector<std::string> arg){
-	for(int i = 0; i < arg.size(); i++){
-		std::cout << "Arg number " << i << " : " << arg[i] << std::endl;
-	}
-}
+// void	printVector(std::vector<std::string> arg){
+// 	for(int i = 0; i < arg.size(); i++){
+// 		std::cout << "Arg number " << i << " : " << arg[i] << std::endl;
+// 	}
+// }
 
-void	validChannelName(std::vector<std::string> arg){
-	for(int i = 0; i < arg.size(); i++){
-		if((arg[i][0] != '#' && arg[i][0] != '&') || arg[i].find(" ") != std::string::npos){
-			std::string	line = ":127.0.0.1 403 [channelName] :No such channel";
-			//send
-		}
-	}
-}
+// void	validChannelName(std::vector<std::string> arg){
+// 	for(int i = 0; i < arg.size(); i++){
+// 		if((arg[i][0] != '#' && arg[i][0] != '&') || arg[i].find(" ") != std::string::npos){
+// 			std::string	line = ":127.0.0.1 403 [channelName] :No such channel";
+// 			//send
+// 		}
+// 	}
+// }
 
-std::vector<std::string>	getChannels(const std::vector<std::string> &arg){
-	std::vector<std::string>	chanTab;
-	int	start = 0;
-	int	i = 0;
+// std::vector<std::string>	getChannels(const std::vector<std::string> &arg){
+// 	std::vector<std::string>	chanTab;
+// 	int	start = 0;
+// 	int	i = 0;
 
-	for(; i < arg[0].size(); i++){
-		if(arg[0][i] == ','){
-			chanTab.push_back(arg[0].substr(start, i - start));
-			start = i + 1;
-		}
-	}
-	chanTab.push_back(arg[0].substr(start, i - start - 1));
-	printVector(chanTab);
-	return chanTab;
-}
+// 	for(; i < arg[0].size(); i++){
+// 		if(arg[0][i] == ','){
+// 			chanTab.push_back(arg[0].substr(start, i - start));
+// 			start = i + 1;
+// 		}
+// 	}
+// 	chanTab.push_back(arg[0].substr(start, i - start - 1));
+// 	printVector(chanTab);
+// 	return chanTab;
+// }
 
-int	main(int argc, char **argv){
-	(void)argc;
-	std::vector<std::string>	arg;
-	for(int i = 1; argv[i]; i++){
-		std::cout << "arg number " << i << " : " << argv[i] << std::endl;
-		arg.push_back(argv[i]);
-	}
-	getChannels(arg);
-	validChannelName(arg);
-}
+// int	main(int argc, char **argv){
+// 	(void)argc;
+// 	std::vector<std::string>	arg;
+// 	for(int i = 1; argv[i]; i++){
+// 		std::cout << "arg number " << i << " : " << argv[i] << std::endl;
+// 		arg.push_back(argv[i]);
+// 	}
+// 	getChannels(arg);
+// 	validChannelName(arg);
+// }
