@@ -1,4 +1,5 @@
 #include "Channel.hpp"
+#include "string"
 
 
 Channel::Channel(std::string name, std::string password) : _name(name), _password(password){}
@@ -18,8 +19,19 @@ void	Channel::setName(std::string name){
 	this->_name = name;
 }
 
-void	Channel::setPassword(std::string password){
-	this->_password = password;
+void Channel::setInviteOnly(bool val)
+{
+	this->_inviteOnly = val;
+}
+
+void Channel::setPassword(std::string password)
+{
+    this->_password = password;
+}
+
+void Channel::setUserLimit(unsigned int val)
+{
+	this->_userLimit = val;
 }
 
 const std::string	&Channel::getName(void)const{
@@ -28,6 +40,26 @@ const std::string	&Channel::getName(void)const{
 
 const std::string	&Channel::getPassword(void)const{
 	return this->_password;
+}
+
+const bool Channel::getInviteOnly(void) const
+{
+    return this->_inviteOnly;
+}
+
+const bool Channel::getTopicRestrictions(void) const
+{
+    return this->_topicRestrictions;
+}
+
+const unsigned int Channel::getUserLimit() const
+{
+    return this->_userLimit;
+}
+
+const bool Channel::checkPassword(std::string &password) const
+{
+    return (password == this->_password ? true : false);
 }
 
 // void Channel::kick(User &user, User &userKick)
