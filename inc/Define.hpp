@@ -37,11 +37,20 @@ typedef struct sockaddr_in SOCKADDR_IN;
 #define CYAN    		"\033[36m"
 #define BOLD    		"\033[1m"
 
-// NUMERIC CODE
+// MODE ENUMS
 
+enum e_modes {
+	AWAY =			(1 << 0),
+	SER_NOTICE =	(1 << 1),
+	WALLOPS =		(1 << 2),
+	INVISIBLE =		(1 << 3),
+	RESTRICTED =	(1 << 4),
+	OPERATOR =		(1 << 5),
+	LOCAL_OP =		(1 << 6)
+};
 
-
-
+#define NEG_SIGN	false
+#define POS_SIGN	true
 
 
 #endif

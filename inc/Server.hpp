@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 #include "Channel.hpp"
-#include "../Define.hpp"
+#include "Define.hpp"
 #include "User.hpp"
 
 class User;

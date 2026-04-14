@@ -7,6 +7,7 @@ User::User(int userfd, std::string nickname, std::string username)
 		_nickname(nickname),
 		_username(username) {
 	this->registered = false;
+	this->_userMode = 0;
 }
 
 

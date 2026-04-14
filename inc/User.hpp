@@ -7,6 +7,7 @@
 
 #include "Channel.hpp"
 #include "Server.hpp"
+#include "Define.hpp"
 
 class Server;
 
@@ -33,6 +34,7 @@ class User{
 
 	void nickCmd(Server& server, const std::vector<std::string> &nickName);
 	void userCmd(Server& server, const std::vector<std::string> &userName);
+	void modeCmd(Server& server, const std::vector<std::string> &userName);
 	void joinCmd(Server& server, User& user, std::string channel, std::string pass);
 
 	private :
@@ -45,6 +47,8 @@ class User{
 	bool	hasANickName;
 	bool	hasAUserName;
 	bool	registered;
+
+	__uint32_t		_userMode;
 
 	friend class Server;
 

@@ -1,4 +1,4 @@
-#include "../Define.hpp"
+#include "../inc/Define.hpp"
 #include "../inc/Server.hpp"
 #include <sstream>
 #include <fcntl.h>
@@ -83,9 +83,16 @@ void  initializeServer(Server &server, char **args) {
 				std::memset(buffer, 0, 128);
 
 				recv(userEvent[i].data.fd, &buffer, 128, 0);
+
+				int i = 0;
+				while (buffer[i]) {
+					if (buffer[i] == '0')
+						buffer[i] = '8';
+					i++;
+				}
 				getMsg(server, buffer, clientFd);
 				// TokenizeMsg(buffer);
-				// std::cout << buffer << std::endl;
+				std::cout << buffer << std::endl;
 				// if (std::strstr(buffer, "\r\n") ) {
 				// 	std::cout << "YES" << std::endl;
 				// }
