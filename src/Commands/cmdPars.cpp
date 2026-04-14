@@ -155,14 +155,7 @@ void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> ar
 void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
 	//JOIN (channel) [mdp]
-	if(arg[0].empty()){
-		std::string	line = ":127.0.0.1 461 " + user.getNickname() + " JOIN :Not enough parameters";
-		return;
-	}
-	removeFirstChar(arg, 0);
-	// check si mdp
-	// si channel non existant : nouveau channel avec : user=>operateur du channel
-	std::cout << "[User] has joined " << arg[0] << std::endl;
+	user.joinCmd(server, arg);
 }
 
 void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> arg){

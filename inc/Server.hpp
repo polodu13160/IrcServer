@@ -47,6 +47,8 @@ private:
     SOCKET      _serverFd;
     SOCKADDR_IN _sin;
 
+	int	_maxChanPerUser;
+
     std::map<int, User> _users;
 	std::vector<Channel> _chanVector;
 

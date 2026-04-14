@@ -33,7 +33,7 @@ class User{
 
 	void nickCmd(Server& server, const std::vector<std::string> &nickName);
 	void userCmd(Server& server, const std::vector<std::string> &userName);
-	void joinCmd(Server& server, User& user, const std::vector<std::string>& arg);
+	void joinCmd(Server& server, const std::vector<std::string>& arg);
 
 	private :
 	int			_userFd;
@@ -41,6 +41,8 @@ class User{
 	std::string	_username;
 	std::string	_realname;
 	std::string	message;
+
+	int	nbChannelRegistered;
 
 	bool	hasANickName;
 	bool	hasAUserName;

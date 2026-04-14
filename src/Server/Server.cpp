@@ -10,7 +10,7 @@
 
 bool Server::_isServerWorking = false;
 
-Server::Server() {
+Server::Server() : _maxChanPerUser(100){
 	// Channel	test("test", "");
 	// this->chanVector.push_back(test);
 }
