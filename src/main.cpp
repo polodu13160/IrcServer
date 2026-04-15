@@ -9,20 +9,6 @@
 
 typedef struct sockaddr SOCKADDR;
 
-int	convertPort(const char *arg, Server *server) {
-
-	std::stringstream	ss;
-	int					tmp = 0;
-	char				rest;
-	ss << arg;
-
-	if (!(ss >> tmp) || (ss >> rest))
-		return -1;
-	if (tmp < 1024 || tmp > 65535)
-		return -1;
-	server->setServerPort(tmp);
-	return 0;
-}
 
 void  initializeServer(Server &server, char **args) {
 	const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
@@ -33,8 +19,6 @@ void  initializeServer(Server &server, char **args) {
 
 	const int opt = 1;
 	if (setsockopt(server.getServerId(), SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int)) != 0)
-		throw Server::errorServerSocket();
-	if (convertPort(args[2], &server) == -1)
 		throw Server::errorServerSocket();
 	server.sockaddrInit();
 	if (bind(server.getServerId(), reinterpret_cast<sockaddr *>(&server.getServerSin()), sizeof(SOCKADDR)) == -1)

@@ -15,13 +15,25 @@ class Server {
 
   public:
     Server();
+
+
+	Server(const char *port, const char *password);
     Server(Server &other);
     Server &operator=(Server &other);
     ~Server();
 
+
+	// Nouvelle classe :
+
+	void setServerPort(const char *str);
+	void setServerPass(const char *password);
+	void setSocketParams();
+
+
+
+	// Ancienne classe
+
     void	setServerId(const SOCKET socketId);
-	void	setServerPass(const std::string &password);
-	void	setServerPort(const int port);
 	void	setUserfd(int fd);
     int		getServerId() const;
 	int		getServerPort();

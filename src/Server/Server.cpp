@@ -6,13 +6,59 @@
 
 
 
+int	convertPort(const char *arg) {
+
+	std::stringstream	ss;
+	int					tmp = 0;
+	char				rest;
+	ss << arg;
+
+	if (!(ss >> tmp) || (ss >> rest))
+		return -1;
+	if (tmp < 1024 || tmp > 65535)
+		return -1;
+	return tmp;
+}
+
+void Server::setServerPort(const char *str) {
+
+	const int	newPort = convertPort(str);
+	if (newPort == -1)
+		throw Server::errorServerSocket();
+	this->_port = newPort;
+}
+
+void Server::setServerPass(const char *password) {
+	
+	std::string newPass(password);
+	this->_serverPassword = newPass;
+}
+
+void	Server::setSocketParams() {
+
+	const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
+	if (serverId == SOCKET_ERROR) {
+		throw Server::errorServerSocket();
+	}
+	this->_serverFd = serverId;
+	const int opt = 1;
+	if (setsockopt(this->_serverFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int)) != 0)
+		throw Server::errorServerSocket();
+	this->sockaddrInit();
+}
+
+
+
+
 // SERVER CLASS CREATION
 
 bool Server::_isServerWorking = false;
 
-Server::Server() {
-	// Channel	test("test", "");
-	// this->chanVector.push_back(test);
+Server::Server(const char *port, const char *password) {
+	
+	setServerPass(password);
+	setServerPort(port);
+
 }
 
 Server::Server(Server &other) {
@@ -33,14 +79,6 @@ Server::~Server() {
 
 void Server::setServerId(const SOCKET socketId){
 	this->_serverFd = socketId;
-}
-
-void Server::setServerPass(const std::string &password) {
-	this->_serverPassword = password;
-}
-
-void Server::setServerPort(const int port) {
-	this->_port = port;
 }
 
 int	Server::getServerId() const {
@@ -72,32 +110,6 @@ void Server::sockaddrInit() {
 	this->_sin.sin_port =		htons(this->_port);
 
 }
-
-
-// User Server::createUserInstance(int userFd, char* info) {
-//
-// 	std::string nickname;
-// 	std::string	username;
-// 	std::string realname;
-// 	std::string cmd;
-//
-// 	User test(1, "caca", "caca");
-// 	std::string msg(info);
-//
-// 	std::stringstream ss(msg);
-//
-// 	ss >> cmd;
-// 	ss >> cmd;
-// 	ss >> cmd;
-// 	ss >> cmd;
-// 	ss >> nickname;
-// 	ss >> cmd;
-// 	ss >> username;
-//
-// 	std::cout << "Nickname = " << nickname << " Username = " << username << std::endl;
-// 	return test;
-//
-// }
 
 
 // SERVER CLASS OUT AND EXCEPTIONS

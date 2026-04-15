@@ -38,7 +38,10 @@ e_modes	charToMode(const char c) {
 }
 
 
-void	handleInviteMode(Channel &Channel, std::vector<std::string> &modeStr) {
+void	handleInviteMode(Channel &channel, User &user, bool sign) {
+
+	User *tmp = channel._users.find(user);
+	if (Channel._users)
 
 }
 
@@ -70,7 +73,7 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 			switch (mode) {
 
 				case MODE_INVITE_O :
-					// handleInviteMode(sign);
+					handleInviteMode(server, *this, sign);
 				case MODE_KEY_SET :
 					// handleKeyMode(sign, modeStr);
 				case MODE_LIMIT_SET :
