@@ -34,7 +34,9 @@ void	TokenizeMsg(Server &server, std::string msg, User &user){
 	std::string	tmp;
 	unsigned long	start;
 	unsigned long	end = 0;
-
+	#if (DEBUG==1) 
+		Server::messageToServer(msg.c_str(), NULL);
+	#endif //DEBUG
 	if(msg[end] == ':'){
 		for(; end < msg.size() && msg[end] != ' '; end++){}
 		if(end == msg.size()){
