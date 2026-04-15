@@ -40,13 +40,12 @@ typedef struct sockaddr_in SOCKADDR_IN;
 // MODE ENUMS
 
 enum e_modes {
-	AWAY =			(1 << 0),
-	SER_NOTICE =	(1 << 1),
-	WALLOPS =		(1 << 2),
-	INVISIBLE =		(1 << 3),
-	RESTRICTED =	(1 << 4),
-	OPERATOR =		(1 << 5),
-	LOCAL_OP =		(1 << 6)
+	MODE_INVITE_O = 		(1 << 0),
+	MODE_TOPIC_RESTRICT = 	(1 << 1),
+	MODE_KEY_SET =			(1 << 2),
+	MODE_LIMIT_SET =		(1 << 3),
+	MODE_OPERATOR =			(1 << 4),
+	MODE_BAD =				(1 << 5)
 };
 
 #define NEG_SIGN	false
