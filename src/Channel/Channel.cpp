@@ -1,7 +1,7 @@
 #include "Channel.hpp"
 #include "string"
 
-const bool Channel::checkUser(User &user) const
+bool Channel::checkUser(User &user) const
 {
 	const std::map<User *, bool>::const_iterator itUser = this->_users.find(&user);
 	if (itUser == this->_users.end())
@@ -10,7 +10,7 @@ const bool Channel::checkUser(User &user) const
 		return true;
 }
 
-const bool Channel::checkUserAdmin(User &user) const
+bool Channel::checkUserAdmin(User &user) const
 {
 	if (checkUser(user) == true)
 	{
@@ -91,22 +91,22 @@ const std::string &Channel::getTopic(void) const
     return this->_topic;
 }
 
-const bool Channel::getInviteOnly(void) const
+bool Channel::getInviteOnly(void) const
 {
 	return this->_inviteOnly;
 }
 
-const bool Channel::getTopicRestrictions(void) const
+bool Channel::getTopicRestrictions(void) const
 {
 	return this->_topicRestrictions;
 }
 
-const unsigned int Channel::getUserLimit() const
+unsigned int Channel::getUserLimit() const
 {
 	return this->_userLimit;
 }
 
-const bool Channel::checkPassword(std::string &password) const
+bool Channel::checkPassword(std::string &password) const
 {
 	return (password == this->_password ? true : false);
 }

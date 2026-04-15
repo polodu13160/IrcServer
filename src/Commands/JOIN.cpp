@@ -20,8 +20,8 @@ Channel	*findChannel(std::string channel, std::vector<Channel> &channels){
 
 std::vector<std::string>	getChannels(const std::vector<std::string> &arg){
 	std::vector<std::string>	chanTab;
-	int	start = 0;
-	int	i = 0;
+	size_t	start = 0;
+	size_t	i = 0;
 
 	for(; i < arg[0].size(); i++){
 		if(arg[0][i] == ','){
@@ -46,7 +46,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 	channel = getChannels(arg);
 	// std::string	channel = arg[0];
 	// std::string	pass = arg[1];
-	for(int i = 0; i < arg.size(); i++){
+	for(size_t i = 0; i < arg.size(); i++){
 		if((arg[i][0] != '#' && arg[i][0] != '&') || arg[i].find(" ") != std::string::npos || arg[i].size() > 50){
 			const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel";
 			send(this->getUserFd(), line.c_str(), line.size(), 0);

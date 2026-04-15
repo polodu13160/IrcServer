@@ -34,7 +34,7 @@ public:
 	void nickCmd(Server& server, const std::vector<std::string> &nickName);
 	void userCmd(Server& server, const std::vector<std::string> &userName);
 	void joinCmd(Server& server, const std::vector<std::string>& arg);
-	void listCmd() const;
+	void listCmd(Server& server, User& user, std::vector<std::string> &channels_string);
 
 	private :
 	int			_userFd;
