@@ -1,7 +1,6 @@
 #include "../inc/Define.hpp"
 #include "../inc/Server.hpp"
 #include <sstream>
-#include <fcntl.h>
 #include <cstring>
 #include <sys/epoll.h>
 
@@ -11,19 +10,6 @@ typedef struct sockaddr SOCKADDR;
 
 
 void  initializeServer(Server &server, char **args) {
-	const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
-	if (serverId == SOCKET_ERROR) {
-		throw Server::errorServerSocket();
-	}
-	server.setServerId(serverId);
-
-	const int opt = 1;
-	if (setsockopt(server.getServerId(), SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int)) != 0)
-		throw Server::errorServerSocket();
-	server.sockaddrInit();
-	if (bind(server.getServerId(), reinterpret_cast<sockaddr *>(&server.getServerSin()), sizeof(SOCKADDR)) == -1)
-		throw Server::errorServerSocket();
-	listen(server.getServerId(), SOMAXCONN);
 	int tmp = fcntl(server.getServerId(), F_GETFL);
 	tmp = tmp | O_NONBLOCK;
 	fcntl(server.getServerId(), F_SETFL, tmp);

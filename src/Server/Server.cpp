@@ -3,10 +3,11 @@
 #include <fstream>
 #include <cstring>
 #include <sstream>
+#include <fcntl.h>
 
 
 
-int	convertPort(const char *arg) {
+static int	convertPort(const char *arg) {
 
 	std::stringstream	ss;
 	int					tmp = 0;
@@ -45,6 +46,10 @@ void	Server::setSocketParams() {
 	if (setsockopt(this->_serverFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int)) != 0)
 		throw Server::errorServerSocket();
 	this->sockaddrInit();
+	if (bind(_serverFd, reinterpret_cast<sockaddr *>(&_sin), sizeof(_sin)) == -1)
+		throw errorServerSocket();
+	listen(_serverFd, SOMAXCONN);
+	fcntl(_serverFd, F_SETFL, O_NONBLOCK);
 }
 
 
@@ -54,11 +59,11 @@ void	Server::setSocketParams() {
 
 bool Server::_isServerWorking = false;
 
-Server::Server(const char *port, const char *password) {
-	
+Server::Server(const char *port, const char *password)
+	: _port(0), _serverFd(0), _sin() {
 	setServerPass(password);
 	setServerPort(port);
-
+	setSocketParams();
 }
 
 Server::Server(Server &other) {
