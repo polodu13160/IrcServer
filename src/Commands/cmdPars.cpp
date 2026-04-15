@@ -121,9 +121,6 @@ void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> a
 void cmdPars::handleList(Server &server, User &user, std::vector<std::string> arg)
 {
 	user.listCmd(server,arg);
-	Server::messageToServer(arg[0].c_str(), NULL);
-
-
 }
 
 void	cmdPars::handlePart(Server &server, User &user, std::vector<std::string> arg){
@@ -171,8 +168,8 @@ void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> ar
 void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
 	//JOIN (channel) [mdp]
-	Server::messageToServer(arg[0].c_str(), NULL);
-	//user.joinCmd(server, arg);
+	// Server::messageToServer(arg[0].c_str(), NULL);
+	user.joinCmd(server, arg);
 }
 
 void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> arg){

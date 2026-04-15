@@ -1,6 +1,9 @@
 #include "Channel.hpp"
 #include "string"
 
+
+
+
 bool Channel::checkUser(User &user) const
 {
 	const std::map<User *, bool>::const_iterator itUser = this->_users.find(&user);

@@ -52,7 +52,7 @@ private:
 	int	_maxChanPerUser;
 
     std::map<int, User> _users;
-	std::map<std::string, Channel> _chanVector;
+	std::map<std::string, Channel> _chanMap;
     
 
 	friend class User;

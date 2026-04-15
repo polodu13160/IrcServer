@@ -6,7 +6,7 @@
 /*   By: pololinux <pololinux@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/15 18:07:57 by pololinux        ###   ########.fr       */
+/*   Updated: 2026/04/15 20:55:31 by pololinux        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,6 @@ public:
     Channel(std::string name, std::string password);
     Channel(const Channel &other);
     ~Channel();
-    // void kick(User &user, User &userKick);
-    // void invite(User &user,User &userInvite );
-    // void topic(User &user, std::string topic);
-    // void mode(char type, User &user);
-    // void join(User &user, std::string password = "");
-
     const std::string &getName(void) const;
     const std::string &getPassword(void) const;
     const std::string &getTopic(void) const;
@@ -57,13 +51,15 @@ private:
     std::string _name;
     Channel();
     Channel &operator=(const Channel &other);
-    bool _inviteOnly;
-    bool _topicRestrictions;
     std::string _password;
     unsigned int _userLimit;
     std::string _topic;
     std::map<User *, bool> _users;
     std::set<User *> _usersInvite;
+
+    //mode
+    bool _inviteOnly;
+    bool _topicRestrictions;
 };
 
 #endif // _CHANNEL_H

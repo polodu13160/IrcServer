@@ -70,7 +70,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 				const std::string line = ":127.0.0.1 405 " + this->getNickname() + " #" + channel[i] + " : You have joined too many channels";
 			}
 			Channel newChan("channel", "");
-			server._chanVector.insert(std::pair<std::string,Channel>(newChan.getName(),newChan));
+			server._chanMap.insert(std::pair<std::string,Channel>(newChan.getName(),newChan));
 			// server._chanVector.insert(newChan.getName(),newChan);
 			newChan.addUser(*this, 1);
 		}
