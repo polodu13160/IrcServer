@@ -86,6 +86,11 @@ const std::string &Channel::getPassword(void) const
 	return this->_password;
 }
 
+const std::string &Channel::getTopic(void) const
+{
+    return this->_topic;
+}
+
 const bool Channel::getInviteOnly(void) const
 {
 	return this->_inviteOnly;

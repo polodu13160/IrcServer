@@ -1,5 +1,5 @@
 #ifndef USER_HPP
-# define USER_HPP
+#define USER_HPP
 
 #include <iostream>
 #include <sstream>
@@ -10,32 +10,32 @@
 
 class Server;
 
-class User{
-	public :
+class User
+{
+public:
 	User();
 	User(int userfd, std::string nickname, std::string username);
 	~User(void);
 
-	const std::string	&getNickname(void)const;
-	const std::string	&getUsername(void)const;
-	const std::string	&getRealname(void)const;
-	const int			&getUserFd(void)const;
-	std::string			getMessage(void);
+	const std::string &getNickname(void) const;
+	const std::string &getUsername(void) const;
+	const std::string &getRealname(void) const;
+	const int &getUserFd(void) const;
+	std::string getMessage(void);
 
-	void	setNickname(std::string nickname);
-	void	setUsername(std::string username);
-	void	setRealname(std::string realname);
-	void	setUserFd(int userFd);
-	void	setMessage(std::string realname);
-
+	void setNickname(std::string nickname);
+	void setUsername(std::string username);
+	void setRealname(std::string realname);
+	void setUserFd(int userFd);
+	void setMessage(std::string realname);
 
 	// CMD
 
-	void nickCmd(Server& server, const std::vector<std::string> &nickName);
-	void userCmd(Server& server, const std::vector<std::string> &userName);
-	void joinCmd(Server& server, User& user, std::string channel, std::string pass);
-	void listCmd() const;
-
+	void nickCmd(Server &server, const std::vector<std::string> &nickName);
+	void userCmd(Server &server, const std::vector<std::string> &userName);
+	void joinCmd(Server &server, User &user, std::string channel, std::string pass);
+	void listCmd(Server &server, User &user, std::vector<std::string> &channels_string);
+	
 	private :
 	int			_userFd;
 	std::string	_nickname;
@@ -46,12 +46,10 @@ class User{
 	bool	hasANickName;
 	bool	hasAUserName;
 	bool	registered;
-
 	friend class Server;
-
 };
 
-void	TokenizeMsg(std::string msg);
-void	getMsg(Server &server, std::string msg, int userFd);
+void TokenizeMsg(std::string msg);
+void getMsg(Server &server, std::string msg, int userFd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pololinux <pololinux@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/14 18:55:48 by pololinux        ###   ########.fr       */
+/*   Updated: 2026/04/15 16:47:20 by pololinux        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ public:
 
     const std::string &getName(void) const;
     const std::string &getPassword(void) const;
+    const std::string &getTopic(void) const;
     const bool getInviteOnly(void) const;
     const bool getTopicRestrictions(void) const;
     const unsigned int getUserLimit() const;
@@ -60,6 +61,7 @@ private:
     bool _topicRestrictions;
     std::string _password;
     unsigned int _userLimit;
+    std::string _topic;
     std::map<User *, bool> _users;
     std::set<User *> _usersInvite;
 };
