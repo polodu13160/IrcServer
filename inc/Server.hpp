@@ -39,6 +39,7 @@ class Server {
     };
 
 	User	*getUser(int fd, Server &server);
+    static void messageToServer(const char *text, ...);
 
 private:
     static bool _isServerWorking;
@@ -51,6 +52,7 @@ private:
 
     std::map<int, User> _users;
 	std::vector<Channel> _chanVector;
+    
 
 	friend class User;
 
