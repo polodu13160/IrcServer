@@ -47,6 +47,7 @@ public:
     bool _topicRestrictions;
     std::string _password;
     unsigned int _userLimit;
+	unsigned int _channelMode;
 };
 
 

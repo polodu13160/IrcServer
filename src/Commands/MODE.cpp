@@ -19,7 +19,7 @@ void	changeMode(unsigned int &checkedMode, const e_modes MODE, bool sign) {
 	checkedMode = static_cast<unsigned int>(tmp.to_ulong());
 }
 
-e_modes	charToMode(char c) {
+e_modes	charToMode(const char c) {
 	switch (c) {
 
 		case 't' :
@@ -40,13 +40,11 @@ e_modes	charToMode(char c) {
 
 void	handleInviteMode(Channel &Channel, std::vector<std::string> &modeStr) {
 
-
 }
 
 void	handleOperatorMode(Server &server, User &user, bool sign) {
 
-	
-
+	//
 
 }
 
