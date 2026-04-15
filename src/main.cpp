@@ -85,7 +85,10 @@ void  initializeServer(Server &server, char **args) {
 				recv(userEvent[i].data.fd, &buffer, 128, 0);
 				getMsg(server, buffer, clientFd);
 				// TokenizeMsg(buffer);
-				// std::cout << buffer << std::endl;
+				#if (DEBUG==1) 
+					std::cout << buffer << std::endl;
+				#endif
+				//std::cout << buffer << std::endl;
 				// if (std::strstr(buffer, "\r\n") ) {
 				// 	std::cout << "YES" << std::endl;
 				// }

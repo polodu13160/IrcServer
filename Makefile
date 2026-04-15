@@ -1,4 +1,4 @@
-.PHONY : init all re clean fclean
+.PHONY : init all re clean fclean debug
 CXX = c++
 FLAGS = -Wall -Wextra  -MMD -MP -g3 -std=c++98 -Iinc
 NAME = IrcServer
@@ -18,7 +18,8 @@ $(NAME): $(OBJS)
 	$(CXX) $(FLAGS) $(OBJS) -o $(NAME) 
 -include $(DEPS)
 
-
+debug: FLAGS += -DDEBUG=1
+debug : re
 
 clean:
 	rm -rf $(OBJ_DIR)
