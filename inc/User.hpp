@@ -31,17 +31,19 @@ public:
 
 	// CMD
 
-	void nickCmd(Server &server, const std::vector<std::string> &nickName);
-	void userCmd(Server &server, const std::vector<std::string> &userName);
-	void joinCmd(Server &server, User &user, std::string channel, std::string pass);
-	void listCmd(Server &server, User &user, std::vector<std::string> &channels_string);
-	
+	void nickCmd(Server& server, const std::vector<std::string> &nickName);
+	void userCmd(Server& server, const std::vector<std::string> &userName);
+	void joinCmd(Server& server, const std::vector<std::string>& arg);
+	void listCmd() const;
+
 	private :
 	int			_userFd;
 	std::string	_nickname;
 	std::string	_username;
 	std::string	_realname;
 	std::string	message;
+
+	int	nbChannelRegistered;
 
 	bool	hasANickName;
 	bool	hasAUserName;
