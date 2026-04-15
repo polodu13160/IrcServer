@@ -121,7 +121,7 @@ void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> a
 void cmdPars::handleList(Server &server, User &user, std::vector<std::string> arg)
 {
 	user.listCmd(server,arg);
-	Server::messageToServer("ok c marche", NULL);
+	Server::messageToServer(arg[0].c_str(), NULL);
 
 
 }
