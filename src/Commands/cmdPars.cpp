@@ -120,7 +120,10 @@ void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> a
 
 void cmdPars::handleList(Server &server, User &user, std::vector<std::string> arg)
 {
-	user.listCmd(server,user,arg);
+	user.listCmd(server,arg);
+	Server::messageToServer("ok c marche", NULL);
+
+
 }
 
 void	cmdPars::handlePart(Server &server, User &user, std::vector<std::string> arg){
@@ -168,7 +171,8 @@ void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> ar
 void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
 	//JOIN (channel) [mdp]
-	user.joinCmd(server, arg);
+	Server::messageToServer(arg[0].c_str(), NULL);
+	//user.joinCmd(server, arg);
 }
 
 void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> arg){
@@ -178,6 +182,7 @@ void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> ar
 	if(!arg[0].empty()){
 		// aide sur cmd arg[0]
 		std::cout << "[How to use] [cmd]" << arg[0] << std::endl;
+
 	}
 	else{
 		//liste des commandes
@@ -186,7 +191,6 @@ void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> ar
 }
 
 void	cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args){
-	Server::messageToServer(cmd.c_str(), NULL);
 	std::map<std::string, void (cmdPars::*)(Server&, User&, std::vector<std::string>)>::iterator it = this->_handlerTab.find(cmd);
 	if(it != this->_handlerTab.end()){
 		(this->*(it->second))(server, user, args);
