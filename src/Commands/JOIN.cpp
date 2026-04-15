@@ -1,13 +1,5 @@
-#include "../../inc/User.hpp"
+#include "User.hpp"
 
-Channel	*findChannel(std::string channel, std::vector<Channel> &channels){
-	std::vector<Channel>::iterator it;
-	for(it = channels.begin(); it != channels.end(); it++){
-		if(it->getName() == channel)
-			return it.base();
-	}
-	return NULL;
-}
 
 // bool	isMember(Channel *channel, User &user){
 // 	std::map<User*, bool>::iterator	it;
@@ -51,7 +43,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 			const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel";
 			send(this->getUserFd(), line.c_str(), line.size(), 0);
 		}
-		Channel	*dest = findChannel(channel[i], server._chanVector);
+		Channel	*dest = server.findChannel(channel[i]);
 		if(dest){
 			// check si invite only chan quand les getters sont fait dans channel X
 			if(dest->getInviteOnly()){
@@ -78,7 +70,8 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 				const std::string line = ":127.0.0.1 405 " + this->getNickname() + " #" + channel[i] + " : You have joined too many channels";
 			}
 			Channel newChan("channel", "");
-			server._chanVector.push_back(newChan);
+			server._chanVector.insert(std::pair<std::string,Channel>(newChan.getName(),newChan));
+			// server._chanVector.insert(newChan.getName(),newChan);
 			newChan.addUser(*this, 1);
 		}
 		this->nbChannelRegistered++;

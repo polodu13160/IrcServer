@@ -31,6 +31,7 @@ class Server {
     // User createUserInstance(int userFd, char* info);
 
     // User	*createUserInstance(int userFd, char *info);
+    Channel	*findChannel(std::string channel);
 
 
     class errorServerSocket : public std::exception {
@@ -51,7 +52,7 @@ private:
 	int	_maxChanPerUser;
 
     std::map<int, User> _users;
-	std::vector<Channel> _chanVector;
+	std::map<std::string, Channel> _chanVector;
     
 
 	friend class User;

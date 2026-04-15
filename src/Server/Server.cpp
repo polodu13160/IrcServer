@@ -34,7 +34,19 @@ void Server::messageToServer(const char *text, ...)
     std::cout << std::endl;
 }
 
-
+Channel	*Server::findChannel(std::string channel)
+{
+	Channel *ChannelFind = NULL;
+	std::map<std::string, Channel>::iterator it;
+	for(it = this->_chanVector.begin(); it != this->_chanVector.end(); it++){
+		if(it->second.getName() == channel)
+		{
+			ChannelFind = &it->second;
+			break;
+		}
+	}
+	return ChannelFind;
+}
 
 // SERVER CLASS CREATION
 
