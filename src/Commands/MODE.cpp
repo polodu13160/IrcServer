@@ -38,7 +38,14 @@ e_modes	charToMode(char c) {
 }
 
 
-void	handleInviteMode(bool sign, Server &server, std::vector<std::string> &modeStr) {
+void	handleInviteMode(Channel &Channel, std::vector<std::string> &modeStr) {
+
+
+}
+
+void	handleOperatorMode(Server &server, User &user, bool sign) {
+
+	
 
 
 }
@@ -60,7 +67,7 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 		}
 		else {
 			e_modes mode = charToMode(str[i]);
-			
+
 
 			switch (mode) {
 
@@ -71,7 +78,7 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 				case MODE_LIMIT_SET :
 					// handleLimitMode(sign, modeStr);
 				case MODE_OPERATOR :
-					// handleOperatorMode(sign)
+					handleOperatorMode(server, *this, sign);
 				case MODE_TOPIC_RESTRICT :
 					// handleTopicRestrict(sign)
 				case MODE_BAD :
