@@ -1,104 +1,88 @@
 #include "cmdPars.hpp"
+#include <sstream>
+#include <ctime>
 
-void User::topicCmd(Server& server, std::vector<std::string> channels_string) {
+
+
+void User::topicCmd(Server &server, std::vector<std::string> args)
+{
+
     std::string nameServer = HOST;
     nameServer.insert(0, ":");
     std::string sendMessage;
-    if (channels_string.empty())
+    if (args[0].empty())
     {
-        sendMessage = nameServer + " 461 "+ this->_nickname +" TOPIC" + " :Pas assez de parametres ptn [#channel] optionnel: :NewTopic";
-        send(this->getUserFd(),sendMessage.c_str(), sendMessage.size(), 0); //ERR_NEEDMOREPARAMS 
+        // si pas d'arguments ce fou envoie juste topic sans rien 
+        sendMessage = nameServer + " 461 " + this->_nickname + " TOPIC" + " :Pas assez de parametres ptn [#channel] optionnel: :NewTopic";
+        send(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_NEEDMOREPARAMS
         return;
     }
-    Channel *channel = server.findChannel(channels_string[0]);
+    Channel *channel = server.findChannel(args[0]);
     if (channel == NULL)
     {
-        sendMessage = nameServer + "403 "+ this->_nickname + " " + channel->getName() + " Moi pas te comprendre pas channel trouvé encule";
-        send(this->getUserFd(),sendMessage.c_str(), sendMessage.size(), 0); //ERR_NOSUCHCHANNEL (403)
+        //si le channel n'est pas trouve
+        sendMessage = nameServer + " 403 " + this->_nickname + " " + args[0] + " :Moi pas te comprendre pas channel trouvé \r\n";
+        send(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_NOSUCHCHANNEL (403)
         return;
     }
-    /*
-    faire la condition si lutilisatuer ne se trouve pas dans le channel 
-        ERR_NOTONCHANNEL (442) 
-        "<client> <channel> :You're not on that channel"
-            Returned when a client tries to perform a channel-affecting command on a channel which the client isn’t a part of.
-    
-        verifier si il veut l'afficher ou bien le modifier 
-        si afficher alors plus d'autres args 
-            RPL_TOPIC (332) 
-            "<client> <channel> :<topic>"
-            Sent to a client when joining the <channel> to inform them of the current topic of the channel.
-            ou bien si topic vide 
-            RPL_NOTOPIC (331) 
-            "<client> <channel> :No topic is set"
-            Sent as a reply to the TOPIC command to inform the client that the channel with the name <channel> does not have any topic set.
+    if (channel->checkUser(*this) == false)
+    {
+        //si l'utilisateur n'est pas dans le channel
+        sendMessage = nameServer + " 442 " + this->_nickname + " " + channel->getName() + " :ty es pas tu vois pas sinon ca va mal se passer pour toi \r\n";
+        send(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_NOTONCHANNEL
+        return;
+    }
+    if (args.size() >= 2)
+    {
+        //si il veut modifier le topic
+        if (args[1][0] == ':')
+            args[1].erase(0,1);
 
-        sinon modifier (supprimer le :)
-            verifier si il n'y a pas de restrictions sur le channel
-                si oui et qu'il nest pas admin du channel
-                    ERR_CHANOPRIVSNEEDED (482) 
-                      "<client> <channel> :You're not channel operator"
-                    Indicates that a command failed because the client does not have the appropriate channel 
-                    privileges. This numeric can apply for different prefixes such as halfop, operator, 
-                    etc. The text used in the last param of this message may vary.
-                SI oui et qu'il est admin du channel 
-                    RPL_TOPICWHOTIME (333) 
-                    "<client> <channel> <nick> <setat>"
-                    
-                    Sent to a client to let them know who set the topic (<nick>) and when they set it (<setat> is a unix timestamp). Sent after RPL_TOPIC (332).
-                si non pas de restictions pareil que ce qui est juste au dessus
+        if (channel->getTopicRestrictions() == true && channel->checkUserAdmin(*this) == false)
+        {
+            //si ya des permissions et que l'utilisateur n'est pas admin
+            sendMessage = nameServer + " 482 " + this->_nickname + " " + channel->getName() + " :t'essaie de modifier mais t'as pas les droits looser \r\n";
+            send(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_CHANOPRIVSNEEDED
+            return;
+        }
+        // si il envoie rien donc juste : (si c lutilisateur qui met :)
+        if (args[1][0] == ':' && args[1].size() == 1)
+            channel->setTopic("");
+        else
+            channel->setTopic(args[1].c_str());
+        //preparation de la modif a envoyer a tout le monde
+        sendMessage = this->_nickname + "!" + this->getUsername() + " TOPIC " + channel->getName() + " :" + channel->getTopic() + "\r\n";
+        if (sendMessage.size() >= MAX_SIZE_MESSAGE)
+        {
+            sendMessage.erase(511);
+            sendMessage += "\r\n";
+        }
+        channel->sendMsgUserForOthersUsersChannel(*this, sendMessage);
+        send(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0);
+        channel->setNickNameModifTopicLast(this->_nickname);
+        channel->setTimeUnixModifTopicLast(server.timeNow());
+    }
+    else
+    {
+        
+        // c ici que tu rentreras lucas pour recup topic
+        if (channel->getTopic().empty() == true)
+        {
+            //si pas de topic sur le server
+            sendMessage = nameServer + " 331 " + this->_nickname + " " + channel->getName() + " :" + "Il n'y a rien a voir ici ce channel est vide de sens" + "\r\n"; 
+            //RPL_NOTOPIC
+            send(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0);
+        }
+        else 
+        {
+            //si pas topic sur le server
+            sendMessage = nameServer + " 332 " + this->_nickname + " " + channel->getName() + " :" + channel->getTopic() + "\r\n"; 
+            //RPL_TOPIC
+            send(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0);
+            sendMessage = nameServer + " 333 " + this->_nickname + " " + channel->getName() + " " + channel->getNickNameModifTopicLast() + " " + channel->getTimeUnixModifTopicLast() + "\r\n"; 
+            //RPL_TOPICWHOTIME
+            send(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0);
 
-                et pour les autres clients 
-                    :<source> TOPIC <channel> :<new_topic>\r\n
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    */
-
-
-
-
-
-
-
-
-
-
-
-
-    // if (this->checkUser(user) == true) {
-	// if (this->checkUserAdmin(user) == true) {
-	//     // TODO: faire le message a envoyer au channel pour modifier le
-	//     // channel;
-	//     // TODO: faire le message a envoyer au client pour confirmer que le
-	//     // channel a ete modifie
-	// } else {
-	//     if (this->_topicRestrictions == true) {
-	// 	for (int i = 0; this->_users.size() > i; i++) {
-	// 	    // TODO: faire le message a envoyer au channel pour modifier
-	// 	    // le channel;
-	// 	}
-	//     } else {
-	// 	// TODO: faire le message pour dire a l'utilisateur qu'il ne
-	// 	// peut pas modifier le topic
-	//     }
-	// }
-    // } else {
-	// // ne rien faire
-    // }
+        }
+    }
 }

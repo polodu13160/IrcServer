@@ -6,7 +6,7 @@
 /*   By: pololinux <pololinux@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/16 17:13:31 by pololinux        ###   ########.fr       */
+/*   Updated: 2026/04/16 22:01:53 by pololinux        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,19 @@ public:
     void setName(std::string name);
     void setPassword(std::string name);
     void setUserLimit(unsigned int val);
+    void setTopic(const char *val);
     void addUser(User &user, bool admin);
     void addUserInvite(User &user);
     void deletedUser(User &user);
     const std::vector<User *> allUsersInVector() const;
+    //lucas utilise ca pour les message au server
+    // je gere pour voir si c un utilisateur ou un admin donc pas de : ou de 
+    //@ avant tu peux je gere aussi si tu le mets sans faire expres
+    void sendMsgUserForOthersUsersChannel(User &user, std::string &msg) const;
+    const std::string getNickNameModifTopicLast() const;
+    void setNickNameModifTopicLast(std::string &lastNickName);
+    const std::string getTimeUnixModifTopicLast() const;
+    void setTimeUnixModifTopicLast(const std::string &time_val) ;
 
 	unsigned int _modeStock	;
 
@@ -59,6 +68,8 @@ private:
 	unsigned int _userLimit;
 	std::string _password;
 	std::string _topic;
+    std::string _nickNameLastModifTopic;
+    std::string _lastTimeUnixModifTopic;
 	std::map<User *, bool> _users;
 	std::set<User *> _usersInvite;
 

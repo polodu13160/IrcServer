@@ -11,12 +11,23 @@
 
 // SERVER OPTIONS
 
+#ifndef INVALID_SOCKET
 #define INVALID_SOCKET  (-1)
+#endif
+#ifndef SOCKET_ERROR
 #define SOCKET_ERROR    (-1)
+#endif
+#ifndef PORT
 #define PORT			6667
+#endif
+#ifndef HOST
 #define HOST			"127.0.0.1"
+#endif
 #ifndef DEBUG 
 #define DEBUG          0
+#endif
+#ifndef MAX_SIZE_MESSAGE
+#define MAX_SIZE_MESSAGE 512
 #endif
 
 typedef int SOCKET;
