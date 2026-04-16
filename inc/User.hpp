@@ -37,6 +37,7 @@ class User{
 	void modeCmd(Server& server, const std::vector<std::string> &userName);
 	void joinCmd(Server &server, const std::vector<std::string>& arg);
 	void listCmd(Server &server, std::vector<std::string> channels_string);
+	void pongCmd(const std::vector<std::string> &arg) const;
 
 
 	private :

@@ -74,6 +74,8 @@ void	Server::EpollInstance() {
 
 	int clientFd = 0;
 
+	std::cout << RED << "SERVER INITIALISATION DONE !" << RESET << std::endl;
+
 	while (true) {
 		const int ready = epoll_wait(epollInstance, userEvent, 64, -1);
 
@@ -93,7 +95,7 @@ void	Server::EpollInstance() {
 					ev.data.fd = clientFd;
 					epoll_ctl(epollInstance, EPOLL_CTL_ADD, clientFd, &ev);
 					this->setUserFd(clientFd);
-					std::cout << "Connexion acceptée Nouveau FD client : " << clientFd << std::endl;
+					std::cout << GREEN << "NEW USER CONNECTED, FD = " << clientFd << RESET << std::endl;
 				}
 			}
 			else {
@@ -110,7 +112,9 @@ void	Server::EpollInstance() {
 					i++;
 				}
 				getMsg(*this, buffer, clientFd);
+				std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
 				std::cout << buffer << std::endl;
+				std::cout << CYAN << "END OF MSG " << RESET << std::endl;
 			}
 		}
 	}

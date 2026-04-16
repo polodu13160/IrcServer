@@ -9,15 +9,16 @@
 typedef struct sockaddr SOCKADDR;
 
 
-int main (int ac, char **av) {
+int main (const int ac, char **av) {
 	if (ac == 3) {
 
 		try {
-			Server  server(av[2], av[1]);
+			Server  server(av[1], av[2]);
 		}
 		catch (std::exception &e) {
 			std::cout << e.what() << std::endl;
 		}
-
 	}
+	else
+		std::cerr << "Please provide 2 Arguments as : ./IrcServer [PORT] [PASSWORD]" << std::endl;
 }
