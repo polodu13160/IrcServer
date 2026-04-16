@@ -115,6 +115,15 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 	bool	sign = true;
 	const std::string	str = modeStr[0];
 
+	Channel	*chann = server.findChannel(modeStr[1]);
+	if (chann == NULL) {
+		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[1] + " :No such channel\r\n";
+		send(this->_userFd, line.c_str(), line.size(), 0);
+		return;
+	}
+	// if (chann.)
+	// Verifier si dans chann operator  this est present !
+
 	for (size_t i = 0; i < str.size(); i++) {
 
 		if (str[i] == '-' || str[i] == '+') {
@@ -125,7 +134,6 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 		}
 		else {
 			e_modes mode = charToMode(str[i]);
-
 
 			switch (mode) {
 
