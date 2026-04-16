@@ -112,9 +112,12 @@ void	Server::EpollInstance() {
 					i++;
 				}
 				getMsg(*this, buffer, clientFd);
-				std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
-				std::cout << buffer << std::endl;
-				std::cout << CYAN << "END OF MSG " << RESET << std::endl;
+				#if (DEBUG==1) 
+				// std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
+				// std::cout << buffer << std::endl;
+				// std::cout << CYAN << "END OF MSG " << RESET << std::endl;
+				#endif //DEBUG
+				
 			}
 		}
 	}

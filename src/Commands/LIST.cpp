@@ -9,9 +9,6 @@ void User::listCmd(Server &server, std::vector<std::string> channels_string)
     send(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0); // RPL_LISTSTART
     if (channels_string.empty() == true)
     {
-        #if (DEBUG == 1)
-            Server::messageToServer("1", NULL);
-        #endif // DEBUG
         std::map<std::string, Channel>::iterator it;
 
         for (it = server._chanMap.begin(); it != server._chanMap.end(); it++)

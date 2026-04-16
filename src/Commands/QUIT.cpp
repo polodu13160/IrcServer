@@ -3,9 +3,6 @@
 void User::quitCmd(Server &server)
 {
     std::string messageSend = "ERROR :Tu as quitté le serveur fdp\r\n";
-    #if (DEBUG==1) 
-    std::cout << this->_userFd << std::endl;
-    #endif //DEBUG
     send(this->_userFd, messageSend.c_str(), messageSend.size(), 0);
     std::set<User *> concernedUsers;
     for (std::map<std::string, Channel>::iterator it = server._chanMap.begin(); it != server._chanMap.end(); it++)
@@ -17,7 +14,7 @@ void User::quitCmd(Server &server)
                 concernedUsers.insert(*it2);
         }
     }
-    messageSend = ":" + this->_nickname + "-!" + this->_username + " QUIT" + " : Vous pouvez enfin le critiquer, il est enfin parti \r\n";
+    messageSend = ":" + this->_nickname + "!" + this->_username + " QUIT" + " : Vous pouvez enfin le critiquer, il est enfin parti \r\n";
     for (std::set<User *>::iterator it = concernedUsers.begin(); it != concernedUsers.end(); it++)
         send((*it)->_userFd, messageSend.c_str(), messageSend.size(), 0);
     
