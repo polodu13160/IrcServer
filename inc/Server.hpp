@@ -28,7 +28,7 @@ class Server {
 	void setServerPort(const char *str);
 	void setServerPass(const char *password);
 	void setSocketParams();
-
+	void EpollInstance();
 
 
 	// Ancienne classe
@@ -51,20 +51,20 @@ class Server {
 		virtual const char* what() const throw();
 	};
 
-	class errorBadPort : public std::exception {
-	public:
-		virtual const char* what() const throw();
-	};
+	// class errorBadPort : public std::exception {
+	// public:
+	// 	virtual const char* what() const throw();
+	// };
 
 	class errorSetSockOpt : public std::exception {
 	public:
 		virtual const char* what() const throw();
 	};
 
-	class errorBind : public std::exception {
-	public:
-		virtual const char* what() const throw();
-	};
+	// class errorBind : public std::exception {
+	// public:
+	// 	virtual const char* what() const throw();
+	// };
 
 private:
     static bool _isServerWorking;
