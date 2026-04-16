@@ -7,9 +7,9 @@ void User::listCmd(Server &server, std::vector<std::string> channels_string)
     send(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0); // RPL_LISTSTART
     if (channels_string.empty() == true)
     {
-#if (DEBUG == 1)
-        Server::messageToServer("1", NULL);
-#endif // DEBUG
+        #if (DEBUG == 1)
+            Server::messageToServer("1", NULL);
+        #endif // DEBUG
         std::map<std::string, Channel>::iterator it;
 
         for (it = server._chanMap.begin(); it != server._chanMap.end(); ++it)
@@ -21,7 +21,7 @@ void User::listCmd(Server &server, std::vector<std::string> channels_string)
                         << " :" << it->second.getTopic() << "\r\n";
 
             lineSend = prepareSend.str();
-            send(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0);
+            send(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0); // RPL_LIST
         }
     }
     else
@@ -37,7 +37,7 @@ void User::listCmd(Server &server, std::vector<std::string> channels_string)
                             << " " << channelFind->getUsers().size()
                             << " :" << channelFind->getTopic() << "\r\n";
                 lineSend = prepareSend.str();
-                send(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0);
+                send(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0); // RPL_LIST
             }
         }
     }
