@@ -16,6 +16,7 @@ cmdPars::cmdPars(void){
 	this->_handlerTab["HELP"] = &cmdPars::handleHelp;
 	this->_handlerTab["USER"] = &cmdPars::handleUser;
 	this->_handlerTab["LIST"] = &cmdPars::handleList;
+	this->_handlerTab["PING"] = &cmdPars::handlePong;
 }
 
 cmdPars::~cmdPars(){}
@@ -93,6 +94,13 @@ void	cmdPars::handleMode(Server &server, User &user, std::vector<std::string> ar
 	else{
 		std::cout << "First parameter must be a channel beginning with '#'" << std::endl;
 	}
+}
+
+void cmdPars::handlePong(Server &server, User &user, std::vector<std::string> arg)
+{
+	(void)server;
+	(void)user;
+	user.pongCmd(arg);
 }
 
 void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> arg){
