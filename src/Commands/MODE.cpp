@@ -38,18 +38,46 @@ e_modes	charToMode(const char c) {
 }
 
 
-// void	handleInviteMode(Channel &channel, User &user, bool sign) {
-//
-// 	User *tmp = channel._users.find(user);
-// 	if (Channel._users)
-//
-// }
-//
+void	handleInviteMode(Server &server, bool sign, std::vector<std::string> &modeStr) {
+	Channel	*chann = server.findChannel(modeStr[1]);
+	if (chann == NULL) {
+		std::cout << "Channel doesn't exist" << std::endl;
+		return;
+	}
+	if (sign == true)
+		changeMode(chann->_modeStock, MODE_INVITE_O, true);
+	else
+		changeMode(chann->_modeStock, MODE_INVITE_O, false);
+}
+
 // void	handleOperatorMode(Server &server, User &user, bool sign) {
 //
-// 	//
-//
+// 	Channel	*chann = server.findChannel(modeStr[1]);
+// 	if (chann == NULL) {
+// 		std::cout << "Channel doesn't exist" << std::endl;
+// 		return;
+// 	}
+// 	/*
+// 	 * if (sign == true)
+// 	 *	chann.addOperator(User)
+// 	 *
+// 	 * else
+// 	 *	non
+// 	 */
 // }
+
+void	handleTopicMode(Server &server, bool sign, std::vector<std::string> &modeStr) {
+
+	Channel	*chann = server.findChannel(modeStr[1]);
+	if (chann == NULL) {
+		std::cout << "Channel doesn't exist" << std::endl;
+		return;
+	}
+	if (sign == true) 
+		changeMode(chann->_modeStock, MODE_TOPIC_RESTRICT, true);
+	else
+		changeMode(chann->_modeStock, MODE_TOPIC_RESTRICT, false);
+}
 
 void	handleKeyMode(Server &server, bool sign, std::vector<std::string> &modeStr) {
 
@@ -67,12 +95,34 @@ void	handleKeyMode(Server &server, bool sign, std::vector<std::string> &modeStr)
 	}
 }
 
+void	handleLimitMode(Server &server, bool sign, std::vector<std::string> &modeStr) {
+
+	Channel	*chann = server.findChannel(modeStr[1]);
+	if (chann == NULL) {
+		std::cout << "Channel doesn't exist" << std::endl;
+		return;
+	}
+	if (sign == true)
+		chann->setUserLimit(true);
+	else
+		chann->setUserLimit(false);
+}
 
 
-void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
+
+void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 
 	bool	sign = true;
 	const std::string	str = modeStr[0];
+
+	Channel	*chann = server.findChannel(modeStr[1]);
+	if (chann == NULL) {
+		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[1] + " :No such channel\r\n";
+		send(this->_userFd, line.c_str(), line.size(), 0);
+		return;
+	}
+	// if (chann.)
+	// Verifier si dans chann operator  this est present !
 
 	for (size_t i = 0; i < str.size(); i++) {
 
@@ -85,19 +135,18 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 		else {
 			e_modes mode = charToMode(str[i]);
 
-
 			switch (mode) {
 
 				case MODE_INVITE_O :
-					// handleInviteMode(server, *this, sign);
+					handleInviteMode(server, sign, modeStr);
 				case MODE_KEY_SET :
 					handleKeyMode(server, sign, modeStr);
 				case MODE_LIMIT_SET :
-					// handleLimitMode(sign, modeStr);
+					handleLimitMode(server, sign, modeStr);
 				case MODE_OPERATOR :
-					// handleOperatorMode(server, *this, sign);
+					// handleOperatorMode(server, sign, modeStr);
 				case MODE_TOPIC_RESTRICT :
-					// handleTopicRestrict(sign)
+					handleTopicMode(server, sign, modeStr);
 				case MODE_BAD :
 					// send err_badmod
 			}
