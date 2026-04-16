@@ -19,7 +19,6 @@ public:
 	void handleKick(Server &server, User &user, std::vector<std::string> args);
 	void handleMode(Server &server, User &user, std::vector<std::string> args);
 	void handleInvite(Server &server, User &user, std::vector<std::string> args);
-	void handleTopic(Server &server, User &user, std::vector<std::string> args);
 	void handlePart(Server &server, User &user, std::vector<std::string> args);
 	void handleNick(Server &server, User &user, std::vector<std::string> args);
 	void handleQuit(Server &server, User &user, std::vector<std::string> args);
