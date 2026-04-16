@@ -146,3 +146,17 @@ bool Channel::checkPassword(std::string &password) const
 // Channel &Channel::operator=(const Channel &other)
 // {
 // }
+
+User *Channel::getUserByNickname(const std::string &nickname){
+	std::map<User *, bool>::iterator	it;
+	for(it = this->_users.begin(); it != this->_users.end(); ++it){
+		if(it->first->getNickname() == nickname) {
+
+			User *usr = it->first;
+			return usr;
+		}
+	}
+	return NULL;
+}
+
+

@@ -110,6 +110,15 @@ User	*Server::getUser(int fd, Server &server){
 	return NULL;
 }
 
+User	*Server::getUserbyNickname(std::string nickname){
+	std::map<int, User>::iterator	it;
+	for(it = this->_users.begin(); it != this->_users.end(); ++it){
+		if(it->second.getNickname() == nickname)
+			return &it->second;
+	}
+	return NULL;
+}
+
 const char *Server::errorServerSocket::what() const throw() {
 	return "Error\nServer Socket ID is equal to SOCKET_ERROR.";
 }

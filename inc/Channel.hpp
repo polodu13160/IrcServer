@@ -44,6 +44,8 @@ public:
     void addUser(User &user, bool admin);
     void addUserInvite(User &user);
 
+	User *getUserByNickname(const std::string &nickname);
+
 	unsigned int _modeStock	;
 
 
