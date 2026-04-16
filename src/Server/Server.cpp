@@ -25,7 +25,7 @@ void Server::setServerPort(const char *str) {
 
 	const int	newPort = convertPort(str);
 	if (newPort == -1)
-		throw Server::errorServerSocket();
+		throw Server::errorBadPort();
 	this->_port = newPort;
 }
 
@@ -119,10 +119,6 @@ void Server::sockaddrInit() {
 
 // SERVER CLASS OUT AND EXCEPTIONS
 
-const char *Server::errorServerSocket::what() const throw() {
-	return "Error\nServer Socket ID is equal to SOCKET_ERROR";
-}
-
 std::ostream& operator<<(std::ostream& os, Server& server) {
 
 	os << "Server socket = " << server.getServerId() << std::endl <<
@@ -137,4 +133,12 @@ User	*Server::getUser(int fd, Server &server){
 			return &it->second;
 	}
 	return NULL;
+}
+
+const char *Server::errorServerSocket::what() const throw() {
+	return "Error\nServer Socket ID is equal to SOCKET_ERROR.";
+}
+
+const char *Server::errorSetSockOpt::what() const throw() {
+	return "Error\nBad Port provided.";
 }

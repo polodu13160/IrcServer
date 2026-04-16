@@ -33,10 +33,7 @@ class Server {
 
 	// Ancienne classe
 
-    void	setServerId(const SOCKET socketId);
-	void	setUserfd(int fd);
-    int		getServerId() const;
-	int		getServerPort();
+	void	setUserFd(int fd);
 	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
     void	sockaddrInit();
@@ -44,13 +41,28 @@ class Server {
 
     // User	*createUserInstance(int userFd, char *info);
 
-
-    class errorServerSocket : public std::exception {
-      public:
-        virtual const char* what() const throw();
-    };
-
 	User	*getUser(int fd, Server &server);
+
+
+	class errorServerSocket : public std::exception {
+	public:
+		virtual const char* what() const throw();
+	};
+
+	class errorBadPort : public std::exception {
+	public:
+		virtual const char* what() const throw();
+	};
+
+	class errorSetSockOpt : public std::exception {
+	public:
+		virtual const char* what() const throw();
+	};
+
+	class errorBind : public std::exception {
+	public:
+		virtual const char* what() const throw();
+	};
 
 private:
     static bool _isServerWorking;
@@ -66,6 +78,6 @@ private:
 
 };
 
-std::ostream&	operator<<(std::ostream& os, Server &server);
+// std::ostream&	operator<<(std::ostream& os, Server &server);
 
 #endif
