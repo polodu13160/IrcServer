@@ -16,9 +16,14 @@ cmdPars::cmdPars(void){
 	this->_handlerTab["HELP"] = &cmdPars::handleHelp;
 	this->_handlerTab["USER"] = &cmdPars::handleUser;
 	this->_handlerTab["LIST"] = &cmdPars::handleList;
+	this->_handlerTab["PASS"] = &cmdPars::handlePass;
 }
 
 cmdPars::~cmdPars(){}
+
+void	cmdPars::handlePass(Server &server, User &user, std::vector<std::string> arg) {
+	user.passCmd(server, arg);
+}
 
 std::string	removeFirstChar(std::vector<std::string> arg, int i){
 	std::string newStr;

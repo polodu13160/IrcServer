@@ -37,19 +37,6 @@ e_modes	charToMode(const char c) {
 	}
 }
 
-
-void	handleInviteMode(Server &server, bool sign, std::vector<std::string> &modeStr) {
-	Channel	*chann = server.findChannel(modeStr[1]);
-	if (chann == NULL) {
-		std::cout << "Channel doesn't exist" << std::endl;
-		return;
-	}
-	if (sign == true)
-		changeMode(chann->_modeStock, MODE_INVITE_O, true);
-	else
-		changeMode(chann->_modeStock, MODE_INVITE_O, false);
-}
-
 // void	handleOperatorMode(Server &server, User &user, bool sign) {
 //
 // 	Channel	*chann = server.findChannel(modeStr[1]);
@@ -66,46 +53,39 @@ void	handleInviteMode(Server &server, bool sign, std::vector<std::string> &modeS
 // 	 */
 // }
 
-void	handleTopicMode(Server &server, bool sign, std::vector<std::string> &modeStr) {
+void	handleInviteMode(Server &server, Channel &chann, bool sign, std::vector<std::string> &modeStr) {
 
-	Channel	*chann = server.findChannel(modeStr[1]);
-	if (chann == NULL) {
-		std::cout << "Channel doesn't exist" << std::endl;
-		return;
-	}
-	if (sign == true) 
-		changeMode(chann->_modeStock, MODE_TOPIC_RESTRICT, true);
+	if (sign == true)
+		changeMode(chann._modeStock, MODE_INVITE_O, true);
 	else
-		changeMode(chann->_modeStock, MODE_TOPIC_RESTRICT, false);
+		changeMode(chann._modeStock, MODE_INVITE_O, false);
 }
 
-void	handleKeyMode(Server &server, bool sign, std::vector<std::string> &modeStr) {
+void	handleTopicMode(Server &server, Channel &chann, bool sign, std::vector<std::string> &modeStr) {
 
-	Channel	*chann = server.findChannel(modeStr[1]);
-	if (chann == NULL) {
-		std::cout << "Channel doesn't exist" << std::endl;
-		return;
-	}
+	if (sign == true) 
+		changeMode(chann._modeStock, MODE_TOPIC_RESTRICT, true);
+	else
+		changeMode(chann._modeStock, MODE_TOPIC_RESTRICT, false);
+}
+
+void	handleKeyMode(Server &server, Channel &chann, bool sign, std::vector<std::string> &modeStr) {
+
 	if (sign == true) {
-		changeMode(chann->_modeStock, MODE_KEY_SET, true);
-		chann->setPassword(modeStr[2]);
+		changeMode(chann._modeStock, MODE_KEY_SET, true);
+		chann.setPassword(modeStr[2]);
 	}
 	else {
-		changeMode(chann->_modeStock, MODE_KEY_SET, false);
+		changeMode(chann._modeStock, MODE_KEY_SET, false);
 	}
 }
 
-void	handleLimitMode(Server &server, bool sign, std::vector<std::string> &modeStr) {
+void	handleLimitMode(Server &server, Channel &chann, bool sign, std::vector<std::string> &modeStr) {
 
-	Channel	*chann = server.findChannel(modeStr[1]);
-	if (chann == NULL) {
-		std::cout << "Channel doesn't exist" << std::endl;
-		return;
-	}
 	if (sign == true)
-		chann->setUserLimit(true);
+		chann.setUserLimit(true);
 	else
-		chann->setUserLimit(false);
+		chann.setUserLimit(false);
 }
 
 
@@ -122,7 +102,7 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 		return;
 	}
 	// if (chann.)
-	// Verifier si dans chann operator  this est present !
+	// 	Verifier si dans chann operator  this est present !
 
 	for (size_t i = 0; i < str.size(); i++) {
 
@@ -138,15 +118,20 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 			switch (mode) {
 
 				case MODE_INVITE_O :
-					handleInviteMode(server, sign, modeStr);
+					handleInviteMode(server, chann, sign, modeStr);
+					break;
 				case MODE_KEY_SET :
-					handleKeyMode(server, sign, modeStr);
+					handleKeyMode(server, chann, sign, modeStr);
+					break;
 				case MODE_LIMIT_SET :
-					handleLimitMode(server, sign, modeStr);
+					handleLimitMode(server, chann, sign, modeStr);
+					break;
 				case MODE_OPERATOR :
 					// handleOperatorMode(server, sign, modeStr);
+					break;
 				case MODE_TOPIC_RESTRICT :
-					handleTopicMode(server, sign, modeStr);
+					handleTopicMode(server, chann, sign, modeStr);
+					break;
 				case MODE_BAD :
 					// send err_badmod
 			}

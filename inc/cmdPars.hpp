@@ -27,5 +27,6 @@ public:
 	void handleHelp(Server &server, User &user, std::vector<std::string> args);
 	void handleUser(Server &server, User &user, std::vector<std::string> arg);
 	void handleList(Server &server, User &user, std::vector<std::string> arg);
+	void handlePass(Server &server, User &user, std::vector<std::string> arg);
 };
 #endif
