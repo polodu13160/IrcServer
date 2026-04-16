@@ -43,6 +43,7 @@ class Server {
     Channel	*findChannel(std::string channel);
 
 	User	*getUser(int fd, Server &server);
+	User	*getUserbyNickname(std::string nickname);
     static void messageToServer(const char *text, ...);
 
 
@@ -77,7 +78,7 @@ private:
 
     std::map<int, User> _users;
 	std::map<std::string, Channel> _chanMap;
-    
+
 
 	friend class User;
 
