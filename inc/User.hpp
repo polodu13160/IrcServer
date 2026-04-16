@@ -51,6 +51,7 @@ class User{
 	bool	hasANickName;
 	bool	hasAUserName;
 	bool	registered;
+	bool	passMatch;
 
 	__uint32_t		_userMode;
 
