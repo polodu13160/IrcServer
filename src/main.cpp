@@ -9,7 +9,7 @@
 typedef struct sockaddr SOCKADDR;
 
 
-int main (int ac, char **av) {
+int main (const int ac, char **av) {
 	if (ac == 3) {
 
 		try {
