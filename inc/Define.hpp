@@ -15,6 +15,7 @@
 #define SOCKET_ERROR    (-1)
 #define PORT			6667
 #define HOST			"127.0.0.1"
+#define DEBUG           0
 
 typedef int SOCKET;
 typedef struct sockaddr_in SOCKADDR_IN;

@@ -1,4 +1,5 @@
 #include "../../inc/User.hpp"
+#include "Server.hpp"
 #include "../../inc/cmdPars.hpp"
 #include <functional>
 #include "../../inc/User.hpp"
@@ -14,6 +15,7 @@ cmdPars::cmdPars(void){
 	this->_handlerTab["JOIN"] = &cmdPars::handleJoin;
 	this->_handlerTab["HELP"] = &cmdPars::handleHelp;
 	this->_handlerTab["USER"] = &cmdPars::handleUser;
+	this->_handlerTab["LIST"] = &cmdPars::handleList;
 }
 
 cmdPars::~cmdPars(){}
@@ -37,6 +39,7 @@ void	cmdPars::handleUser(Server &server, User &user, std::vector<std::string> ar
 void	cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> arg){
 	// INVITE (nickname) (channel)
 	(void)user;
+	(void)server;
 	if(arg[1].empty()){
 		std::cout << "There must be 2 parameters for this command" << std::endl;
 		return;
@@ -52,6 +55,7 @@ void	cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> 
 
 void	cmdPars::handleKick(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
+	(void)server;
 	// KICK (channel) (nickname) [comment]
 	if(arg.empty() || arg[1].empty()){
 		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
@@ -70,6 +74,7 @@ void	cmdPars::handleKick(Server &server, User &user, std::vector<std::string> ar
 
 void	cmdPars::handleMode(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
+	(void)server;
 	// MODE (channel/user) (mode : -i, -o...) (param)
 	if(arg[1].empty()){
 		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
@@ -92,6 +97,7 @@ void	cmdPars::handleMode(Server &server, User &user, std::vector<std::string> ar
 
 void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
+	(void)server;
 	// TOPIC (channel) [newtopic]
 	if(arg[0].empty()){
 		std::cout << "There must be 1 or 2 parameters for this command" << std::endl;
@@ -112,8 +118,14 @@ void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> a
 	}
 }
 
+void cmdPars::handleList(Server &server, User &user, std::vector<std::string> arg)
+{
+	user.listCmd(server,arg);
+}
+
 void	cmdPars::handlePart(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
+	(void)server;
 	// PART (channel) [channel] ...
 	if(arg[0].empty()){
 		std::cout << "There must be at least 1 parameter for this command" << std::endl;
@@ -143,6 +155,7 @@ void	cmdPars::handleNick(Server &server, User &user, std::vector<std::string> ar
 
 void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
+	(void)server;
 	// QUIT [message]
 	if(!arg[0].empty()){
 		// laisse un message de depart arg[0]
@@ -155,22 +168,18 @@ void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> ar
 void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
 	//JOIN (channel) [mdp]
-	if(arg[0].empty()){
-		std::cout << "There must be 1 or 2 parameters for this command" << std::endl;
-		return;
-	}
-	removeFirstChar(arg, 0);
-	// check si mdp
-	// si channel non existant : nouveau channel avec : user=>operateur du channel
-	std::cout << "[User] has joined " << arg[0] << std::endl;
+	// Server::messageToServer(arg[0].c_str(), NULL);
+	user.joinCmd(server, arg);
 }
 
 void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
+	(void)server;
 	// HELP [cmd]
 	if(!arg[0].empty()){
 		// aide sur cmd arg[0]
 		std::cout << "[How to use] [cmd]" << arg[0] << std::endl;
+
 	}
 	else{
 		//liste des commandes

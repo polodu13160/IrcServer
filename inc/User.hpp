@@ -44,6 +44,8 @@ class User{
 	std::string	_realname;
 	std::string	message;
 
+	int	nbChannelRegistered;
+
 	bool	hasANickName;
 	bool	hasAUserName;
 	bool	registered;

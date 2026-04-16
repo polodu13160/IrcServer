@@ -30,7 +30,7 @@ void Server::setServerPort(const char *str) {
 }
 
 void Server::setServerPass(const char *password) {
-	
+
 	std::string newPass(password);
 	this->_serverPassword = newPass;
 }
@@ -52,8 +52,50 @@ void	Server::setSocketParams() {
 	fcntl(_serverFd, F_SETFL, O_NONBLOCK);
 }
 
+#include <cstdarg>
 
 
+/**
+ * @brief send message for terminal of server
+ *
+ * @param text first message followed by a space
+ * @param ... others messages followed by  spaces,
+ * @attention the last param must to be NULL
+ */
+void Server::messageToServer(const char *text, ...)
+{
+    if (text == NULL)
+        return;
+    std::va_list args;
+    std::cout << text;
+    va_start(args, text);
+    const char *val = va_arg(args, const char *);
+    const char *valNext;
+    while (val != NULL)
+    {
+        if ((valNext = va_arg(args, const char *)) == NULL)
+            std::cout << val;
+        else
+            std::cout << val << " ";
+        val = valNext;
+    }
+    va_end(args);
+    std::cout << std::endl;
+}
+
+Channel	*Server::findChannel(std::string channel)
+{
+	Channel *ChannelFind = NULL;
+	std::map<std::string, Channel>::iterator it;
+	for(it = this->_chanMap.begin(); it != this->_chanMap.end(); it++){
+		if(it->second.getName() == channel)
+		{
+			ChannelFind = &it->second;
+			break;
+		}
+	}
+	return ChannelFind;
+}
 
 // SERVER CLASS CREATION
 
@@ -118,6 +160,10 @@ void Server::sockaddrInit() {
 
 
 // SERVER CLASS OUT AND EXCEPTIONS
+
+const char *Server::errorServerSocket::what() const throw() {
+	return "Error\nServer Socket ID is equal to SOCKET_ERROR";
+}
 
 std::ostream& operator<<(std::ostream& os, Server& server) {
 

@@ -40,8 +40,10 @@ class Server {
     // User createUserInstance(int userFd, char* info);
 
     // User	*createUserInstance(int userFd, char *info);
+    Channel	*findChannel(std::string channel);
 
 	User	*getUser(int fd, Server &server);
+    static void messageToServer(const char *text, ...);
 
 
 	class errorServerSocket : public std::exception {
@@ -71,8 +73,11 @@ private:
     SOCKET      _serverFd;
     SOCKADDR_IN _sin;
 
+	int	_maxChanPerUser;
+
     std::map<int, User> _users;
-	std::vector<Channel> _chanVector;
+	std::map<std::string, Channel> _chanMap;
+    
 
 	friend class User;
 
