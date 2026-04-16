@@ -4,7 +4,7 @@ FLAGS = -Wall -Wextra  -MMD -MP -g3 -std=c++98 -Iinc
 NAME = IrcServer
 FILES =  src/main src/Channel/Channel src/MessageParsing/Message src/Server/Server src/Commands/JOIN \
  		src/Commands/USER src/Commands/NICK src/User/User src/MessageParsing/main src/Commands/cmdPars src/Commands/LIST \
- 		src/Server/Server_init
+ 		src/Server/Server_init src/Commands/QUIT
 OBJ_DIR = .build/
 SRCS = $(addsuffix .cpp,$(FILES))
 OBJS = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRCS))

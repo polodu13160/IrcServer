@@ -1,11 +1,12 @@
 #include "cmdPars.hpp"
 
 void User::topicCmd(Server& server, std::vector<std::string> channels_string) {
-    std::string nameServer = "127.0.0.0.1: ";
+    std::string nameServer = HOST;
+    nameServer.insert(0, ":");
     std::string sendMessage;
     if (channels_string.empty())
     {
-        sendMessage = nameServer + "461 "+ this->_nickname +" TOPIC" + " :Pas assez de parametres ptn [#channel] optionnel: :NewTopic";
+        sendMessage = nameServer + " 461 "+ this->_nickname +" TOPIC" + " :Pas assez de parametres ptn [#channel] optionnel: :NewTopic";
         send(this->getUserFd(),sendMessage.c_str(), sendMessage.size(), 0); //ERR_NEEDMOREPARAMS 
         return;
     }

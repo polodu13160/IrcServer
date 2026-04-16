@@ -1,8 +1,22 @@
 #include "Channel.hpp"
 #include "string"
 
+void Channel::deletedUser(User &user)
+{
+	std::map<User *, bool>::const_iterator itUser = this->_users.find(&user);
+	this->_users.erase(itUser->first);
+}
 
-
+const std::vector<User *> Channel::allUsersInVector() const
+{
+	std::vector<User *> allUsers;
+	std::map<User *, bool>::const_iterator itUser;
+	for ( itUser= this->_users.begin(); itUser != this->_users.end(); itUser++)
+	{
+		allUsers.push_back(itUser->first);
+	}
+	return allUsers;
+}
 
 bool Channel::checkUser(User &user) const
 {
@@ -30,7 +44,7 @@ bool Channel::checkUserAdmin(User &user) const
 
 const std::map<User *, bool> &Channel::getUsers() const
 {
-    return this->_users;
+	return this->_users;
 }
 
 Channel::Channel(std::string name, std::string password) : _name(name), _password(password) {}
@@ -70,7 +84,7 @@ void Channel::setUserLimit(unsigned int val)
 
 void Channel::addUser(User &user, bool admin)
 {
-	std::pair<User *, bool>insertUser(&user,admin);
+	std::pair<User *, bool> insertUser(&user, admin);
 	this->_users.insert(insertUser);
 }
 
@@ -91,7 +105,7 @@ const std::string &Channel::getPassword(void) const
 
 const std::string &Channel::getTopic(void) const
 {
-    return this->_topic;
+	return this->_topic;
 }
 
 bool Channel::getInviteOnly(void) const

@@ -6,7 +6,7 @@
 /*   By: pololinux <pololinux@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/15 20:55:31 by pololinux        ###   ########.fr       */
+/*   Updated: 2026/04/16 17:13:31 by pololinux        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ public:
     void setUserLimit(unsigned int val);
     void addUser(User &user, bool admin);
     void addUserInvite(User &user);
+    void deletedUser(User &user);
+    const std::vector<User *> allUsersInVector() const;
 
 	unsigned int _modeStock	;
 

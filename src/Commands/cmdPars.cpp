@@ -154,15 +154,12 @@ void	cmdPars::handleNick(Server &server, User &user, std::vector<std::string> ar
 }
 
 void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> arg){
-	(void)user;
-	(void)server;
-	// QUIT [message]
-	if(!arg[0].empty()){
-		// laisse un message de depart arg[0]
-		std::cout << arg[0] << std::endl;
-	}
-	//quitte IRC
-	std::cout << "[User] has left the server" << std::endl;
+	(void)arg;
+	#if (DEBUG==1) 
+		Server::messageToServer(" 	test ", NULL );
+	#endif //DEBUG
+
+	user.quitCmd(server);
 }
 
 void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg){
@@ -189,6 +186,9 @@ void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> ar
 
 void	cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args){
 	std::map<std::string, void (cmdPars::*)(Server&, User&, std::vector<std::string>)>::iterator it = this->_handlerTab.find(cmd);
+	#if (DEBUG==1) 
+	Server::messageToServer(cmd.c_str(), " ici", NULL );
+	#endif //DEBUG
 	if(it != this->_handlerTab.end()){
 		(this->*(it->second))(server, user, args);
 	}

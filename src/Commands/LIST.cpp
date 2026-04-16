@@ -2,7 +2,9 @@
 
 void User::listCmd(Server &server, std::vector<std::string> channels_string)
 {
-    std::string serverName = ":127.0.0.1";
+
+    std::string serverName = HOST;
+    serverName.insert(0,":");
     std::string lineSend = serverName + " 321 " + this->_nickname + " Channel :Users  Name\r\n";
     send(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0); // RPL_LISTSTART
     if (channels_string.empty() == true)
@@ -12,7 +14,7 @@ void User::listCmd(Server &server, std::vector<std::string> channels_string)
         #endif // DEBUG
         std::map<std::string, Channel>::iterator it;
 
-        for (it = server._chanMap.begin(); it != server._chanMap.end(); ++it)
+        for (it = server._chanMap.begin(); it != server._chanMap.end(); it++)
         {
             std::stringstream prepareSend;
             prepareSend << serverName << " 322 " << this->_nickname
