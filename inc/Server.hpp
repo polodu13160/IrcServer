@@ -6,7 +6,7 @@
 #include <map>
 #include <vector>
 #include "Channel.hpp"
-#include "../Define.hpp"
+#include "Define.hpp"
 #include "User.hpp"
 
 class User;
@@ -15,16 +15,25 @@ class Server {
 
   public:
     Server();
+
+
+	Server(const char *port, const char *password);
     Server(Server &other);
     Server &operator=(Server &other);
     ~Server();
 
-    void	setServerId(const SOCKET socketId);
-	void	setServerPass(const std::string &password);
-	void	setServerPort(const int port);
-	void	setUserfd(int fd);
-    int		getServerId() const;
-	int		getServerPort();
+
+	// Nouvelle classe :
+
+	void setServerPort(const char *str);
+	void setServerPass(const char *password);
+	void setSocketParams();
+	void EpollInstance();
+
+
+	// Ancienne classe
+
+	void	setUserFd(int fd);
 	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
     void	sockaddrInit();
@@ -33,14 +42,29 @@ class Server {
     // User	*createUserInstance(int userFd, char *info);
     Channel	*findChannel(std::string channel);
 
-
-    class errorServerSocket : public std::exception {
-      public:
-        virtual const char* what() const throw();
-    };
-
 	User	*getUser(int fd, Server &server);
     static void messageToServer(const char *text, ...);
+
+
+	class errorServerSocket : public std::exception {
+	public:
+		virtual const char* what() const throw();
+	};
+
+	// class errorBadPort : public std::exception {
+	// public:
+	// 	virtual const char* what() const throw();
+	// };
+
+	class errorSetSockOpt : public std::exception {
+	public:
+		virtual const char* what() const throw();
+	};
+
+	// class errorBind : public std::exception {
+	// public:
+	// 	virtual const char* what() const throw();
+	// };
 
 private:
     static bool _isServerWorking;
@@ -59,6 +83,6 @@ private:
 
 };
 
-std::ostream&	operator<<(std::ostream& os, Server &server);
+// std::ostream&	operator<<(std::ostream& os, Server &server);
 
 #endif

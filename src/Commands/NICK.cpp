@@ -8,7 +8,7 @@ bool	nickInvalidChar(std::string nickName) {
 	if (!std::isalpha(nickName[0]) && firstValidChar.find(nickName[0]) == std::string::npos) {
 		return false;
 	}
-	const std::string everyValidChar = "-ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz[]\\`_^{|}";
+	const std::string everyValidChar = "1234567890-ABCDEFGHIJKLMONPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz[]\\`_^{|}";
 	if (nickName.find_first_not_of(everyValidChar) != std::string::npos) {
 		return false;
 	}
@@ -46,6 +46,7 @@ void	User::nickCmd(Server &server, const std::vector<std::string>& nickName) {
 	}
 
 	if (this->_nickname.empty()) {
+		std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 		this->setNickname(nickName[0]);
 		return;
 	}

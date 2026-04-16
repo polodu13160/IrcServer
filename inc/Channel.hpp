@@ -43,23 +43,26 @@ public:
     void setUserLimit(unsigned int val);
     void addUser(User &user, bool admin);
     void addUserInvite(User &user);
-    
-    
+
+	unsigned int _modeStock	;
 
 
 private:
-    std::string _name;
-    Channel();
-    Channel &operator=(const Channel &other);
-    std::string _password;
-    unsigned int _userLimit;
-    std::string _topic;
-    std::map<User *, bool> _users;
-    std::set<User *> _usersInvite;
+	std::string _name;
 
-    //mode
-    bool _inviteOnly;
-    bool _topicRestrictions;
+	Channel();
+
+	Channel &operator=(const Channel &other);
+
+	unsigned int _userLimit;
+	std::string _password;
+	std::string _topic;
+	std::map<User *, bool> _users;
+	std::set<User *> _usersInvite;
+
+	//mode
+	bool _inviteOnly;
+	bool _topicRestrictions;
 };
 
 #endif // _CHANNEL_H
