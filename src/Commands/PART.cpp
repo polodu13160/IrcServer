@@ -44,6 +44,7 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 				else
 					line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + "#" + channel[i] + "\r\n";
 				send(this->getUserFd(), line.c_str(), line.size(), 0);
+				chan->sendMsgUserForOthersUsersChannel(*this, line);
 			}
 		}
 	}
