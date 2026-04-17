@@ -38,7 +38,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 	channel = getChannels(arg);
 	for(size_t i = 0; i < channel.size(); i++){
 		if((channel[i][0] != '#' && channel[i][0] != '&') || channel[i].find(" ") != std::string::npos || channel[i].size() > 50){
-			// 475 ERR_BADCHANNELKEY
+			// 403 ERR_NOSUCHCHANNEL
 			const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel\r\n";
 			send(this->getUserFd(), line.c_str(), line.size(), 0);
 		}
