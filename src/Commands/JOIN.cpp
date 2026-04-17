@@ -67,6 +67,11 @@ void	channelCheck(Server& server, Channel *dest, User &user, std::vector<std::st
 	}
 }
 
+void	removeFirstChar(std::string &str){
+	std::string	newStr = str.substr(1, str.size());
+	str = newStr;
+}
+
 void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 	// Format : :Pseudo!Username@Host JOIN #nom_du_channel
 	// Exemple : :karamire!karamire@127.0.0.1 JOIN #lol
@@ -93,6 +98,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 			send(this->getUserFd(), line.c_str(), line.size(), 0);
 		}
 		else{
+			removeFirstChar(channel[i]);
 			Channel	*dest = server.findChannel(channel[i]);
 			if(dest){
 				channelCheck(server, dest, *this, channel, pass, i);
