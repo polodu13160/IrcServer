@@ -29,22 +29,29 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 			const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel\r\n";
 			send(this->getUserFd(), line.c_str(), line.size(), 0);
 		}
-		Channel	*chan = server.findChannel(channel[i]);
-		if(chan){
-			if(!chan->checkUser(*this)){
-				// 442 ERR_NOTONCHANNEL
-				const std::string	line = ":127.0.0.1 442 " + channel[i] + " : You're not on that channel\r\n";
-				send(this->getUserFd(), line.c_str(), line.size(), 0);
+		else{
+			Channel	*chan = server.findChannel(channel[i]);
+			if(chan){
+				if(!chan->checkUser(*this)){
+					// 442 ERR_NOTONCHANNEL
+					const std::string	line = ":127.0.0.1 442 " + channel[i] + " : You're not on that channel\r\n";
+					send(this->getUserFd(), line.c_str(), line.size(), 0);
+				}
+				else{
+					chan->deletedUser(*this);
+					std::string line;
+					if(!arg[1].empty())
+						line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + "#" + channel[i] + " :" + arg[1] + "\r\n";
+					else
+						line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + "#" + channel[i] + "\r\n";
+					send(this->getUserFd(), line.c_str(), line.size(), 0);
+					chan->sendMsgUserForOthersUsersChannel(*this, line);
+				}
 			}
 			else{
-				chan->deletedUser(*this);
-				std::string line;
-				if(!arg[1].empty())
-					line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + "#" + channel[i] + " :" + arg[1] + "\r\n";
-				else
-					line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + "#" + channel[i] + "\r\n";
+				// 403 ERR_NOSUCHCHANNEL
+				const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel\r\n";
 				send(this->getUserFd(), line.c_str(), line.size(), 0);
-				chan->sendMsgUserForOthersUsersChannel(*this, line);
 			}
 		}
 	}

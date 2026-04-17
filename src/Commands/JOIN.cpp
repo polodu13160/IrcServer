@@ -30,6 +30,9 @@ void	nameReply(Channel &channel, User &user){
 	}
 	line += "\r\n";
 	send(user.getUserFd(), line.c_str(), line.size(), 0);
+	line = ":127.0.0.1 366 #" + channel.getName() + " :End of /NAMES list";
+	// RPL_ENDOFNAMES (366)
+	send(user.getUserFd(), line.c_str(), line.size(), 0);
 }
 
 void	channelCheck(Server& server, Channel *dest, User &user, std::vector<std::string> channel, std::vector<std::string> pass, size_t i){
