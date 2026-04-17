@@ -17,7 +17,7 @@ void Channel::sendMsgUserForOthersUsersChannel(User &user, std::string &msg) con
 		if (user.getNickname() != usersChannel[i]->getNickname())
 			send(usersChannel[i]->getUserFd(), msg.c_str(), msg.size(), 0);
 	}
-		
+
 }
 
 const std::string Channel::getNickNameModifTopicLast() const

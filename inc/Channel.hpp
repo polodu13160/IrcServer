@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Channel.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pololinux <pololinux@student.42.fr>        +#+  +:+       +#+        */
+/*   By: lpaysant <lpaysant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/16 22:01:53 by pololinux        ###   ########.fr       */
+/*   Updated: 2026/04/17 15:26:25 by lpaysant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ public:
     void deletedUser(User &user);
     const std::vector<User *> allUsersInVector() const;
     //lucas utilise ca pour les message au server
-    // je gere pour voir si c un utilisateur ou un admin donc pas de : ou de 
+    // je gere pour voir si c un utilisateur ou un admin donc pas de : ou de
     //@ avant tu peux je gere aussi si tu le mets sans faire expres
     void sendMsgUserForOthersUsersChannel(User &user, std::string &msg) const;
     const std::string getNickNameModifTopicLast() const;

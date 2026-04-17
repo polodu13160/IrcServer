@@ -23,6 +23,9 @@ class User{
 	const int			&getUserFd(void)const;
 	std::string			getMessage(void);
 
+	const int	&getnbChannelRegistered(void);
+	void	setNbChannelRegistered(int nb);
+
 	void	setNickname(std::string nickname);
 	void	setUsername(std::string username);
 	void	setRealname(std::string realname);
