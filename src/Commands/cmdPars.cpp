@@ -16,6 +16,7 @@ cmdPars::cmdPars(void){
 	this->_handlerTab["HELP"] = &cmdPars::handleHelp;
 	this->_handlerTab["USER"] = &cmdPars::handleUser;
 	this->_handlerTab["LIST"] = &cmdPars::handleList;
+	this->_handlerTab["PING"] = &cmdPars::handlePong;
 }
 
 cmdPars::~cmdPars(){}
@@ -95,27 +96,15 @@ void	cmdPars::handleMode(Server &server, User &user, std::vector<std::string> ar
 	}
 }
 
-void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> arg){
-	(void)user;
+void cmdPars::handlePong(Server &server, User &user, std::vector<std::string> arg)
+{
 	(void)server;
-	// TOPIC (channel) [newtopic]
-	if(arg[0].empty()){
-		std::cout << "There must be 1 or 2 parameters for this command" << std::endl;
-		return;
-	}
-	if(arg[0][0] != '#'){
-		std::cout << "Channel name must begin with '#'" << std::endl;
-		return;
-	}
-	removeFirstChar(arg, 0);
-	if(arg[1].empty()){
-		// voir le topic
-		std::cout << "[Topic Name]" << std::endl;
-	}
-	else{
-		 // changer topic par arg[1]
-		std::cout << arg[0] << " topic [Current topic name] has changed to " << arg[1] << std::endl;
-	}
+	(void)user;
+	user.pongCmd(arg);
+}
+
+void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> arg){
+	user.topicCmd(server, arg);
 }
 
 void cmdPars::handleList(Server &server, User &user, std::vector<std::string> arg)
@@ -154,15 +143,9 @@ void	cmdPars::handleNick(Server &server, User &user, std::vector<std::string> ar
 }
 
 void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> arg){
-	(void)user;
-	(void)server;
-	// QUIT [message]
-	if(!arg[0].empty()){
-		// laisse un message de depart arg[0]
-		std::cout << arg[0] << std::endl;
-	}
-	//quitte IRC
-	std::cout << "[User] has left the server" << std::endl;
+	(void)arg;
+
+	user.quitCmd(server);
 }
 
 void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg){
@@ -193,7 +176,7 @@ void	cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector
 		(this->*(it->second))(server, user, args);
 	}
 	else{
-		std::cout << "This command does not exist here" << std::endl;
+		// std::cout << "This command does not exist here" << std::endl;
 	}
 }
 

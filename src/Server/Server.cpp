@@ -7,6 +7,13 @@
 
 #include <cstdarg>
 
+const std::string Server::timeNow() const
+{
+	std::stringstream ss;
+	time_t now = time(0);
+	ss << now;
+	return ss.str();
+}
 
 /**
  * @brief send message for terminal of server
@@ -17,31 +24,32 @@
  */
 void Server::messageToServer(const char *text, ...)
 {
-    if (text == NULL)
-        return;
-    std::va_list args;
-    std::cout << text;
-    va_start(args, text);
-    const char *val = va_arg(args, const char *);
-    const char *valNext;
-    while (val != NULL)
-    {
-        if ((valNext = va_arg(args, const char *)) == NULL)
-            std::cout << val;
-        else
-            std::cout << val << " ";
-        val = valNext;
-    }
-    va_end(args);
-    std::cout << std::endl;
+	if (text == NULL)
+		return;
+	std::va_list args;
+	std::cout << text;
+	va_start(args, text);
+	const char *val = va_arg(args, const char *);
+	const char *valNext;
+	while (val != NULL)
+	{
+		if ((valNext = va_arg(args, const char *)) == NULL)
+			std::cout << val;
+		else
+			std::cout << val << " ";
+		val = valNext;
+	}
+	va_end(args);
+	std::cout << std::endl;
 }
 
-Channel	*Server::findChannel(std::string channel)
+Channel *Server::findChannel(std::string channel)
 {
 	Channel *ChannelFind = NULL;
 	std::map<std::string, Channel>::iterator it;
-	for(it = this->_chanMap.begin(); it != this->_chanMap.end(); it++){
-		if(it->second.getName() == channel)
+	for (it = this->_chanMap.begin(); it != this->_chanMap.end(); it++)
+	{
+		if (it->second.getName() == channel)
 		{
 			ChannelFind = &it->second;
 			break;
@@ -55,42 +63,45 @@ Channel	*Server::findChannel(std::string channel)
 bool Server::_isServerWorking = false;
 
 Server::Server(const char *port, const char *password)
-	: _port(0), _serverFd(0), _sin() {
+	: _port(0), _serverFd(0), _sin()
+{
 	setServerPass(password);
 	setServerPort(port);
 	setSocketParams();
 	EpollInstance();
 }
 
-Server::Server(Server &other) {
+Server::Server(Server &other)
+{
 	(void)other;
 }
 
-Server &Server::operator=(Server &other) {
+Server &Server::operator=(Server &other)
+{
 	(void)other;
 	return *this;
 }
 
-Server::~Server() {
-
+Server::~Server()
+{
 }
 
 // SERVER CLASS MEMBER FUNCTIONS
 
-
-
-std::string Server::getServerPassword() {
+std::string Server::getServerPassword()
+{
 	return this->_serverPassword;
 }
 
-SOCKADDR_IN &Server::getServerSin() {
+SOCKADDR_IN &Server::getServerSin()
+{
 	return this->_sin;
 }
 
-void Server::setUserFd(int fd) {
+void Server::setUserFd(int fd)
+{
 	this->_users[fd] = User(fd, "", "");
 }
-
 
 // SERVER CLASS OUT AND EXCEPTIONS
 
@@ -101,28 +112,34 @@ void Server::setUserFd(int fd) {
 // 	return os;
 // }
 
-User	*Server::getUser(int fd, Server &server){
-	std::map<int, User>::iterator	it;
-	for(it = server._users.begin(); it != server._users.end(); ++it){
-		if(it->second._userFd == fd)
+User *Server::getUser(int fd, Server &server)
+{
+	std::map<int, User>::iterator it;
+	for (it = server._users.begin(); it != server._users.end(); ++it)
+	{
+		if (it->second._userFd == fd)
 			return &it->second;
 	}
 	return NULL;
 }
 
-User	*Server::getUserbyNickname(std::string nickname){
-	std::map<int, User>::iterator	it;
-	for(it = this->_users.begin(); it != this->_users.end(); ++it){
-		if(it->second.getNickname() == nickname)
+User *Server::getUserbyNickname(std::string nickname)
+{
+	std::map<int, User>::iterator it;
+	for (it = this->_users.begin(); it != this->_users.end(); ++it)
+	{
+		if (it->second.getNickname() == nickname)
 			return &it->second;
 	}
 	return NULL;
 }
 
-const char *Server::errorServerSocket::what() const throw() {
+const char *Server::errorServerSocket::what() const throw()
+{
 	return "Error\nServer Socket ID is equal to SOCKET_ERROR.";
 }
 
-const char *Server::errorSetSockOpt::what() const throw() {
+const char *Server::errorSetSockOpt::what() const throw()
+{
 	return "Error\nBad Port provided.";
 }
