@@ -15,11 +15,6 @@ std::vector<std::string>	getChannels(const std::vector<std::string> &arg){
 	return chanTab;
 }
 
-void	destroyChannel(Channel *channel, std::map<std::string, Channel*>& chanMap){
-	chanMap.erase(channel->getName());
-	delete channel;
-}
-
 void	User::partCmd(Server &server, std::vector<std::string> &arg){
 	if(arg.size() < 1){
 		// 461 ERR_NEEDMOREPARAMS
