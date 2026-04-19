@@ -11,14 +11,20 @@ std::vector<std::string>	getChannels(const std::vector<std::string> &arg){
 			start = i + 1;
 		}
 	}
-	chanTab.push_back(arg[0].substr(start, i - start - 1));
+	chanTab.push_back(arg[0].substr(start, i - start));
 	return chanTab;
 }
 
+void	destroyChannel(Channel *channel, std::map<std::string, Channel*>& chanMap){
+	chanMap.erase(channel->getName());
+	delete channel;
+}
+
 void	User::partCmd(Server &server, std::vector<std::string> &arg){
-	if(arg[0].empty()){
+	if(arg.size() < 1){
 		// 461 ERR_NEEDMOREPARAMS
-		std::string	line = ":127.0.0.1 461 " + this->getNickname() + " JOIN :Not enough parameters\r\n";
+		std::string	line = ":127.0.0.1 461 " + this->getNickname() + " PART :Not enough parameters\r\n";
+		send(this->getUserFd(), line.c_str(), line.size(), 0);
 		return;
 	}
 	std::vector<std::string>	channel;
@@ -38,14 +44,19 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 					send(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else{
-					chan->deletedUser(*this);
 					std::string line;
-					if(!arg[1].empty())
-						line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + "#" + channel[i] + " :" + arg[1] + "\r\n";
+					if(arg.size() > 1)
+						line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + channel[i] + " :" + arg[1] + "\r\n";
 					else
-						line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + "#" + channel[i] + "\r\n";
+						line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + channel[i] + "\r\n";
 					send(this->getUserFd(), line.c_str(), line.size(), 0);
 					chan->sendMsgUserForOthersUsersChannel(*this, line);
+					chan->deletedUser(*this);
+					if(chan->getUsers().size() < 1){
+						server._chanMap.erase(chan->getName());
+						delete chan;
+					}
+					this->nbChannelRegistered--;
 				}
 			}
 			else{
