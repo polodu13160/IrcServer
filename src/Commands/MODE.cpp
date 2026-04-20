@@ -1,6 +1,11 @@
 #include "../../inc/User.hpp"
 #include <bitset>
 
+struct s_parseMode {
+	mode_t mode;
+	std::string arg;
+};
+
 bool	checkMode(const unsigned int &checkedMode, const e_modes MODE){
 
 	const std::bitset<32>	tmp(checkedMode);
@@ -53,7 +58,7 @@ e_modes	charToMode(const char c) {
 // 	 */
 // }
 
-void	handleInviteMode(Server &server, Channel &chann, const bool sign, std::vector<std::string> &modeStr) {
+void	handleInviteMode(Server &server, Channel &chann, const bool sign) {
 
 	if (sign == true)
 		changeMode(chann._modeStock, MODE_INVITE_O, true);
@@ -76,7 +81,7 @@ void	handleKeyMode(Server &server, Channel &chann, const bool sign, std::string 
 	for (size_t i = 0; i < modeStr.size(); i++) {
 		if (modeStr[i] == ':' || modeStr[i] == ',' || modeStr[i] <= 32) {
 
-			std::string line = ":127.0.0.1 " +
+			std::string line = ":127.0.0.1 696 ";
 			return;
 		}
 	}
@@ -99,6 +104,39 @@ void	handleLimitMode(Server &server, Channel &chann, const bool sign, std::vecto
 		chann.setUserLimit(false);
 }
 
+std::vector<std::string> parseArgsNb(std::vector<std::string> &modeStr) {
+
+	int nb = 0;
+	int start = 2;
+	bool sign = true;
+	std::vector<std::string> args;
+	for (int i = 0; i < modeStr[1].size(); i++) {
+		if (modeStr[1][i] == '+')
+			sign = true;
+		if (modeStr[1][i] == '-')
+			sign = false;
+		if (modeStr[1][i] == 'k' || modeStr[1][i] == 'o') {
+			if (start < modeStr.size()) {
+				args.push_back(modeStr[start++]);
+				++nb;
+			}
+			else
+				std::cerr << "no args" << std::endl;
+		}
+		if (modeStr[1][i] == 'l' && sign == true) {
+			if (start < modeStr.size()) {
+				args.push_back(modeStr[start++]);
+				++nb;
+			}
+			else
+				std::cerr << "no args" << std::endl;
+		}
+	}
+	if (nb == modeStr.size() - 2)
+		return args;
+	return NULL;
+}
+
 
 
 void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
@@ -106,7 +144,6 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 	bool	sign = true;
 	const std::string	str = modeStr[0];
 
-	int	parseArgsNb = 0;
 
 	Channel	*chann = server.findChannel(modeStr[1]);
 	if (chann == NULL) {
@@ -119,30 +156,37 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 		send(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
+	std::vector<std::string> args = parseArgsNb(modeStr);
+	if (args.empty()) {
+		std::cout << "Not good args" << std::endl;
+		return;
+	}
+	int size = 0;
 	for (size_t i = 0; i < str.size(); i++) {
 
-		if (str[i] == '-' || str[i] == '+') {
-			if (str[i] == '-')
-				sign = false;
-			else
-				sign = true;
-		}
+		if (str[i] == '+')
+			sign = true;
+		if (str[i] == '-')
+			sign = false;
 		else {
 			e_modes mode = charToMode(str[i]);
 
 			switch (mode) {
 
 				case MODE_INVITE_O :
-					handleInviteMode(server, *chann, sign, modeStr);
+					if (size < args.size())
+					handleInviteMode(server, *chann, sign);
 					break;
 				case MODE_KEY_SET :
-					handleKeyMode(server, *chann, sign, modeStr);
+					if (size < args.size())
+						handleKeyMode(server, *chann, sign, args[size++]);
 					break;
 				case MODE_LIMIT_SET :
 					handleLimitMode(server, *chann, sign, modeStr);
 					break;
 				case MODE_OPERATOR :
-					// handleOperatorMode(server, sign, modeStr);
+					if (size < args.size())
+						// handleOperatorMode(server, sign, modeStr);
 					break;
 				case MODE_TOPIC_RESTRICT :
 					handleTopicMode(server, *chann, sign, modeStr);
