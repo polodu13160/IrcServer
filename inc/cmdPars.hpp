@@ -28,5 +28,6 @@ public:
 	void handleList(Server &server, User &user, std::vector<std::string> arg);
 	void handleTopic(Server &server, User &user, std::vector<std::string> arg);
 	void handlePong(Server &server, User &user, std::vector<std::string> arg);
+	void handleWho(Server &server, User &user, std::vector<std::string> arg);
 };
 #endif

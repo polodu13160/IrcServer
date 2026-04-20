@@ -57,6 +57,7 @@ const std::vector<User *> Channel::allUsersInVector() const
 	std::map<User *, bool>::const_iterator itUser;
 	for ( itUser= this->_users.begin(); itUser != this->_users.end(); itUser++)
 	{
+		Server::messageToServer(itUser->first->getUsername().c_str(), NULL);
 		allUsers.push_back(itUser->first);
 	}
 	return allUsers;
@@ -91,7 +92,9 @@ const std::map<User *, bool> &Channel::getUsers() const
 	return this->_users;
 }
 
-Channel::Channel(std::string name, std::string password) : _name(name), _password(password) {}
+Channel::Channel(std::string name) : _name(name){
+	this->_userLimit = -1;
+}
 
 Channel::Channel(const Channel &other)
 {

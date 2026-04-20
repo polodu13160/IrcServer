@@ -4,7 +4,7 @@ FLAGS = -Wall -Wextra  -MMD -MP -g3 -std=c++98 -Iinc
 NAME = IrcServer
 FILES =  src/main src/Channel/Channel src/MessageParsing/Message src/Server/Server src/Commands/JOIN \
  		src/Commands/USER src/Commands/NICK src/User/User src/MessageParsing/main src/Commands/cmdPars src/Commands/LIST \
- 		src/Server/Server_init src/Commands/QUIT src/Commands/TOPIC
+ 		src/Server/Server_init src/Commands/QUIT src/Commands/TOPIC src/Commands/PART src/Commands/PINGPONG src/Commands/WHO
 OBJ_DIR = .build/
 SRCS = $(addsuffix .cpp,$(FILES))
 OBJS = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRCS))
@@ -16,7 +16,7 @@ $(OBJ_DIR)%.o: %.cpp
 	$(CXX) $(FLAGS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	$(CXX) $(FLAGS) $(OBJS) -o $(NAME) 
+	$(CXX) $(FLAGS) $(OBJS) -o $(NAME)
 -include $(DEPS)
 
 debug: FLAGS += -DDEBUG=1

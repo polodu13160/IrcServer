@@ -6,7 +6,7 @@
 /*   By: lpaysant <lpaysant@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/17 15:26:25 by lpaysant         ###   ########.fr       */
+/*   Updated: 2026/04/20 14:21:50 by lpaysant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ class User;
 class Channel
 {
 public:
-    Channel(std::string name, std::string password);
+	Channel(std::string name);
     Channel(const Channel &other);
     ~Channel();
     const std::string &getName(void) const;

@@ -79,6 +79,7 @@ void	getMsg(Server &server, std::string msg, int userFd){
 	while (!finalMsg.empty()) {
 		TokenizeMsg(server, finalMsg, *user);
 		finalMsg = user->getMessage();
+		std::cout << finalMsg << std::endl;
 	}
 }
 

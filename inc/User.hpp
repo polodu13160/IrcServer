@@ -45,6 +45,7 @@ class User{
 	void pongCmd(const std::vector<std::string> &arg) const;
 	void partCmd(Server &server, std::vector<std::string> &arg);
 	void privMsgCmd(Server &server, std::vector<std::string> arg);
+	void whoCmd(Server &server, std::vector<std::string> arg);
 
 
 	private :

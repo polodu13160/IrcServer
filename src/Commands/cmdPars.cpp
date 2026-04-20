@@ -17,6 +17,7 @@ cmdPars::cmdPars(void){
 	this->_handlerTab["USER"] = &cmdPars::handleUser;
 	this->_handlerTab["LIST"] = &cmdPars::handleList;
 	this->_handlerTab["PING"] = &cmdPars::handlePong;
+	this->_handlerTab["WHO"] = &cmdPars::handleWho;
 }
 
 cmdPars::~cmdPars(){}
@@ -35,6 +36,10 @@ void	cmdPars::handleUser(Server &server, User &user, std::vector<std::string> ar
 		return;
 	}
 	user.userCmd(server, arg);
+}
+
+void	cmdPars::handleWho(Server &server, User &user, std::vector<std::string> arg){
+	user.whoCmd(server, arg);
 }
 
 void	cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> arg){
@@ -176,7 +181,7 @@ void	cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector
 		(this->*(it->second))(server, user, args);
 	}
 	else{
-		// std::cout << "This command does not exist here" << std::endl;
+		std::cout << "This command does not exist here" << std::endl;
 	}
 }
 
