@@ -36,6 +36,34 @@ void	nameReply(Channel &channel, User &user){
 	send(user.getUserFd(), line.c_str(), line.size(), 0);
 }
 
+void	channelCreation(std::map<std::string, Channel *>& chanMap, std::vector<std::string> channel, std::vector<std::string> pass, size_t i, Server &server, User &user){
+	Channel *newChan = new Channel(channel[i], "");
+	if(pass.size() > i)
+		newChan->setPassword(pass[i]);
+	chanMap.insert(std::pair<std::string,Channel*>(newChan->getName(),newChan));
+	newChan->addUser(user, 1);
+	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@127.0.0.1 JOIN " + channel[i] + "\r\n";
+	send(user.getUserFd(), line.c_str(), line.size(), 0);
+	// RPL_TOPIC
+	std::vector<std::string> topicArg;
+	topicArg.push_back(channel[i]);
+	user.topicCmd(server, topicArg);
+	nameReply(*newChan, user);
+}
+
+void	addUserHandler(Server &server, User &user, Channel *dest){
+	dest->addUser(user, 0);
+	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@127.0.0.1 JOIN " + dest->getName() + "\r\n";
+	send(user.getUserFd(), line.c_str(), line.size(), 0);
+	dest->sendMsgUserForOthersUsersChannel(user, line);
+	// RPL_TOPIC
+	std::vector<std::string> topicArg;
+	topicArg.push_back(dest->getName());
+	user.topicCmd(server, topicArg);
+	nameReply(*dest, user);
+	user.setNbChannelRegistered(user.getnbChannelRegistered() + 1);
+}
+
 void	channelCheck(Server& server, Channel *dest, User &user, std::vector<std::string> pass, size_t i){
 	// 473 ERR_INVITEONLYCHAN
 	if(dest->getInviteOnly()){
@@ -54,18 +82,8 @@ void	channelCheck(Server& server, Channel *dest, User &user, std::vector<std::st
 	}
 	else if(dest->checkUser(user))
 		;
-	else{
-		dest->addUser(user, 0);
-		std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@127.0.0.1 JOIN " + dest->getName() + "\r\n";
-		send(user.getUserFd(), line.c_str(), line.size(), 0);
-		dest->sendMsgUserForOthersUsersChannel(user, line);
-		// RPL_TOPIC
-		std::vector<std::string> topicArg;
-		topicArg.push_back(dest->getName());
-		user.topicCmd(server, topicArg);
-		nameReply(*dest, user);
-		user.setNbChannelRegistered(user.getnbChannelRegistered() + 1);
-	}
+	else
+		addUserHandler(server, user, dest);
 }
 
 void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
@@ -106,18 +124,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 					send(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else{
-					Channel *newChan = new Channel(channel[i], "");
-					if(pass.size() > i)
-						newChan->setPassword(pass[i]);
-					server._chanMap.insert(std::pair<std::string,Channel*>(newChan->getName(),newChan));
-					newChan->addUser(*this, 1);
-					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 JOIN " + channel[i] + "\r\n";
-					send(this->getUserFd(), line.c_str(), line.size(), 0);
-					// RPL_TOPIC
-					std::vector<std::string> topicArg;
-					topicArg.push_back(channel[i]);
-					this->topicCmd(server, topicArg);
-					nameReply(*newChan, *this);
+					channelCreation(server._chanMap, channel, pass, i, server, *this);
 					this->nbChannelRegistered++;
 				}
 			}
