@@ -33,14 +33,14 @@ static int	convertPort(const char *arg) {
 void Server::setServerPort(const char *str) {
 
 	const int	newPort = convertPort(str);
-	// if (newPort == -1)
-	// 	throw Server::errorBadPort();
+	//if (newPort == -1)
+	//	std::cout << "caca";
 	this->_port = newPort;
 }
 
 void Server::setServerPass(const char *password) {
 
-	std::string newPass(password);
+	const std::string newPass(password);
 	this->_serverPassword = newPass;
 }
 
