@@ -67,17 +67,17 @@ void	addUserHandler(Server &server, User &user, Channel *dest){
 void	channelCheck(Server& server, Channel *dest, User &user, std::vector<std::string> pass, size_t i){
 	// 473 ERR_INVITEONLYCHAN
 	if(dest->getInviteOnly()){
-	const std::string line = ":127.0.0.1 473 " + user.getNickname() + " " + dest->getName() + " : Cannot join channel (invite only)\r\n";
+	const std::string line = ":127.0.0.1 473 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel (invite only)\r\n";
 		send(user.getUserFd(), line.c_str(), line.size(), 0);
 	}
 	// 471 ERR_CHANNELISFULL
 	else if(dest->getUsers().size() == dest->getUserLimit()){
-		const std::string line = ":127.0.0.1 471 " + user.getNickname() + " " + dest->getName() + " : Cannot join channel (Channel is full)\r\n";
+		const std::string line = ":127.0.0.1 471 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel (Channel is full)\r\n";
 		send(user.getUserFd(), line.c_str(), line.size(), 0);
 	}
 	// 475 ERR_BADCHANNELKEY
 	else if((!dest->getPassword().empty() && pass.size() > i && dest->getPassword().compare(pass[i])) || (!dest->getPassword().empty() && pass.size() <= i)){
-		const std::string	line = ":127.0.0.1 475 " + user.getNickname() + " " + dest->getName() + " : Cannot join channel\r\n";
+		const std::string	line = ":127.0.0.1 475 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel\r\n";
 		send(user.getUserFd(), line.c_str(), line.size(), 0);
 	}
 	else if(dest->checkUser(user))
@@ -104,7 +104,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 	for(size_t i = 0; i < channel.size(); i++){
 		if(this->nbChannelRegistered == server._maxChanPerUser){
 			// 405 ERR_TOOMANYCHANNELS
-				const std::string line = ":127.0.0.1 405 " + this->getNickname() + " " + channel[i] + " : You have joined too many channels\r\n";
+				const std::string line = ":127.0.0.1 405 " + this->getNickname() + " " + channel[i] + " :You have joined too many channels\r\n";
 				send(this->getUserFd(), line.c_str(), line.size(), 0);
 		}
 		else if((channel[i][0] != '#' && channel[i][0] != '&') || channel[i].find(" ") != std::string::npos || channel[i].size() > 50){
@@ -120,7 +120,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 			else{
 				// 405 ERR_TOOMANYCHANNELS
 				if(this->nbChannelRegistered == server._maxChanPerUser){
-					const std::string line = ":127.0.0.1 405 " + this->getNickname() + " " + channel[i] + " : You have joined too many channels\r\n";
+					const std::string line = ":127.0.0.1 405 " + this->getNickname() + " " + channel[i] + " :You have joined too many channels\r\n";
 					send(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else{

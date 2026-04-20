@@ -44,6 +44,7 @@ class User{
 	void topicCmd(Server& server, std::vector<std::string> channels_string);
 	void pongCmd(const std::vector<std::string> &arg) const;
 	void partCmd(Server &server, std::vector<std::string> &arg);
+	void privMsgCmd(Server &server, std::vector<std::string> arg);
 
 
 	private :
