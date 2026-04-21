@@ -37,7 +37,7 @@ static void	nameReply(Channel &channel, User &user){
 	}
 	//line += "\r\n";
 	//send(user.getUserFd(), line.c_str(), line.size(), 0);
-	line = ":127.0.0.1 366 " + channel.getName() + " :End of /NAMES list\r\n";
+	line = ":127.0.0.1 366 "  + user.getNickname() + " " + channel.getName() +  " :End of /NAMES list\r\n";
 	// RPL_ENDOFNAMES (366)
 	send(user.getUserFd(), line.c_str(), line.size(), 0);
 }
