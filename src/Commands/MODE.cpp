@@ -66,6 +66,7 @@ void	handleKeyMode(Server &server, Channel &chann, const s_parseMode &mode) {
 	for (size_t i = 0; i < mode.arg.size(); i++) {
 		if (mode.arg[i] == ':' || mode.arg[i] == ',' || mode.arg[i] <= 32) {
 			std::string line = ":127.0.0.1 696 ";
+			//err return SEND
 			return;
 		}
 	}
@@ -84,6 +85,20 @@ void	handleLimitMode(Server &server, Channel &chann, const s_parseMode &mode) {
 		chann.setUserLimit(true);
 	else
 		chann.setUserLimit(false);
+}
+
+void	handleOperatorMode(Server &server, Channel &chann, const s_parseMode &mode) {
+	User *user = chann.getUserByNickname(mode.arg);
+
+	if (!user) {
+		// send + return
+		return;
+	}
+	if (mode.sign == true) {
+		chann.changeUserOp(*user, true);
+	}
+	else
+		chann.changeUserOp(*user, false);
 }
 
 std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
@@ -173,7 +188,7 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 				handleLimitMode(server, *chann, args[i]);
 				break;
 			case MODE_OPERATOR :
-				// handleOperatorMode(server, sign, modeStr);
+				handleOperatorMode(server, *chann, args[i]);
 				break;
 			case MODE_TOPIC_RESTRICT :
 				handleTopicMode(server, *chann, args[i]);

@@ -147,6 +147,13 @@ bool Channel::checkPassword(std::string &password) const
 // {
 // }
 
+void Channel::changeUserOp(User &user, bool sign) {
+	if (sign == true)
+		this->_users[&user] = true;
+	else
+		this->_users[&user] = false;
+}
+
 User *Channel::getUserByNickname(const std::string &nickname){
 	std::map<User *, bool>::iterator	it;
 	for(it = this->_users.begin(); it != this->_users.end(); ++it){

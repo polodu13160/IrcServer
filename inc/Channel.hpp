@@ -35,6 +35,7 @@ public:
     bool checkPassword(std::string &password) const;
     bool checkUser(User &user) const;
     bool checkUserAdmin(User &user) const;
+	void	changeUserOp(User &user, bool sign);
     const std::map<User *, bool> &getUsers() const;
 
     void setInviteOnly(bool val);

@@ -111,7 +111,7 @@ void	Server::EpollInstance() {
 						buffer[i] = '8';
 					i++;
 				}
-				getMsg(*this, buffer, clientFd);
+				getMsg(*this, buffer, userEvent[i].data.fd);
 				std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
 				std::cout << buffer << std::endl;
 				std::cout << CYAN << "END OF MSG " << RESET << std::endl;
