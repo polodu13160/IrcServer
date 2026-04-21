@@ -46,12 +46,12 @@ void Server::messageToServer(const char *text, ...)
 Channel *Server::findChannel(std::string channel)
 {
 	Channel *ChannelFind = NULL;
-	std::map<std::string, Channel>::iterator it;
+	std::map<std::string, Channel*>::iterator it;
 	for (it = this->_chanMap.begin(); it != this->_chanMap.end(); it++)
 	{
-		if (it->second.getName() == channel)
+		if (it->second->getName() == channel)
 		{
-			ChannelFind = &it->second;
+			ChannelFind = it->second;
 			break;
 		}
 	}

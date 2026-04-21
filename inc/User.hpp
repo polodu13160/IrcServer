@@ -23,6 +23,9 @@ class User{
 	const int			&getUserFd(void)const;
 	std::string			getMessage(void);
 
+	const int	&getnbChannelRegistered(void);
+	void	setNbChannelRegistered(int nb);
+
 	void	setNickname(std::string nickname);
 	void	setUsername(std::string username);
 	void	setRealname(std::string realname);
@@ -42,6 +45,10 @@ class User{
 	void listCmd(Server &server, std::vector<std::string> channels_string);
 	void topicCmd(Server& server, std::vector<std::string> channels_string);
 	void pongCmd(const std::vector<std::string> &arg) const;
+	void partCmd(Server &server, std::vector<std::string> &arg);
+	void privMsgCmd(Server &server, std::vector<std::string> arg);
+	void whoCmd(Server &server, std::vector<std::string> arg);
+	void noticeCmd(Server &server, std::vector<std::string> arg);
 	void passCmd(Server &server, std::vector<std::string> &arg);
 
 
