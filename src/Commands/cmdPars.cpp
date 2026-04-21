@@ -150,25 +150,26 @@ void cmdPars::handleList(Server &server, User &user, std::vector<std::string> ar
 
 void cmdPars::handlePart(Server &server, User &user, std::vector<std::string> arg)
 {
-	(void)user;
-	(void)server;
-	// PART (channel) [channel] ...
-	if (arg[0].empty())
-	{
-		std::cout << "There must be at least 1 parameter for this command" << std::endl;
-		return;
-	}
-	for (int i = 0; i < 15 && !arg[i].empty(); i++)
-	{
-		if (arg[i][0] != '#')
-		{
-			std::cout << "Channel name must begin with '#'" << std::endl;
-			return;
-		}
-		removeFirstChar(arg, i);
-		// partir du channel arg[i]
-		std::cout << "[User] has left channel " << arg[i] << std::endl;
-	}
+	// (void)user;
+	// (void)server;
+	// // PART (channel) [channel] ...
+	// if (arg[0].empty())
+	// {
+	// 	std::cout << "There must be at least 1 parameter for this command" << std::endl;
+	// 	return;
+	// }
+	// for (int i = 0; i < 15 && !arg[i].empty(); i++)
+	// {
+	// 	if (arg[i][0] != '#')
+	// 	{
+	// 		std::cout << "Channel name must begin with '#'" << std::endl;
+	// 		return;
+	// 	}
+	// 	removeFirstChar(arg, i);
+	// 	// partir du channel arg[i]
+	// 	std::cout << "[User] has left channel " << arg[i] << std::endl;
+	// }
+	user.partCmd(server,arg);
 }
 
 void cmdPars::handleNick(Server &server, User &user, std::vector<std::string> arg)
