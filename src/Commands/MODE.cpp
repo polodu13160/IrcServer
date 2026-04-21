@@ -107,6 +107,8 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 	int start = 2;
 	bool sign = true;
 	std::vector<s_parseMode> args;
+	if (modeStr.size() == 1)
+		return args;
 	for (int i = 0; i < modeStr[1].size(); i++) {
 		if (modeStr[1][i] == '+')
 			sign = true;
@@ -125,7 +127,7 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 			// 	send(this->userFd, line, line.size(), 0);
 			// }
 		}
-		else if (modeStr[1][i] == 'l' && sign == true) {
+		else if (modeStr[1][i] == 'l') {
 			if (start < modeStr.size()) {
 				s_parseMode tmp;
 				tmp.mode = charToMode(modeStr[1][i]);
@@ -151,23 +153,21 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 			args.push_back(tmp);
 		}
 	}
-	return NULL;
+	return args;
 }
 
 
 
 void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 
-	bool	sign = true;
-
-	Channel	*chann = server.findChannel(modeStr[1]);
+	Channel	*chann = server.findChannel(modeStr[0]);
 	if (chann == NULL) {
-		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[1] + " :No such channel\r\n";
+		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
 		send(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
 	if (chann->checkUserAdmin(*this) == false) {
-		const std::string line = ":127.0.0.1 482 " + this->_nickname + " " + modeStr[1] + " :You're not channel operator\r\n";
+		const std::string line = ":127.0.0.1 482 " + this->_nickname + " " + modeStr[0] + " :You're not channel operator\r\n";
 		send(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}

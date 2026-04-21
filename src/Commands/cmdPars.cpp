@@ -96,23 +96,24 @@ void	cmdPars::handleMode(Server &server, User &user, std::vector<std::string> ar
 	(void)user;
 	(void)server;
 	// MODE (channel/user) (mode : -i, -o...) (param)
-	if(arg[1].empty()){
-		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
-		return;
-	}
-	if(arg[0][0] == '#'){
-		if(arg[1][0] != '+' && arg[1][0] != '-')
-			std::cout << "Second parameter must begin with '+' or '-' (set/remove)" << std::endl;
-		else if(arg[1][1] != 'i' && arg[1][1] != 't' && arg[1][1] != 'k' && arg[1][1] != 'o' && arg[1][1] != 'l')
-			std::cout << "available modes : -i, -t, -k, -o, -l" << std::endl;
-		else{
-			removeFirstChar(arg, 0);
-			// exec MODE
-		}
-	}
-	else{
-		std::cout << "First parameter must be a channel beginning with '#'" << std::endl;
-	}
+	// if(arg[1].empty()){
+	// 	std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
+	// 	return;
+	// }
+	// if(arg[0][0] == '#'){
+	// 	if(arg[1][0] != '+' && arg[1][0] != '-')
+	// 		std::cout << "Second parameter must begin with '+' or '-' (set/remove)" << std::endl;
+	// 	else if(arg[1][1] != 'i' && arg[1][1] != 't' && arg[1][1] != 'k' && arg[1][1] != 'o' && arg[1][1] != 'l')
+	// 		std::cout << "available modes : -i, -t, -k, -o, -l" << std::endl;
+	// 	else{
+	// 		removeFirstChar(arg, 0);
+	// 		// exec MODE
+	// 	}
+	// }
+	// else{
+	// 	std::cout << "First parameter must be a channel beginning with '#'" << std::endl;
+	// }
+	user.modeCmd(server, arg);
 }
 
 void cmdPars::handlePong(Server &server, User &user, std::vector<std::string> arg)
