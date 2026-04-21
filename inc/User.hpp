@@ -46,6 +46,7 @@ class User{
 	void partCmd(Server &server, std::vector<std::string> &arg);
 	void privMsgCmd(Server &server, std::vector<std::string> arg);
 	void whoCmd(Server &server, std::vector<std::string> arg);
+	void noticeCmd(Server &server, std::vector<std::string> arg);
 
 
 	private :

@@ -19,6 +19,7 @@ cmdPars::cmdPars(void){
 	this->_handlerTab["PING"] = &cmdPars::handlePong;
 	this->_handlerTab["WHO"] = &cmdPars::handleWho;
 	this->_handlerTab["PRIVMSG"] = &cmdPars::handlePrivmsg;
+	this->_handlerTab["NOTICE"] = &cmdPars::handleNotice;
 }
 
 cmdPars::~cmdPars(){}
@@ -29,6 +30,10 @@ std::string	removeFirstChar(std::vector<std::string> arg, int i){
 	newStr = arg[i].substr(1, arg[i].size() - 1);
 	arg[i] = newStr;
 	return "";
+}
+
+void	cmdPars::handleNotice(Server &server, User &user, std::vector<std::string> arg){
+	user.noticeCmd(server, arg);
 }
 
 void	cmdPars::handlePrivmsg(Server &server, User &user, std::vector<std::string> arg){
