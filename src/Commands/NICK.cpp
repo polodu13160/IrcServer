@@ -46,16 +46,16 @@ void	User::nickCmd(Server &server, const std::vector<std::string>& nickName) {
 	}
 
 	if (this->_nickname.empty()) {
-		std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
+		// std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 		this->setNickname(nickName[0]);
 		return;
 	}
-	std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
+	// std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 	if (!this->_nickname.empty()) {
 		const std::string line = ":" + this->_nickname + "!" + this->_username + "@127.0.0.1 NICK :" + nickName[0] + "\r\n";
 		send(this->_userFd, line.c_str(), line.length(), 0);
 		this->setNickname(nickName[0]);
 	}
 	this->setNickname(nickName[0]);
-	std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
+	// std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 }

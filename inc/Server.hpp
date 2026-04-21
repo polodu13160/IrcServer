@@ -14,6 +14,9 @@ class Channel;
 class Server {
 
   public:
+	//utils pour le timestamp
+	const std::string timeNow() const;
+
     Server();
 
 

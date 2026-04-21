@@ -33,8 +33,8 @@ static int	convertPort(const char *arg) {
 void Server::setServerPort(const char *str) {
 
 	const int	newPort = convertPort(str);
-	//if (newPort == -1)
-	//	std::cout << "caca";
+	// if (newPort == -1)
+	// 	throw Server::errorBadPort();
 	this->_port = newPort;
 }
 
@@ -111,10 +111,13 @@ void	Server::EpollInstance() {
 						buffer[i] = '8';
 					i++;
 				}
-				getMsg(*this, buffer, userEvent[i].data.fd);
-				std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
-				std::cout << buffer << std::endl;
-				std::cout << CYAN << "END OF MSG " << RESET << std::endl;
+				getMsg(*this, buffer, clientFd);
+				#if (DEBUG==1)
+				// std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
+				// std::cout << buffer << std::endl;
+				// std::cout << CYAN << "END OF MSG " << RESET << std::endl;
+				#endif //DEBUG
+
 			}
 		}
 	}

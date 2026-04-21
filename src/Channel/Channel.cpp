@@ -3,6 +3,64 @@
 
 
 
+void Channel::sendMsgUserForOthersUsersChannel(User &user, std::string &msg) const
+{
+	if (msg[0] == ':' || msg[0] == '@')
+		msg.erase(0, 1);
+	if (this->checkUserAdmin(user) == true)
+		msg.insert(0,"@");
+	else
+		msg.insert(0, ":");
+	std::vector<User *> usersChannel = this->allUsersInVector();
+	for (size_t i = 0; i < usersChannel.size(); i++)
+	{
+		if (user.getNickname() != usersChannel[i]->getNickname())
+			send(usersChannel[i]->getUserFd(), msg.c_str(), msg.size(), 0);
+	}
+		
+}
+
+const std::string Channel::getNickNameModifTopicLast() const
+{
+    return this->_nickNameLastModifTopic;
+}
+
+void Channel::setNickNameModifTopicLast(std::string &lastNickName)
+{
+	this->_nickNameLastModifTopic = lastNickName;
+}
+
+const std::string Channel::getTimeUnixModifTopicLast() const
+{
+    return this->_lastTimeUnixModifTopic;
+}
+
+void Channel::setTimeUnixModifTopicLast(const std::string &time_val)
+{
+	this->_lastTimeUnixModifTopic = time_val;
+}
+
+void Channel::setTopic(const char *value)
+{
+	this->_topic = value;
+}
+
+void Channel::deletedUser(User &user)
+{
+	std::map<User *, bool>::const_iterator itUser = this->_users.find(&user);
+	this->_users.erase(itUser->first);
+}
+
+const std::vector<User *> Channel::allUsersInVector() const
+{
+	std::vector<User *> allUsers;
+	std::map<User *, bool>::const_iterator itUser;
+	for ( itUser= this->_users.begin(); itUser != this->_users.end(); itUser++)
+	{
+		allUsers.push_back(itUser->first);
+	}
+	return allUsers;
+}
 
 bool Channel::checkUser(User &user) const
 {
@@ -30,7 +88,7 @@ bool Channel::checkUserAdmin(User &user) const
 
 const std::map<User *, bool> &Channel::getUsers() const
 {
-    return this->_users;
+	return this->_users;
 }
 
 Channel::Channel(std::string name, std::string password) : _name(name), _password(password) {}
@@ -70,7 +128,7 @@ void Channel::setUserLimit(unsigned int val)
 
 void Channel::addUser(User &user, bool admin)
 {
-	std::pair<User *, bool>insertUser(&user,admin);
+	std::pair<User *, bool> insertUser(&user, admin);
 	this->_users.insert(insertUser);
 }
 
@@ -91,7 +149,7 @@ const std::string &Channel::getPassword(void) const
 
 const std::string &Channel::getTopic(void) const
 {
-    return this->_topic;
+	return this->_topic;
 }
 
 bool Channel::getInviteOnly(void) const

@@ -100,6 +100,13 @@ void	cmdPars::handleMode(Server &server, User &user, std::vector<std::string> ar
 	}
 }
 
+void cmdPars::handlePong(Server &server, User &user, std::vector<std::string> arg)
+{
+	(void)server;
+	(void)user;
+	user.pongCmd(arg);
+}
+
 void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> arg){
 	(void)user;
 	(void)server;
@@ -159,15 +166,9 @@ void	cmdPars::handleNick(Server &server, User &user, std::vector<std::string> ar
 }
 
 void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> arg){
-	(void)user;
-	(void)server;
-	// QUIT [message]
-	if(!arg[0].empty()){
-		// laisse un message de depart arg[0]
-		std::cout << arg[0] << std::endl;
-	}
-	//quitte IRC
-	std::cout << "[User] has left the server" << std::endl;
+	(void)arg;
+
+	user.quitCmd(server);
 }
 
 void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg){
@@ -198,7 +199,7 @@ void	cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector
 		(this->*(it->second))(server, user, args);
 	}
 	else{
-		std::cout << "This command does not exist here" << std::endl;
+		// std::cout << "This command does not exist here" << std::endl;
 	}
 }
 

@@ -13,7 +13,10 @@ bool	checkAndSetMode(int mode, unsigned int &refUserMode) {
 			reelMode.set(i);
 	}
 	refUserMode = static_cast<u_int32_t>(reelMode.to_ulong());
-	std::cout << "Mode passé = " << mode << " Mode du user = " << refUserMode << std::endl;
+	#if (DEBUG==1) 
+	// std::cout << "Mode passé = " << mode << " Mode du user = " << refUserMode << std::endl;
+	#endif //DEBUG
+	
 	return true;
 }
 
@@ -53,7 +56,7 @@ void	User::userCmd(Server& server, const std::vector<std::string>& userName) {
 		send(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	std::cout << "LA " << std::endl;
+	// std::cout << "LA " << std::endl;
 	if (wordCountInUser(userName, this->_userMode) < 4) {
 		const std::string line = "127.0.0.1 461 " + name + "USER :Not enough parameters";
 		send(this->_userFd, line.c_str(), line.length(), 0);
