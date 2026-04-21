@@ -173,7 +173,7 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 	}
 	std::vector<s_parseMode> args = parseArgsNb(modeStr);
 	if (args.empty()) {
-		std::cout << "Not good args" << std::endl;
+		// std::cout << "Not good args" << std::endl;
 		return;
 	}
 	for (size_t i = 0; i < args.size(); i++) {

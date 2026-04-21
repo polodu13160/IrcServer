@@ -4,7 +4,8 @@
 #include <functional>
 #include "../../inc/User.hpp"
 
-cmdPars::cmdPars(void){
+cmdPars::cmdPars(void)
+{
 	this->_handlerTab["KICK"] = &cmdPars::handleKick;
 	this->_handlerTab["INVITE"] = &cmdPars::handleInvite;
 	this->_handlerTab["TOPIC"] = &cmdPars::handleTopic;
@@ -22,13 +23,15 @@ cmdPars::cmdPars(void){
 	this->_handlerTab["NOTICE"] = &cmdPars::handleNotice;
 }
 
-cmdPars::~cmdPars(){}
+cmdPars::~cmdPars() {}
 
-void	cmdPars::handlePass(Server &server, User &user, std::vector<std::string> arg) {
+void cmdPars::handlePass(Server &server, User &user, std::vector<std::string> arg)
+{
 	user.passCmd(server, arg);
 }
 
-std::string	removeFirstChar(std::vector<std::string> arg, int i){
+std::string removeFirstChar(std::vector<std::string> arg, int i)
+{
 	std::string newStr;
 
 	newStr = arg[i].substr(1, arg[i].size() - 1);
@@ -36,35 +39,43 @@ std::string	removeFirstChar(std::vector<std::string> arg, int i){
 	return "";
 }
 
-void	cmdPars::handleNotice(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleNotice(Server &server, User &user, std::vector<std::string> arg)
+{
 	user.noticeCmd(server, arg);
 }
 
-void	cmdPars::handlePrivmsg(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handlePrivmsg(Server &server, User &user, std::vector<std::string> arg)
+{
 	user.privMsgCmd(server, arg);
 }
 
-void	cmdPars::handleUser(Server &server, User &user, std::vector<std::string> arg){
-	if(arg[0].empty()){
+void cmdPars::handleUser(Server &server, User &user, std::vector<std::string> arg)
+{
+	if (arg[0].empty())
+	{
 		std::cout << "There must be at least 1 parameter for this command" << std::endl;
 		return;
 	}
 	user.userCmd(server, arg);
 }
 
-void	cmdPars::handleWho(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleWho(Server &server, User &user, std::vector<std::string> arg)
+{
 	user.whoCmd(server, arg);
 }
 
-void	cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> arg)
+{
 	// INVITE (nickname) (channel)
 	(void)user;
 	(void)server;
-	if(arg[1].empty()){
+	if (arg[1].empty())
+	{
 		std::cout << "There must be 2 parameters for this command" << std::endl;
 		return;
 	}
-	if(arg[1][0] != '#'){
+	if (arg[1][0] != '#')
+	{
 		std::cout << "Channel name must begin with '#'" << std::endl;
 		return;
 	}
@@ -73,26 +84,30 @@ void	cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> 
 	std::cout << arg[0] << " has joined " << arg[1] << std::endl;
 }
 
-void	cmdPars::handleKick(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleKick(Server &server, User &user, std::vector<std::string> arg)
+{
 	(void)user;
 	(void)server;
 	// KICK (channel) (nickname) [comment]
-	if(arg.empty() || arg[1].empty()){
+	if (arg.empty() || arg[1].empty())
+	{
 		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
 		return;
 	}
-	if(arg[0][0] != '#'){
+	if (arg[0][0] != '#')
+	{
 		std::cout << "Channel name must begin with '#'" << std::endl;
 		return;
 	}
 	removeFirstChar(arg, 0);
 	// kick arg[1] de channel arg[0] en laissant un message arg[2]
 	std::cout << arg[1] << " has been kicked of channel " << arg[0] << std::endl;
-	if(!arg[2].empty())
+	if (!arg[2].empty())
 		std::cout << arg[2] << std::endl;
 }
 
-void	cmdPars::handleMode(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleMode(Server &server, User &user, std::vector<std::string> arg)
+{
 	(void)user;
 	(void)server;
 	// MODE (channel/user) (mode : -i, -o...) (param)
@@ -123,25 +138,30 @@ void cmdPars::handlePong(Server &server, User &user, std::vector<std::string> ar
 	user.pongCmd(arg);
 }
 
-void	cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> arg)
+{
 	user.topicCmd(server, arg);
 }
 
 void cmdPars::handleList(Server &server, User &user, std::vector<std::string> arg)
 {
-	user.listCmd(server,arg);
+	user.listCmd(server, arg);
 }
 
-void	cmdPars::handlePart(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handlePart(Server &server, User &user, std::vector<std::string> arg)
+{
 	(void)user;
 	(void)server;
 	// PART (channel) [channel] ...
-	if(arg[0].empty()){
+	if (arg[0].empty())
+	{
 		std::cout << "There must be at least 1 parameter for this command" << std::endl;
 		return;
 	}
-	for(int i = 0; i < 15 && !arg[i].empty(); i++){
-		if(arg[i][0] != '#'){
+	for (int i = 0; i < 15 && !arg[i].empty(); i++)
+	{
+		if (arg[i][0] != '#')
+		{
 			std::cout << "Channel name must begin with '#'" << std::endl;
 			return;
 		}
@@ -151,10 +171,12 @@ void	cmdPars::handlePart(Server &server, User &user, std::vector<std::string> ar
 	}
 }
 
-void	cmdPars::handleNick(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleNick(Server &server, User &user, std::vector<std::string> arg)
+{
 	(void)user;
 	// NICK (new nickname)
-	if(arg[0].empty()){
+	if (arg[0].empty())
+	{
 		std::cout << "There must be 1 parameter for this command" << std::endl;
 		return;
 	}
@@ -162,43 +184,61 @@ void	cmdPars::handleNick(Server &server, User &user, std::vector<std::string> ar
 	user.nickCmd(server, arg);
 }
 
-void	cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> arg)
+{
 	(void)arg;
 
 	user.quitCmd(server);
 }
 
-void	cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg)
+{
 	(void)user;
-	//JOIN (channel) [mdp]
-	// Server::messageToServer(arg[0].c_str(), NULL);
+	// JOIN (channel) [mdp]
+	//  Server::messageToServer(arg[0].c_str(), NULL);
 	user.joinCmd(server, arg);
 }
 
-void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> arg){
+void cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> arg)
+{
 	(void)user;
 	(void)server;
 	// HELP [cmd]
-	if(!arg[0].empty()){
+	if (!arg[0].empty())
+	{
 		// aide sur cmd arg[0]
 		std::cout << "[How to use] [cmd]" << arg[0] << std::endl;
-
 	}
-	else{
-		//liste des commandes
+	else
+	{
+		// liste des commandes
 		std::cout << "[CMDLIST]" << std::endl;
 	}
 }
 
-void	cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args){
+void cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args)
+{
+#if (DEBUG == 1)
 	std::cout << "cmd : " << cmd << std::endl;
-	std::map<std::string, void (cmdPars::*)(Server&, User&, std::vector<std::string>)>::iterator it = this->_handlerTab.find(cmd);
-	if(it != this->_handlerTab.end()){
+	if (args.size() > 0)
+	{
+		for (size_t i = 0; i < args.size(); i++)
+		{
+			std::cout << "args : " << i << " : " << args[i].c_str() << std::endl;
+		}
+		std::cout << "user : " << " : " << user.getNickname() << std::endl;
+	}
+	std::cout << "-------------------------------------------------------------" << std::endl;
+#endif // DEBUG
+	
+
+	std::map<std::string, void (cmdPars::*)(Server &, User &, std::vector<std::string>)>::iterator it = this->_handlerTab.find(cmd);
+	if (it != this->_handlerTab.end())
+	{
 		(this->*(it->second))(server, user, args);
 	}
-	else{
-		std::cout << "This command does not exist here" << std::endl;
+	else
+	{
+		// std::cout << "This command does not exist here" << std::endl;
 	}
 }
-
-
