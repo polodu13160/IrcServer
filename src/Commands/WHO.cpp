@@ -19,11 +19,14 @@ void	User::whoCmd(Server &server, std::vector<std::string> arg){
 	else{
 		Channel *channel = server.findChannel(arg[0]);
 		if(!channel){
-
+			// 403 ERR_NOSUCHCHANNEL
+			const std::string	line = ":127.0.0.1 403 " + arg[0] + " :No such channel\r\n";
+			send(this->getUserFd(), line.c_str(), line.size(), 0);
 		}
 		std::vector<User *> cpyUsersVector =  channel->allUsersInVector();
 		std::vector<User*>::const_iterator	it = cpyUsersVector.begin();
 		std::string line = ":127.0.0.1 352 " + this->getNickname() + " " + channel->getName() + " : " + (*it)->getRealname() + "\r\n";
+		std::cout << "about to send : [" << line << "]" << std::endl;
 		send(this->getUserFd(), line.c_str(), line.size(), 0);
 		it++;
 		for(;it !=cpyUsersVector.end(); it++){

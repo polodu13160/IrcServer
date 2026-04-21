@@ -73,7 +73,7 @@ void	handleTopicMode(Server &server, bool sign, std::vector<std::string> &modeSt
 		std::cout << "Channel doesn't exist" << std::endl;
 		return;
 	}
-	if (sign == true) 
+	if (sign == true)
 		changeMode(chann->_modeStock, MODE_TOPIC_RESTRICT, true);
 	else
 		changeMode(chann->_modeStock, MODE_TOPIC_RESTRICT, false);
@@ -115,6 +115,7 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 	bool	sign = true;
 	const std::string	str = modeStr[0];
 
+	std::cout << "arg : " << modeStr[0] << std::endl;
 	Channel	*chann = server.findChannel(modeStr[1]);
 	if (chann == NULL) {
 		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[1] + " :No such channel\r\n";
@@ -148,6 +149,7 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 				case MODE_TOPIC_RESTRICT :
 					handleTopicMode(server, sign, modeStr);
 				case MODE_BAD :
+					;
 					// send err_badmod
 			}
 		}

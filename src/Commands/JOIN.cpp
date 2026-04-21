@@ -149,3 +149,5 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 
 
 // gerer plusieurs channel en parametre separes par virgules ex : JOIN #salon1,#salon2
+
+// apres un /join, le client envoie un MODE <arg> puis un WHO <arg>

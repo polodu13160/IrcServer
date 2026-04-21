@@ -18,6 +18,7 @@ cmdPars::cmdPars(void){
 	this->_handlerTab["LIST"] = &cmdPars::handleList;
 	this->_handlerTab["PING"] = &cmdPars::handlePong;
 	this->_handlerTab["WHO"] = &cmdPars::handleWho;
+	this->_handlerTab["PRIVMSG"] = &cmdPars::handlePrivmsg;
 }
 
 cmdPars::~cmdPars(){}
@@ -28,6 +29,10 @@ std::string	removeFirstChar(std::vector<std::string> arg, int i){
 	newStr = arg[i].substr(1, arg[i].size() - 1);
 	arg[i] = newStr;
 	return "";
+}
+
+void	cmdPars::handlePrivmsg(Server &server, User &user, std::vector<std::string> arg){
+	user.privMsgCmd(server, arg);
 }
 
 void	cmdPars::handleUser(Server &server, User &user, std::vector<std::string> arg){
@@ -79,26 +84,7 @@ void	cmdPars::handleKick(Server &server, User &user, std::vector<std::string> ar
 }
 
 void	cmdPars::handleMode(Server &server, User &user, std::vector<std::string> arg){
-	(void)user;
-	(void)server;
-	// MODE (channel/user) (mode : -i, -o...) (param)
-	if(arg[1].empty()){
-		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
-		return;
-	}
-	if(arg[0][0] == '#'){
-		if(arg[1][0] != '+' && arg[1][0] != '-')
-			std::cout << "Second parameter must begin with '+' or '-' (set/remove)" << std::endl;
-		else if(arg[1][1] != 'i' && arg[1][1] != 't' && arg[1][1] != 'k' && arg[1][1] != 'o' && arg[1][1] != 'l')
-			std::cout << "available modes : -i, -t, -k, -o, -l" << std::endl;
-		else{
-			removeFirstChar(arg, 0);
-			// exec MODE
-		}
-	}
-	else{
-		std::cout << "First parameter must be a channel beginning with '#'" << std::endl;
-	}
+	user.modeCmd(server, arg);
 }
 
 void cmdPars::handlePong(Server &server, User &user, std::vector<std::string> arg)
@@ -176,6 +162,7 @@ void	cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> ar
 }
 
 void	cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args){
+	std::cout << "cmd : " << cmd << std::endl;
 	std::map<std::string, void (cmdPars::*)(Server&, User&, std::vector<std::string>)>::iterator it = this->_handlerTab.find(cmd);
 	if(it != this->_handlerTab.end()){
 		(this->*(it->second))(server, user, args);
