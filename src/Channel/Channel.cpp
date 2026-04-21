@@ -99,6 +99,8 @@ const std::map<User *, bool> &Channel::getUsers() const
 
 Channel::Channel(std::string name) : _name(name){
 	this->_userLimit = -1;
+	this->_inviteOnly = false;
+	this->_topicRestrictions = false;
 }
 
 Channel::Channel(const Channel &other)
