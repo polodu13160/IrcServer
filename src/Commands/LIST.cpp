@@ -40,6 +40,6 @@ void User::listCmd(Server &server, std::vector<std::string> channels_string)
             }
         }
     }
-    lineSend = serverName + " 323 " + this->_nickname + " :End of /LIST \r\n";
+    lineSend = serverName + " 323 " + this->_nickname + "@" + HOST + " :End of /LIST \r\n";
     send(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0); // RPL_LISTEND
 }
