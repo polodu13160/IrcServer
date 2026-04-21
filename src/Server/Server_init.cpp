@@ -103,15 +103,14 @@ void	Server::EpollInstance() {
 
 				std::memset(buffer, 0, 128);
 
-				recv(userEvent[i].data.fd, &buffer, 128, 0);
+				size_t bytes = recv(userEvent[i].data.fd, &buffer, 128, 0);
 
-				int i = 0;
-				while (buffer[i]) {
-					if (buffer[i] == '0')
-						buffer[i] = '8';
-					i++;
+				if (bytes == 0) {
+					std::cout << RED << "CLient deco" << RESET << std::endl;
+					epoll_ctl(epollInstance, EPOLL_CTL_DEL, userEvent[i].data.fd, NULL);
+					close(userEvent[i].data.fd);
 				}
-				getMsg(*this, buffer, clientFd);
+				getMsg(*this, buffer, userEvent[i].data.fd);
 				#if (DEBUG==1)
 				// std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
 				// std::cout << buffer << std::endl;
