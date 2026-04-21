@@ -43,7 +43,7 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 					send(this->getUserFd(), line.c_str(), line.size(), 0);
 					return;
 				}
-				std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] + " :" + arg[1] + "\r\n";
+				std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] +" "+ arg[1] + "\r\n";
 				channel->sendMsgUserForOthersUsersChannel(*this, line);
 			}
 			else{
@@ -54,7 +54,7 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 					send(this->getUserFd(), line.c_str(), line.size(), 0);
 					return;
 				}
-				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] + " :" + arg[1] + "\r\n";
+				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] +" "+  arg[1] + "\r\n";
 				send(user->getUserFd(), line.c_str(), line.size(), 0);
 			}
 		}
