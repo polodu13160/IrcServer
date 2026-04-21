@@ -187,9 +187,7 @@ void cmdPars::handleNick(Server &server, User &user, std::vector<std::string> ar
 
 void cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> arg)
 {
-	(void)arg;
-
-	user.quitCmd(server);
+	user.quitCmd(server, arg);
 }
 
 void cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg)
