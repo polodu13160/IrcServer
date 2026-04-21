@@ -109,6 +109,11 @@ void	Server::EpollInstance() {
 					std::cout << RED << "CLient deco" << RESET << std::endl;
 					epoll_ctl(epollInstance, EPOLL_CTL_DEL, userEvent[i].data.fd, NULL);
 					close(userEvent[i].data.fd);
+					//kais important de faire ca sinon pas supprimer totalement et ca rentre quand meme dans 
+					//getmessage jai deja eu un segfault a cause de ca 
+					//normalement comme ca c good
+					this->_users.erase(userEvent[i].data.fd);
+					continue;
 				}
 				getMsg(*this, buffer, userEvent[i].data.fd);
 				#if (DEBUG==1)
