@@ -217,7 +217,6 @@ void cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> ar
 
 void cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args)
 {
-#if (DEBUG == 1)
 	std::cout << "cmd : " << cmd << std::endl;
 	if (args.size() > 0)
 	{
@@ -228,7 +227,6 @@ void cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector
 		std::cout << "user : " << " : " << user.getNickname() << std::endl;
 	}
 	std::cout << "-------------------------------------------------------------" << std::endl;
-#endif // DEBUG
 	
 
 	std::map<std::string, void (cmdPars::*)(Server &, User &, std::vector<std::string>)>::iterator it = this->_handlerTab.find(cmd);
