@@ -5,17 +5,22 @@
 
 void Channel::sendMsgUserForOthersUsersChannel(User &user, std::string &msg) const
 {
-	if (msg[0] == ':' || msg[0] == '@')
-		msg.erase(0, 1);
-	if (this->checkUserAdmin(user) == true)
-		msg.insert(0,"@");
-	else
-		msg.insert(0, ":");
+	if (msg[0] != ':')
+	{
+		msg.insert(0,":");
+	}
 	std::vector<User *> usersChannel = this->allUsersInVector();
 	for (size_t i = 0; i < usersChannel.size(); i++)
 	{
 		if (user.getNickname() != usersChannel[i]->getNickname())
+		{
+			#if (DEBUG==1) 
+				Server::messageToServer(msg.c_str(), NULL);
+			#endif //DEBUG
+			
 			send(usersChannel[i]->getUserFd(), msg.c_str(), msg.size(), 0);
+		}
+			
 	}
 
 }
@@ -57,7 +62,7 @@ const std::vector<User *> Channel::allUsersInVector() const
 	std::map<User *, bool>::const_iterator itUser;
 	for ( itUser= this->_users.begin(); itUser != this->_users.end(); itUser++)
 	{
-		Server::messageToServer(itUser->first->getUsername().c_str(), NULL);
+		// Server::messageToServer(itUser->first->getUsername().c_str(), NULL);
 		allUsers.push_back(itUser->first);
 	}
 	return allUsers;
