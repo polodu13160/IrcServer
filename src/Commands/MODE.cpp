@@ -116,9 +116,9 @@ void User::modeCmd(Server& server, std::vector<std::string> &modeStr) {
 	const std::string	str = modeStr[0];
 
 	std::cout << "arg : " << modeStr[0] << std::endl;
-	Channel	*chann = server.findChannel(modeStr[1]);
+	Channel	*chann = server.findChannel(modeStr[0]);
 	if (chann == NULL) {
-		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[1] + " :No such channel\r\n";
+		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
 		send(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
