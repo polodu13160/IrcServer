@@ -99,11 +99,11 @@ void	Server::EpollInstance() {
 				}
 			}
 			else {
-				char buffer[128];
+				char buffer[MAX_SIZE_MESSAGE + 1];
 
-				std::memset(buffer, 0, 128);
+				std::memset(buffer, 0, MAX_SIZE_MESSAGE);
 
-				size_t bytes = recv(userEvent[i].data.fd, &buffer, 128, 0);
+				size_t bytes = recv(userEvent[i].data.fd, &buffer, MAX_SIZE_MESSAGE, 0);
 
 				if (bytes == 0) {
 					std::cout << RED << "CLient deco" << RESET << std::endl;
