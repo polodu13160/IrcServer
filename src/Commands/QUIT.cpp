@@ -25,7 +25,8 @@ void User::quitCmd(Server &server, std::vector<std::string> arg)
     {
         if (it->second->checkUser(*this) == true)
         {
-            for (std::vector<User *>::const_iterator it2 = it->second->allUsersInVector().begin(); it2 != it->second->allUsersInVector().end(); ++it2)
+            std::vector<User *> usersChannel = it->second->allUsersInVector();
+            for (std::vector<User *>::const_iterator it2 = usersChannel.begin(); it2 != usersChannel.end(); ++it2)
             {
                 if ((*it2) != this)
                     concernedUsers.insert(*it2);
