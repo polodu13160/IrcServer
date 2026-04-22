@@ -51,6 +51,7 @@ class User{
 	void noticeCmd(Server &server, std::vector<std::string> arg);
 	void passCmd(Server &server, std::vector<std::string> &arg);
 	void inviteCmd(Server &server, std::vector<std::string> &arg);
+	void kickCmd(Server &server, std::vector<std::string> &arg);
 
 
 	private :

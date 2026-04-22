@@ -67,24 +67,7 @@ void cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> 
 
 void cmdPars::handleKick(Server &server, User &user, std::vector<std::string> arg)
 {
-	(void)user;
-	(void)server;
-	// KICK (channel) (nickname) [comment]
-	if (arg.empty() || arg[1].empty())
-	{
-		std::cout << "There must be 2 or 3 parameters for this command" << std::endl;
-		return;
-	}
-	if (arg[0][0] != '#')
-	{
-		std::cout << "Channel name must begin with '#'" << std::endl;
-		return;
-	}
-	removeFirstChar(arg, 0);
-	// kick arg[1] de channel arg[0] en laissant un message arg[2]
-	std::cout << arg[1] << " has been kicked of channel " << arg[0] << std::endl;
-	if (!arg[2].empty())
-		std::cout << arg[2] << std::endl;
+	user.kickCmd(server,arg);
 }
 
 void cmdPars::handleMode(Server &server, User &user, std::vector<std::string> arg)
@@ -95,7 +78,6 @@ void cmdPars::handleMode(Server &server, User &user, std::vector<std::string> ar
 void cmdPars::handlePong(Server &server, User &user, std::vector<std::string> arg)
 {
 	(void)server;
-	(void)user;
 	user.pongCmd(arg);
 }
 
