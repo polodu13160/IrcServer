@@ -30,7 +30,7 @@ void set_signal_action(void)
 }
 
 int main (const int ac, char **av) {
-	if (ac == 3) {
+	if (ac == 3 && ac != 2) {
 
 		try {
 			set_signal_action();
