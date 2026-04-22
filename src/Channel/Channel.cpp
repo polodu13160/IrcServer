@@ -97,6 +97,18 @@ const std::map<User *, bool> &Channel::getUsers() const
 	return this->_users;
 }
 
+void Channel::addInviteUser(std::string user)
+{
+	this->_usersInvite.insert(user);
+}
+
+bool Channel::getInInviteUsers(std::string user)
+{
+	if (this->_usersInvite.find(user) != this->_usersInvite.end())
+		return true;
+    return false;
+}
+
 Channel::Channel(std::string name) : _name(name){
 	this->_userLimit = -1;
 	this->_inviteOnly = false;

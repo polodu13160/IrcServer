@@ -50,6 +50,7 @@ class User{
 	void whoCmd(Server &server, std::vector<std::string> arg);
 	void noticeCmd(Server &server, std::vector<std::string> arg);
 	void passCmd(Server &server, std::vector<std::string> &arg);
+	void inviteCmd(Server &server, std::vector<std::string> &arg);
 
 
 	private :
