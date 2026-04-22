@@ -41,10 +41,16 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 					// 403 ERR_NOSUCHCHANNEL
 					const std::string	line = ":127.0.0.1 403 " + split[i] + " :No such channel\r\n";
 					send(this->getUserFd(), line.c_str(), line.size(), 0);
-					return;
 				}
-				std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] +" "+ arg[1] + "\r\n";
-				channel->sendMsgUserForOthersUsersChannel(*this, line);
+				else if(!channel->checkUser(*this)){
+					// 404 ERR_CANNOTSENDTOCHAN
+					const std::string	line = ":127.0.0.1 404 " + split[i] + " :Cannot send to channel\r\n";
+					send(this->getUserFd(), line.c_str(), line.size(), 0);
+				}
+				else{
+					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] +" "+ arg[1] + "\r\n";
+					channel->sendMsgUserForOthersUsersChannel(*this, line);
+				}
 			}
 			else{
 				User *user = server.getUserbyNickname(split[i]);

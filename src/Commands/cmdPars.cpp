@@ -19,6 +19,7 @@ cmdPars::cmdPars(void)
 	this->_handlerTab["LIST"] = &cmdPars::handleList;
 	this->_handlerTab["PING"] = &cmdPars::handlePong;
 	this->_handlerTab["WHO"] = &cmdPars::handleWho;
+	this->_handlerTab["who"] = &cmdPars::handleWho;
 	this->_handlerTab["PRIVMSG"] = &cmdPars::handlePrivmsg;
 	this->_handlerTab["NOTICE"] = &cmdPars::handleNotice;
 }
@@ -227,7 +228,7 @@ void cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector
 		std::cout << "user : " << " : " << user.getNickname() << std::endl;
 	}
 	std::cout << "-------------------------------------------------------------" << std::endl;
-	
+
 
 	std::map<std::string, void (cmdPars::*)(Server &, User &, std::vector<std::string>)>::iterator it = this->_handlerTab.find(cmd);
 	if (it != this->_handlerTab.end())

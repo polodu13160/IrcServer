@@ -47,10 +47,10 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 					send(this->getUserFd(), line.c_str(), line.size(), 0);
 					chan->sendMsgUserForOthersUsersChannel(*this, line);
 					chan->deletedUser(*this);
-					if(chan->getUsers().size() < 1){
-						server._chanMap.erase(chan->getName());
-						delete chan;
-					}
+					// if(chan->getUsers().size() < 1){
+					// 	server._chanMap.erase(chan->getName());
+					// 	delete chan;
+					// }
 					this->nbChannelRegistered--;
 				}
 			}
