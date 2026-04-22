@@ -53,6 +53,7 @@ public:
     void setNickNameModifTopicLast(std::string &lastNickName);
     const std::string getTimeUnixModifTopicLast() const;
     void setTimeUnixModifTopicLast(const std::string &time_val) ;
+	void	printChannelOperator();
 
 	User *getUserByNickname(const std::string &nickname);
 

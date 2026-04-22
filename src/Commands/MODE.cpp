@@ -87,7 +87,7 @@ void	handleLimitMode(Server &server, Channel &chann, const s_parseMode &mode) {
 		chann.setUserLimit(false);
 }
 
-void	handleOperatorMode(Server &server, Channel &chann, const s_parseMode &mode) {
+void	handleOperatorMode(Server &server, Channel &chann, const s_parseMode &mode, User &userSend) {
 	User *user = chann.getUserByNickname(mode.arg);
 
 	if (!user) {
@@ -99,6 +99,10 @@ void	handleOperatorMode(Server &server, Channel &chann, const s_parseMode &mode)
 	}
 	else
 		chann.changeUserOp(*user, false);
+	std::string signStr = mode.sign ? "+" : "-";
+	std::string notify = ":" + userSend.getNickname() + " MODE " + chann.getName() + " " + signStr + "o " + user->getNickname() + "\r\n";
+	chann.sendMsgUserForOthersUsersChannel(userSend, notify);
+	send(userSend.getUserFd(), notify.c_str(), notify.size(), 0);
 }
 
 std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
@@ -109,12 +113,13 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 	std::vector<s_parseMode> args;
 	if (modeStr.size() == 1)
 		return args;
-	for (int i = 0; i < modeStr[1].size(); i++) {
+	for (size_t i = 0; i < modeStr[1].size(); i++) {
+		std::cout << "Current mode  : " << modeStr[1][i] << std::endl;
 		if (modeStr[1][i] == '+')
 			sign = true;
-		if (modeStr[1][i] == '-')
+		else if (modeStr[1][i] == '-')
 			sign = false;
-		if (modeStr[1][i] == 'k' || modeStr[1][i] == 'o') {
+		else if (modeStr[1][i] == 'k' || modeStr[1][i] == 'o') {
 			if (start < modeStr.size()) {
 				s_parseMode tmp;
 				tmp.mode = charToMode(modeStr[1][i]);
@@ -160,38 +165,39 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 
 void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 
-	Channel	*chann = server.findChannel(modeStr[0]);
-	if (chann == NULL) {
+	Channel	*channel = server.findChannel(modeStr[0]);
+	if (channel == NULL) {
 		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
-	if (chann->checkUserAdmin(*this) == false) {
+	if (channel->checkUserAdmin(*this) == false) {
 		const std::string line = ":127.0.0.1 482 " + this->_nickname + " " + modeStr[0] + " :You're not channel operator\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
-	std::vector<s_parseMode> args = parseArgsNb(modeStr);
+	const std::vector<s_parseMode> args = parseArgsNb(modeStr);
 	if (args.empty()) {
-		// std::cout << "Not good args" << std::endl;
+		std::cout << "Not good args" << std::endl;
 		return;
 	}
+	std::cout << "Arguments is : " << args[0].arg << std::endl;
 	for (size_t i = 0; i < args.size(); i++) {
 		switch (args[i].mode) {
 			case MODE_INVITE_O :
-				handleInviteMode(server, *chann, args[i]);
+				handleInviteMode(server, *channel, args[i]);
 				break;
 			case MODE_KEY_SET :
-				handleKeyMode(server, *chann, args[i]);
+				handleKeyMode(server, *channel, args[i]);
 				break;
 			case MODE_LIMIT_SET :
-				handleLimitMode(server, *chann, args[i]);
+				handleLimitMode(server, *channel, args[i]);
 				break;
 			case MODE_OPERATOR :
-				handleOperatorMode(server, *chann, args[i]);
+				handleOperatorMode(server, *channel, args[i], *this);
 				break;
 			case MODE_TOPIC_RESTRICT :
-				handleTopicMode(server, *chann, args[i]);
+				handleTopicMode(server, *channel, args[i]);
 				break;
 			default :
 				// send err_badmod

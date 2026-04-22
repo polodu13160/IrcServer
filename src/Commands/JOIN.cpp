@@ -90,6 +90,8 @@ static void	channelCheck(Server& server, Channel *dest, User &user, std::vector<
 		;
 	else
 		addUserHandler(server, user, dest);
+	dest->printChannelOperator();
+
 }
 
 void	User::joinCmd(Server &server, const std::vector<std::string>& arg){

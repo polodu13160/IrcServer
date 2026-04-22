@@ -47,7 +47,6 @@ int	wordCountInUser(const std::vector<std::string> &ref, unsigned int &refUserMo
 
 void	User::userCmd(Server& server, const std::vector<std::string>& userName) {
 
-	(void)server;
 	std::string name = this->_nickname;
 	if (name.empty())
 		name = "*";

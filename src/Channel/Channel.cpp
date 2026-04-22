@@ -1,7 +1,13 @@
 #include "Channel.hpp"
 #include "string"
 
-
+void Channel::printChannelOperator() {
+	std::map<User *,bool>::iterator it = this->_users.begin();
+	for (; it != this->_users.end(); it++) {
+		if (it->second == true)
+			std::cout << "Operator : " << it->first->getNickname() << std::endl;
+	}
+}
 
 void Channel::sendMsgUserForOthersUsersChannel(User &user, std::string &msg) const
 {
