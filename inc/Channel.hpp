@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/21 22:48:33 by pde-petr         ###   ########.fr       */
+/*   Updated: 2026/04/22 15:30:04 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ public:
     bool checkUserAdmin(User &user) const;
 	void	changeUserOp(User &user, bool sign);
     const std::map<User *, bool> &getUsers() const;
+    void addInviteUser(std::string user);
+    bool getInInviteUsers(std::string user);
 
     void setInviteOnly(bool val);
     void setName(std::string name);
@@ -71,7 +73,7 @@ private:
     std::string _nickNameLastModifTopic;
     std::string _lastTimeUnixModifTopic;
 	std::map<User *, bool> _users;
-	std::set<User *> _usersInvite;
+	std::set<std::string> _usersInvite;
 
 	//mode
 	bool _inviteOnly;
