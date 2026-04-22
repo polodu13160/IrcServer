@@ -6,7 +6,7 @@ FILES =  src/main src/Channel/Channel src/MessageParsing/Message src/Server/Serv
  		src/Commands/USER src/Commands/NICK src/User/User src/MessageParsing/main src/Commands/cmdPars src/Commands/LIST \
  		src/Server/Server_init src/Commands/PASS \
  		src/Commands/QUIT src/Commands/TOPIC src/Commands/PART src/Commands/PINGPONG src/Commands/WHO \
-		src/Commands/MODE src/Commands/PRIVMSG src/Commands/NOTICE
+		src/Commands/MODE src/Commands/PRIVMSG src/Commands/NOTICE src/Commands/INVITE
 OBJ_DIR = .build/
 SRCS = $(addsuffix .cpp,$(FILES))
 OBJS = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRCS))

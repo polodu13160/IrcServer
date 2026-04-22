@@ -6,7 +6,7 @@
 /*   By: pde-petr <pde-petr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/31 17:58:59 by pololinux         #+#    #+#             */
-/*   Updated: 2026/04/22 15:30:04 by pde-petr         ###   ########.fr       */
+/*   Updated: 2026/04/22 15:36:48 by pde-petr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ public:
     void setUserLimit(unsigned int val);
     void setTopic(const char *val);
     void addUser(User &user, bool admin);
-    void addUserInvite(User &user);
     void deletedUser(User &user);
     const std::vector<User *> allUsersInVector() const;
     void sendMsgUserForOthersUsersChannel(User &user, std::string &msg) const;

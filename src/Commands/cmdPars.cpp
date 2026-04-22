@@ -62,22 +62,7 @@ void cmdPars::handleWho(Server &server, User &user, std::vector<std::string> arg
 
 void cmdPars::handleInvite(Server &server, User &user, std::vector<std::string> arg)
 {
-	// INVITE (nickname) (channel)
-	(void)user;
-	(void)server;
-	if (arg[1].empty())
-	{
-		std::cout << "There must be 2 parameters for this command" << std::endl;
-		return;
-	}
-	if (arg[1][0] != '#')
-	{
-		std::cout << "Channel name must begin with '#'" << std::endl;
-		return;
-	}
-	removeFirstChar(arg, 1);
-	// arg[0] rejoint le channel arg[1]
-	std::cout << arg[0] << " has joined " << arg[1] << std::endl;
+	user.inviteCmd(server, arg);
 }
 
 void cmdPars::handleKick(Server &server, User &user, std::vector<std::string> arg)

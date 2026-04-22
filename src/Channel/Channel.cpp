@@ -154,11 +154,6 @@ void Channel::addUser(User &user, bool admin)
 	this->_users.insert(insertUser);
 }
 
-void Channel::addUserInvite(User &user)
-{
-	this->_usersInvite.insert(&user);
-}
-
 const std::string &Channel::getName(void) const
 {
 	return this->_name;
