@@ -81,10 +81,23 @@ void	handleKeyMode(Server &server, Channel &chann, const s_parseMode &mode) {
 
 void	handleLimitMode(Server &server, Channel &chann, const s_parseMode &mode) {
 
-	if (mode.sign == true)
-		chann.setUserLimit(true);
+	std::stringstream ss;
+	std::string			rest;
+	ss << mode.arg;
+
+	unsigned int tmp;
+
+	ss >> tmp;
+	if (!tmp || (ss >> rest)) {
+		// Bad User Lmit
+		return;
+	}
+	if (mode.sign == true) {
+		chann.setUserLimit(tmp);
+		changeMode(chann._modeStock, MODE_LIMIT_SET, true);
+	}
 	else
-		chann.setUserLimit(false);
+		changeMode(chann._modeStock, MODE_LIMIT_SET, false);
 }
 
 void	handleOperatorMode(Server &server, Channel &chann, const s_parseMode &mode, User &userSend) {
@@ -200,8 +213,7 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 				handleTopicMode(server, *channel, args[i]);
 				break;
 			default :
-				// send err_badmod
-				std::cout << "Err" << std::endl;
+				std::string line = ":127.0.0.1 400 " + this->_nickname + " " + modeStr[0] + " :Bad MODE parameter\r\n";
 		}
 	}
 }
