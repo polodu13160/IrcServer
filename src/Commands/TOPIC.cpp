@@ -21,14 +21,14 @@ void User::topicCmd(Server &server, std::vector<std::string> args)
     if (channel == NULL)
     {
         //si le channel n'est pas trouve
-        sendMessage = nameServer + " 403 " + this->_nickname + " " + args[0] + " :Moi pas te comprendre pas channel trouvé \r\n";
+        sendMessage = nameServer + " 403 " + this->_nickname + " " + args[0] + " :Channel not found \r\n";
         Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_NOSUCHCHANNEL (403)
         return;
     }
     if (channel->checkUser(*this) == false)
     {
         //si l'utilisateur n'est pas dans le channel
-        sendMessage = nameServer + " 442 " + this->_nickname + " " + channel->getName() + " :ty es pas tu vois pas sinon ca va mal se passer pour toi \r\n";
+        sendMessage = nameServer + " 442 " + this->_nickname + " " + channel->getName() + " :You are not part of the channel \r\n";
         Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_NOTONCHANNEL
         return;
     }
@@ -41,7 +41,7 @@ void User::topicCmd(Server &server, std::vector<std::string> args)
         if (channel->getTopicRestrictions() == true && channel->checkUserAdmin(*this) == false)
         {
             //si ya des permissions et que l'utilisateur n'est pas admin
-            sendMessage = nameServer + " 482 " + this->_nickname + " " + channel->getName() + " :t'essaie de modifier mais t'as pas les droits looser \r\n";
+            sendMessage = nameServer + " 482 " + this->_nickname + " " + channel->getName() + " :You are not operator of this channel \r\n";
             Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_CHANOPRIVSNEEDED
             return;
         }
