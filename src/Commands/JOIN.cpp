@@ -72,7 +72,7 @@ static void	addUserHandler(Server &server, User &user, Channel *dest){
 
 static void	channelCheck(Server& server, Channel *dest, User &user, std::vector<std::string> pass, size_t i){
 	// 473 ERR_INVITEONLYCHAN
-	if(dest->getInviteOnly()){
+	if(dest->getInviteOnly() && dest->getInInviteUsers(user.getNickname()) == false){
 	const std::string line = ":127.0.0.1 473 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel (invite only)\r\n";
 		Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	}
