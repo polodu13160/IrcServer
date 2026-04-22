@@ -39,7 +39,7 @@ void	User::noticeCmd(Server &server, std::vector<std::string> arg){
 				if(!user)
 					return;
 				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 NOTICE " + split[i] + " " + arg[1] + "\r\n";
-				send(user->getUserFd(), line.c_str(), line.size(), 0);
+				Server::sendCheck(user->getUserFd(), line.c_str(), line.size(), 0);
 			}
 		}
 	}

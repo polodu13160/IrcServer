@@ -19,7 +19,7 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 	if(arg.size() < 1){
 		// 461 ERR_NEEDMOREPARAMS
 		std::string	line = ":127.0.0.1 461 " + this->getNickname() + " PART :Not enough parameters\r\n";
-		send(this->getUserFd(), line.c_str(), line.size(), 0);
+		Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 		return;
 	}
 	std::vector<std::string>	channel;
@@ -28,7 +28,7 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 		if((channel[i][0] != '#' && channel[i][0] != '&') || channel[i].find(" ") != std::string::npos || channel[i].size() > 50){
 			// 403 ERR_NOSUCHCHANNEL
 			const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel\r\n";
-			send(this->getUserFd(), line.c_str(), line.size(), 0);
+			Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 		}
 		else{
 			Channel	*chan = server.findChannel(channel[i]);
@@ -36,7 +36,7 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 				if(!chan->checkUser(*this)){
 					// 442 ERR_NOTONCHANNEL
 					const std::string	line = ":127.0.0.1 442 " + channel[i] + " : You're not on that channel\r\n";
-					send(this->getUserFd(), line.c_str(), line.size(), 0);
+					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else{
 					std::string line;
@@ -44,7 +44,7 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 						line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + channel[i] + " :" + arg[1] + "\r\n";
 					else
 						line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PART " + channel[i] + "\r\n";
-					send(this->getUserFd(), line.c_str(), line.size(), 0);
+					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 					chan->sendMsgUserForOthersUsersChannel(*this, line);
 					chan->deletedUser(*this);
 					// if(chan->getUsers().size() < 1){
@@ -57,7 +57,7 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 			else{
 				// 403 ERR_NOSUCHCHANNEL
 				const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel\r\n";
-				send(this->getUserFd(), line.c_str(), line.size(), 0);
+				Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 			}
 		}
 	}

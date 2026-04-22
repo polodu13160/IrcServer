@@ -124,7 +124,7 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 			}
 			// else {
 			// 	std::string line = ":192.0.0.1 431 " + this->_nickName + " " +	modeStr[0] + ": Not enought arguments\r\n";
-			// 	send(this->userFd, line, line.size(), 0);
+			// 	Server::sendCheck(this->userFd, line, line.size(), 0);
 			// }
 		}
 		else if (modeStr[1][i] == 'l') {
@@ -137,7 +137,7 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 				args.push_back(tmp);
 				// else {
 				// 	std::string line = ":192.0.0.1 431 " + this->_nickName + " " +	modeStr[0] + ": Not enought arguments\r\n";
-				// 	send(this->userFd, line, line.size(), 0);
+				// 	Server::sendCheck(this->userFd, line, line.size(), 0);
 				// }
 			}
 		}
@@ -163,12 +163,12 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 	Channel	*chann = server.findChannel(modeStr[0]);
 	if (chann == NULL) {
 		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
-		send(this->_userFd, line.c_str(), line.size(), 0);
+		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
 	if (chann->checkUserAdmin(*this) == false) {
 		const std::string line = ":127.0.0.1 482 " + this->_nickname + " " + modeStr[0] + " :You're not channel operator\r\n";
-		send(this->_userFd, line.c_str(), line.size(), 0);
+		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
 	std::vector<s_parseMode> args = parseArgsNb(modeStr);

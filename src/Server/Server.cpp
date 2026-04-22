@@ -46,10 +46,10 @@ void Server::messageToServer(const char *text, ...)
 Channel *Server::findChannel(std::string name)
 {
     std::map<std::string, Channel*>::iterator it = this->_chanMap.find(name);
-    
+
     if (it != this->_chanMap.end())
-        return it->second; 
-        
+        return it->second;
+
     return NULL;
 }
 
@@ -137,4 +137,13 @@ const char *Server::errorServerSocket::what() const throw()
 const char *Server::errorSetSockOpt::what() const throw()
 {
 	return "Error\nBad Port provided.";
+}
+
+void	Server::sendCheck(int fd, const void *buf, size_t n, int flags){
+	if(send(fd, buf, n, flags) == -1)
+		throw Server::SendFailure();
+}
+
+const char* Server::SendFailure::what(void)const throw(){
+	return("Send failed to execute!");
 }

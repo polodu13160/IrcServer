@@ -14,13 +14,13 @@ void Channel::sendMsgUserForOthersUsersChannel(User &user, std::string &msg) con
 	{
 		if (user.getNickname() != usersChannel[i]->getNickname())
 		{
-			#if (DEBUG==1) 
+			#if (DEBUG==1)
 				Server::messageToServer(msg.c_str(), NULL);
 			#endif //DEBUG
-			
-			send(usersChannel[i]->getUserFd(), msg.c_str(), msg.size(), 0);
+
+			Server::sendCheck(usersChannel[i]->getUserFd(), msg.c_str(), msg.size(), 0);
 		}
-			
+
 	}
 
 }

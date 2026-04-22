@@ -25,12 +25,12 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 	if(arg.size() < 1){
 		// 411 ERR_NORECIPIENT
 		const std::string line = ":127.0.0.1 411 " + this->getNickname() + " :No recipient given\r\n";
-		send(this->getUserFd(), line.c_str(), line.size(), 0);
+		Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 	}
 	else if(arg.size() < 2){
 		// 412 ERR_NOTEXTTOSEND
 		const std::string line = ":127.0.0.1 412 " + this->getNickname() + " :No text to send\r\n";
-		send(this->getUserFd(), line.c_str(), line.size(), 0);
+		Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 	}
 	else{
 		std::vector<std::string>	split = argSplit(arg[0]);
@@ -40,12 +40,12 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 				if(!channel){
 					// 403 ERR_NOSUCHCHANNEL
 					const std::string	line = ":127.0.0.1 403 " + split[i] + " :No such channel\r\n";
-					send(this->getUserFd(), line.c_str(), line.size(), 0);
+					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else if(!channel->checkUser(*this)){
 					// 404 ERR_CANNOTSENDTOCHAN
 					const std::string	line = ":127.0.0.1 404 " + split[i] + " :Cannot send to channel\r\n";
-					send(this->getUserFd(), line.c_str(), line.size(), 0);
+					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else{
 					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] +" "+ arg[1] + "\r\n";
@@ -57,11 +57,11 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 				if(!user){
 					// 401 ERR_NOSUCHNICK
 					const std::string line = ":127.0.0.1 401 " + split[i] + " :No such Nickname\r\n";
-					send(this->getUserFd(), line.c_str(), line.size(), 0);
+					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 					return;
 				}
 				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] +" "+  arg[1] + "\r\n";
-				send(user->getUserFd(), line.c_str(), line.size(), 0);
+				Server::sendCheck(user->getUserFd(), line.c_str(), line.size(), 0);
 			}
 		}
 	}

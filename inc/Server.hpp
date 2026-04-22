@@ -65,6 +65,12 @@ class Server {
 		virtual const char* what() const throw();
 	};
 
+	static void	sendCheck(int __fd, const void *__buf, size_t __n, int __flags);
+
+	class SendFailure : public std::exception{
+		virtual const char *what(void)const throw();
+	};
+
 	// class errorBind : public std::exception {
 	// public:
 	// 	virtual const char* what() const throw();
@@ -88,5 +94,6 @@ private:
 };
 
 // std::ostream&	operator<<(std::ostream& os, Server &server);
+
 
 #endif

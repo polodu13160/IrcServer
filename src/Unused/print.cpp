@@ -7,10 +7,10 @@
 
 /**
  * @brief send message for terminal of server
- * 
+ *
  * @param text first message followed by a space
- * @param ... others messages followed by  spaces, 
- * @attention the last param must to be NULL 
+ * @param ... others messages followed by  spaces,
+ * @attention the last param must to be NULL
  */
 void utilsMessage::messageToServer(const char *text, ...)
 {
@@ -25,7 +25,7 @@ void utilsMessage::messageToServer(const char *text, ...)
     {
         if ((valNext = va_arg(args, const char *)) == NULL)
             std::cout << val;
-        else 
+        else
             std::cout << val << " ";
         val = valNext;
     }
@@ -36,13 +36,13 @@ void utilsMessage::messageToServer(const char *text, ...)
 
 /**
  * @brief message send to Irc Client FD;
- * 
+ *
  * @param fdClientReception the IRC client Socket
  * @param numericsCode The addr of numerics Error Protocol IRC (NULL if not used)
  * @param sender The name of the sender (Don't forget the @ if operateur of channel)
  * @param channel The addr of name of the Channel (Don't forget the #) (NULL if not used)
  * @param command The command ex : JOIN PRVMSG...
- * @param ... the param and for the penultimate the message to send 
+ * @param ... the param and for the penultimate the message to send
  * @attention Don't forget the NULL for the end of variadics arguments
  * @return possible throw if send doesn't worked
  */
@@ -96,7 +96,7 @@ void utilsMessage::messageToClient(int fdClientReception, std::string *numericsC
                 posCut += posSpaceInMsg + 1;
             }
             cutMsg.insert(0, header);
-            send(fdClientReception, (void *)cutMsg.c_str(), cutMsg.length(), MSG_DONTWAIT);
+            Server::sendCheck(fdClientReception, (void *)cutMsg.c_str(), cutMsg.length(), MSG_DONTWAIT);
             if (errno == EAGAIN || errno == EWOULDBLOCK)
             {
                 // TODO: FAIRE MESSAGE ERREUR AVEC THROW
@@ -104,7 +104,7 @@ void utilsMessage::messageToClient(int fdClientReception, std::string *numericsC
         }
     }
     else
-        send(fdClientReception, (void *)msg.c_str(), msg.length(), MSG_DONTWAIT);
+        Server::sendCheck(fdClientReception, (void *)msg.c_str(), msg.length(), MSG_DONTWAIT);
     if (errno == EAGAIN || errno == EWOULDBLOCK)
     {
         // TODO: FAIRE MESSAGE ERREUR AVEC THROW
