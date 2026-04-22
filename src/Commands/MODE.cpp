@@ -112,9 +112,9 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 	for (int i = 0; i < modeStr[1].size(); i++) {
 		if (modeStr[1][i] == '+')
 			sign = true;
-		if (modeStr[1][i] == '-')
+		else if (modeStr[1][i] == '-')
 			sign = false;
-		if (modeStr[1][i] == 'k' || modeStr[1][i] == 'o') {
+		else if (modeStr[1][i] == 'k' || modeStr[1][i] == 'o') {
 			if (start < modeStr.size()) {
 				s_parseMode tmp;
 				tmp.mode = charToMode(modeStr[1][i]);
