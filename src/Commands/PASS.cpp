@@ -1,10 +1,11 @@
 #include "../../inc/User.hpp"
+#include "User.hpp"
 
 
 void	User::passCmd(Server &server, std::vector<std::string> &arg) {
 
 	if (arg.empty()) {
-		const std::string line = ":127.0.0.1 461 * PASS :Not enough parameters\r\n";
+		const std::string line = ":127.0.0.1 461 PASS :Not enough parameters\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
@@ -20,3 +21,5 @@ void	User::passCmd(Server &server, std::vector<std::string> &arg) {
 	}
 	this->passMatch = true;
 }
+
+
