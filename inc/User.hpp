@@ -59,6 +59,7 @@ class User{
 	std::string	_nickname;
 	std::string	_username;
 	std::string	_realname;
+	std::string _ip;
 	std::string	message;
 
 	int	nbChannelRegistered;
