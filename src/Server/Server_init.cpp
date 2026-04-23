@@ -58,6 +58,8 @@ void Server::setSocketParams()
 	if (setsockopt(this->_serverFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int)) != 0)
 		throw Server::errorServerSocket();
 	this->sockaddrInit();
+	this->_ip = HOST;
+	std::cout << RED << "the server ip :" << this->_ip << RESET << std::endl;
 	if (bind(_serverFd, reinterpret_cast<sockaddr *>(&_sin), sizeof(_sin)) == -1)
 		throw errorServerSocket();
 	listen(_serverFd, SOMAXCONN);
