@@ -7,8 +7,7 @@
 void User::topicCmd(Server &server, std::vector<std::string> args)
 {
 
-    std::string nameServer = HOST;
-    nameServer.insert(0, ":");
+    std::string nameServer = ":" + server._ip;
     std::string sendMessage;
     if (args[0].empty())
     {

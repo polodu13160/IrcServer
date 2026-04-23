@@ -44,7 +44,7 @@ class User{
 	void quitCmd(Server &server, std::vector<std::string> arg);
 	void listCmd(Server &server, std::vector<std::string> channels_string);
 	void topicCmd(Server& server, std::vector<std::string> channels_string);
-	void pongCmd(const std::vector<std::string> &arg) const;
+	void pongCmd(Server &server, const std::vector<std::string> &arg) const;
 	void partCmd(Server &server, std::vector<std::string> &arg);
 	void privMsgCmd(Server &server, std::vector<std::string> arg);
 	void whoCmd(Server &server, std::vector<std::string> arg);
@@ -52,7 +52,7 @@ class User{
 	void passCmd(Server &server, std::vector<std::string> &arg);
 	void inviteCmd(Server &server, std::vector<std::string> &arg);
 	void kickCmd(Server &server, std::vector<std::string> &arg);
-	std::string getIp();
+	std::string &getIp();
 
 
 	private :

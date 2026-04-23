@@ -72,8 +72,7 @@ void	User::setNbChannelRegistered(int nb){
 	this->nbChannelRegistered = nb;
 }
 
-std::string User::getIp()
+std::string &User::getIp()
 {
-	
-    return _ip;
+    return this->_ip;
 }

@@ -65,7 +65,7 @@ void	handleKeyMode(Server &server, Channel &chann, const s_parseMode &mode) {
 		return;
 	for (size_t i = 0; i < mode.arg.size(); i++) {
 		if (mode.arg[i] == ':' || mode.arg[i] == ',' || mode.arg[i] <= 32) {
-			std::string line = ":127.0.0.1 696 ";
+			std::string line = ":" + server.getIp()+ " 696 ";
 			//err return SEND
 			return;
 		}
@@ -162,12 +162,12 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 
 	Channel	*chann = server.findChannel(modeStr[0]);
 	if (chann == NULL) {
-		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
+		const std::string line = ":" + server.getIp()+ " 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
 	if (chann->checkUserAdmin(*this) == false) {
-		const std::string line = ":127.0.0.1 482 " + this->_nickname + " " + modeStr[0] + " :You're not channel operator\r\n";
+		const std::string line = ":" + server.getIp()+ " 482 " + this->_nickname + " " + modeStr[0] + " :You're not channel operator\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}

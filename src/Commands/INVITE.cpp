@@ -4,7 +4,7 @@
 void User::inviteCmd(Server &server, std::vector<std::string> &arg)
 {
     std::string nameServer = ":";
-    nameServer += HOST;
+    nameServer += server._ip;
     std::string sendMessage;
     if (arg.size() < 2)
     {

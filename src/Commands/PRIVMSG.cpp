@@ -24,12 +24,12 @@ static std::vector<std::string>	argSplit(std::string arg){
 void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 	if(arg.size() < 1){
 		// 411 ERR_NORECIPIENT
-		const std::string line = ":127.0.0.1 411 " + this->getNickname() + " :No recipient given\r\n";
+		const std::string line = ":" + server._ip + " 411 " + this->getNickname() + " :No recipient given\r\n";
 		Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 	}
 	else if(arg.size() < 2){
 		// 412 ERR_NOTEXTTOSEND
-		const std::string line = ":127.0.0.1 412 " + this->getNickname() + " :No text to send\r\n";
+		const std::string line = ":" + server._ip + " 412 " + this->getNickname() + " :No text to send\r\n";
 		Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 	}
 	else{
@@ -39,12 +39,12 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 				Channel *channel = server.findChannel(split[i]);
 				if(!channel){
 					// 403 ERR_NOSUCHCHANNEL
-					const std::string	line = ":127.0.0.1 403 " + split[i] + " :No such channel\r\n";
+					const std::string	line = ":" + server._ip + " 403 " + split[i] + " :No such channel\r\n";
 					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else if(!channel->checkUser(*this)){
 					// 404 ERR_CANNOTSENDTOCHAN
-					const std::string	line = ":127.0.0.1 404 " + split[i] + " :Cannot send to channel\r\n";
+					const std::string	line = ":" + server._ip + " 404 " + split[i] + " :Cannot send to channel\r\n";
 					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else{
@@ -56,7 +56,7 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 				User *user = server.getUserbyNickname(split[i]);
 				if(!user){
 					// 401 ERR_NOSUCHNICK
-					const std::string line = ":127.0.0.1 401 " + split[i] + " :No such Nickname\r\n";
+					const std::string line = ":" + server._ip + " 401 " + split[i] + " :No such Nickname\r\n";
 					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 					return;
 				}

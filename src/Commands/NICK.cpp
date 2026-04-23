@@ -29,18 +29,18 @@ bool	nickAlreadyUsed(const std::string& nickName, std::map<int, User>& _users) {
 void	User::nickCmd(Server &server, const std::vector<std::string>& nickName) {
 	if (nickName.empty()) {
 
-		const std::string line = ":127.0.0.1 431 * :No nickname given\r\n";
+		const std::string line = ":" + server.getIp() + " 431 * :No nickname given\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
 	if (!nickInvalidChar(nickName[0])) {
 
-		const std::string line = ":127.0.0.1 432 " + nickName[0] + " :Erroneous nickname\r\n";
+		const std::string line = ":" + server.getIp() + " 432 " + nickName[0] + " :Erroneous nickname\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
 	if (nickAlreadyUsed(nickName[0], server._users)) {
-		const std::string line = ":127.0.0.1 433 " + nickName[0] + " :Nickname is already in use\r\n";
+		const std::string line = ":" + server.getIp() + " 433 " + nickName[0] + " :Nickname is already in use\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}

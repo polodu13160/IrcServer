@@ -3,8 +3,7 @@
 void User::listCmd(Server &server, std::vector<std::string> channels_string)
 {
 
-    std::string serverName = HOST;
-    serverName.insert(0,":");
+    std::string serverName = ":" + server._ip;
     std::string lineSend = serverName + " 321 " + this->_nickname + " Channel :Users  Name\r\n";
     Server::sendCheck(this->getUserFd(), lineSend.c_str(), lineSend.length(), 0); // RPL_LISTSTART
     if (channels_string.empty() == true)

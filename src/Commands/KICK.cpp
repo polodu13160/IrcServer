@@ -21,7 +21,7 @@ static std::vector<std::string> argSplit(std::string arg)
 void User::kickCmd(Server &server, std::vector<std::string> &arg)
 {
     std::string nameServer = ":";
-    nameServer += HOST;
+    nameServer += server._ip;
     std::string sendMessage;
 
     if (arg.size() < 2)
