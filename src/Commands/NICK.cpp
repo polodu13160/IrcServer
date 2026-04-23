@@ -52,7 +52,7 @@ void	User::nickCmd(Server &server, const std::vector<std::string>& nickName) {
 	}
 	// std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 	if (!this->_nickname.empty()) {
-		const std::string line = ":" + this->_nickname + "!" + this->_username + "@127.0.0.1 NICK :" + nickName[0] + "\r\n";
+		const std::string line = ":" + this->_nickname + "!" + this->_username + "@" + this->_ip + " NICK :" + nickName[0] + "\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		this->setNickname(nickName[0]);
 	}

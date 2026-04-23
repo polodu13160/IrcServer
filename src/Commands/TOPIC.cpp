@@ -13,7 +13,7 @@ void User::topicCmd(Server &server, std::vector<std::string> args)
     if (args[0].empty())
     {
         // si pas d'arguments ce fou envoie juste topic sans rien
-        sendMessage = nameServer + " 461 " + this->_nickname + " TOPIC" + " :Pas assez de parametres ptn [#channel] optionnel: :NewTopic";
+        sendMessage = nameServer + " 461 " + this->_nickname + " TOPIC" + " :Not enough parameters [#channel] optionnel: :NewTopic \r\n";
         Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_NEEDMOREPARAMS
         return;
     }
@@ -51,7 +51,7 @@ void User::topicCmd(Server &server, std::vector<std::string> args)
         else
             channel->setTopic(args[1].c_str());
         //preparation de la modif a envoyer a tout le monde
-        sendMessage = this->_nickname + "!" + this->getUsername() + " TOPIC " + channel->getName() + " :" + channel->getTopic() + "\r\n";
+        sendMessage = this->_nickname + "!" + this->getUsername() + "@" + this->_ip + " TOPIC " + channel->getName() + " :" + channel->getTopic() + "\r\n";
         if (sendMessage.size() >= MAX_SIZE_MESSAGE)
         {
             sendMessage.erase(511);
@@ -69,7 +69,7 @@ void User::topicCmd(Server &server, std::vector<std::string> args)
         if (channel->getTopic().empty() == true)
         {
             //si pas de topic sur le server
-            sendMessage = nameServer + " 331 " + this->_nickname + " " + channel->getName() + " :" + "Il n'y a rien a voir ici ce channel est vide de sens" + "\r\n";
+            sendMessage = nameServer + " 331 " + this->_nickname + " " + channel->getName() + " :" + "There is nothing to see here this channel is meaningless" + "\r\n";
             //RPL_NOTOPIC
             Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0);
         }

@@ -48,7 +48,7 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 				}
 				else{
-					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] +" "+ arg[1] + "\r\n";
+					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " PRIVMSG " + split[i] +" "+ arg[1] + "\r\n";
 					channel->sendMsgUserForOthersUsersChannel(*this, line);
 				}
 			}
@@ -60,7 +60,7 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 					return;
 				}
-				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 PRIVMSG " + split[i] +" "+  arg[1] + "\r\n";
+				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " PRIVMSG " + split[i] +" "+  arg[1] + "\r\n";
 				Server::sendCheck(user->getUserFd(), line.c_str(), line.size(), 0);
 			}
 		}

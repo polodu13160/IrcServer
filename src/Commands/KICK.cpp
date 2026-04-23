@@ -64,7 +64,7 @@ void User::kickCmd(Server &server, std::vector<std::string> &arg)
         else
         {
             sendMessage = ":";
-            sendMessage += this->_nickname + "!" + this->_username + "@" + HOST + " KICK " + arg[0] + " " + findUser->_nickname;
+            sendMessage += this->_nickname + "!" + this->_username + "@" + this->_ip + " KICK " + arg[0] + " " + findUser->_nickname;
             if (arg.size() <= 3)
                 sendMessage += " :kick looser \r\n";
             else

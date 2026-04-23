@@ -52,6 +52,7 @@ class User{
 	void passCmd(Server &server, std::vector<std::string> &arg);
 	void inviteCmd(Server &server, std::vector<std::string> &arg);
 	void kickCmd(Server &server, std::vector<std::string> &arg);
+	std::string getIp();
 
 
 	private :

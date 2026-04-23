@@ -35,7 +35,7 @@ void User::quitCmd(Server &server, std::vector<std::string> arg)
 
         }
     }
-    messageSend = ":" + this->_nickname  + "!" + this->_username + "@" + HOST+ " QUIT" + " : Good Bye";
+    messageSend = ":" + this->_nickname  + "!" + this->_username + "@" + this->_ip + " QUIT" + " : Good Bye";
     if (explainMsg.empty() == false)
     {
         messageSend +=" and he said :" + explainMsg;

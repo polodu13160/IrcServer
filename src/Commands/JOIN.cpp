@@ -48,7 +48,7 @@ static void	channelCreation(std::map<std::string, Channel *>& chanMap, std::vect
 		newChan->setPassword(pass[i]);
 	chanMap.insert(std::pair<std::string,Channel*>(newChan->getName(),newChan));
 	newChan->addUser(user, 1);
-	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@127.0.0.1 JOIN " + channel[i] + "\r\n";
+	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@" + user.getIp() + " JOIN " + channel[i] + "\r\n";
 	Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	// RPL_TOPIC
 	std::vector<std::string> topicArg;
@@ -59,7 +59,7 @@ static void	channelCreation(std::map<std::string, Channel *>& chanMap, std::vect
 
 static void	addUserHandler(Server &server, User &user, Channel *dest){
 	dest->addUser(user, 0);
-	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@127.0.0.1 JOIN " + dest->getName() + "\r\n";
+	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@" + user.getIp() +  " JOIN " + dest->getName() + "\r\n";
 	Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	dest->sendMsgUserForOthersUsersChannel(user, line);
 	// RPL_TOPIC

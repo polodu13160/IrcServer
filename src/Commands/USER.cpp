@@ -52,13 +52,13 @@ void	User::userCmd(Server& server, const std::vector<std::string>& userName) {
 	if (name.empty())
 		name = "*";
 	if (this->registered == true) {
-		const std::string line = ":127.0.0.1 462 " + name + " :Unauthorized command (already registered)";
+		const std::string line = ":127.0.0.1 462 " + name + " :Unauthorized command (already registered) \r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
 	// std::cout << "LA " << std::endl;
 	if (wordCountInUser(userName, this->_userMode) < 4) {
-		const std::string line = "127.0.0.1 461 " + name + "USER :Not enough parameters";
+		const std::string line = "127.0.0.1 461 " + name + "USER :Not enough parameters \r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
