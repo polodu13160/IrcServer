@@ -93,9 +93,10 @@ SOCKADDR_IN &Server::getServerSin()
 	return this->_sin;
 }
 
-void Server::setUserFd(int fd)
+void Server::setUserFd(int fd, std::string ip)
 {
 	this->_users[fd] = User(fd, "", "");
+	this->_users[fd]._ip = ip;
 }
 
 // SERVER CLASS OUT AND EXCEPTIONS
