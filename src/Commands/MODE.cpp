@@ -155,6 +155,7 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 				// else {
 				// 	std::string line = ":192.0.0.1 431 " + this->_nickName + " " +	modeStr[0] + ": Not enought arguments\r\n";
 				// 	Server::sendCheck(this->userFd, line, line.size(), 0);
+				//test
 				// }
 			}
 		}
