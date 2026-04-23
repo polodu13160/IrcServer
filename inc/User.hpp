@@ -89,9 +89,9 @@ void	changeMode(unsigned int &checkedMode, const e_modes MODE, bool sign);
 bool	checkMode(const unsigned int &checkedMode, const e_modes MODE);
 void	handleInviteMode(Channel &channel, const s_parseMode &mode);
 void	handleTopicMode(Channel &channel, const s_parseMode &mode);
-void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend);
+void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
 void	handleLimitMode(Channel &channel, const s_parseMode &mode);
-void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend);
+void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
 
 
 #endif
