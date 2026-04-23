@@ -10,6 +10,13 @@
 #include "Define.hpp"
 
 class Server;
+class Channel;
+
+struct s_parseMode {
+	mode_t mode;
+	std::string arg;
+	bool sign;
+};
 
 class User{
 	public :
@@ -76,5 +83,13 @@ class User{
 
 void	TokenizeMsg(std::string msg);
 void	getMsg(Server &server, std::string msg, int userFd);
+void	changeMode(unsigned int &checkedMode, const e_modes MODE, bool sign);
+bool	checkMode(const unsigned int &checkedMode, const e_modes MODE);
+void	handleInviteMode(Channel &channel, const s_parseMode &mode);
+void	handleTopicMode(Channel &channel, const s_parseMode &mode);
+void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend);
+void	handleLimitMode(Channel &channel, const s_parseMode &mode);
+void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend);
+
 
 #endif

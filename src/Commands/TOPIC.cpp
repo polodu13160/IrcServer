@@ -38,7 +38,7 @@ void User::topicCmd(Server &server, std::vector<std::string> args)
         if (args[1][0] == ':')
             args[1].erase(0,1);
 
-        if (channel->getTopicRestrictions() == true && channel->checkUserAdmin(*this) == false)
+        if (checkMode(channel->_modeStock, MODE_TOPIC_RESTRICT) == true && channel->checkUserAdmin(*this) == false)
         {
             //si ya des permissions et que l'utilisateur n'est pas admin
             sendMessage = nameServer + " 482 " + this->_nickname + " " + channel->getName() + " :You are not operator of this channel \r\n";
