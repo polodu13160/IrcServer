@@ -18,7 +18,7 @@ struct s_parseMode {
 	bool sign;
 };
 
-class User{
+class User {
 	public :
 	User();
 	User(int userfd, std::string nickname, std::string username);
@@ -61,7 +61,7 @@ class User{
 	void kickCmd(Server &server, std::vector<std::string> &arg);
 
 
-	private :
+	protected :
 	int			_userFd;
 	std::string	_nickname;
 	std::string	_username;
