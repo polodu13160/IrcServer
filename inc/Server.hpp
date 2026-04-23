@@ -36,7 +36,7 @@ class Server {
 
 	// Ancienne classe
 
-	void	setUserFd(int fd);
+	void	setUserFd(int fd, std::string ip);
 	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
     void	sockaddrInit();
