@@ -14,12 +14,10 @@ cmdPars::cmdPars(void)
 	this->_handlerTab["NICK"] = &cmdPars::handleNick;
 	this->_handlerTab["QUIT"] = &cmdPars::handleQuit;
 	this->_handlerTab["JOIN"] = &cmdPars::handleJoin;
-	this->_handlerTab["HELP"] = &cmdPars::handleHelp;
 	this->_handlerTab["USER"] = &cmdPars::handleUser;
 	this->_handlerTab["LIST"] = &cmdPars::handleList;
 	this->_handlerTab["PING"] = &cmdPars::handlePong;
 	this->_handlerTab["WHO"] = &cmdPars::handleWho;
-	this->_handlerTab["who"] = &cmdPars::handleWho;
 	this->_handlerTab["PRIVMSG"] = &cmdPars::handlePrivmsg;
 	this->_handlerTab["NOTICE"] = &cmdPars::handleNotice;
 }
@@ -29,15 +27,6 @@ cmdPars::~cmdPars() {}
 void cmdPars::handlePass(Server &server, User &user, std::vector<std::string> arg)
 {
 	user.passCmd(server, arg);
-}
-
-std::string removeFirstChar(std::vector<std::string> arg, int i)
-{
-	std::string newStr;
-
-	newStr = arg[i].substr(1, arg[i].size() - 1);
-	arg[i] = newStr;
-	return "";
 }
 
 void cmdPars::handleNotice(Server &server, User &user, std::vector<std::string> arg)
@@ -108,23 +97,6 @@ void cmdPars::handleQuit(Server &server, User &user, std::vector<std::string> ar
 void cmdPars::handleJoin(Server &server, User &user, std::vector<std::string> arg)
 {
 	user.joinCmd(server, arg);
-}
-
-void cmdPars::handleHelp(Server &server, User &user, std::vector<std::string> arg)
-{
-	(void)user;
-	(void)server;
-	// HELP [cmd]
-	if (!arg[0].empty())
-	{
-		// aide sur cmd arg[0]
-		std::cout << "[How to use] [cmd]" << arg[0] << std::endl;
-	}
-	else
-	{
-		// liste des commandes
-		std::cout << "[CMDLIST]" << std::endl;
-	}
 }
 
 void cmdPars::cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args)

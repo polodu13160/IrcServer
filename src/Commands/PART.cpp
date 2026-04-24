@@ -51,7 +51,6 @@ void	User::partCmd(Server &server, std::vector<std::string> &arg){
 					// 	server._chanMap.erase(chan->getName());
 					// 	delete chan;
 					// }
-					this->nbChannelRegistered--;
 				}
 			}
 			else{
