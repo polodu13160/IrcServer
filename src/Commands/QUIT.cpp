@@ -1,6 +1,6 @@
 #include "User.hpp"
 
-void User::quitCmd(Server &server, std::vector<std::string> arg)
+void User::quitCmd(Server &server, const std::vector<std::string> &arg)
 {
     std::string explainMsg;
     if (arg.size() > 0)
