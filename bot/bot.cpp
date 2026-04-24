@@ -64,8 +64,20 @@ void Bot::checkMsg(std::string &msg) {
 		std::string userTo = "kaissot";
 		std::string line = "KICK " + channelName + " " + userTo + "\r\n";
 		send(this->_botSocket, line.c_str(), line.size(), 0);
-	}
 
+
+		std::ifstream	sixsev("67");
+
+		std::string meme;
+		std::string tmp;
+		std::string line2 = "PRIVMSG kaissot :T'ES KICK \r\n";
+		send(this->_botSocket, line2.c_str(), line2.size(), 0);
+
+		while (getline(sixsev, tmp)) {
+			std::string fullLine = "PRIVMSG kaissot :" + tmp + "\r\n";
+			send(this->_botSocket, fullLine.c_str(), fullLine.size(), 0);
+		}
+	}
 }
 
 void	Bot::runBot() {
@@ -77,8 +89,13 @@ void	Bot::runBot() {
 
 		std::memset(buffer, 0, MAX_SIZE_MSG);
 		size_t	bytes = recv(this->_botSocket, buffer, 1023, 0);
-		if (bytes == 0)
+		if (bytes == 0) {
 			std::cerr << "Server Disconnected" << std::endl;
+			return ;
+		}
+
+		std::cout << "COCO" << std::endl;
+
 
 		handleLine += buffer;
 
