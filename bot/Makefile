@@ -1,7 +1,7 @@
 .PHONY : init all re clean fclean debug
 CXX = c++
 FLAGS = -Wall -Wextra  -MMD -MP -g3 -std=c++98 -Iinc -I../inc
-NAME = IrcServer
+NAME = bot
 FILES =  main bot
 OBJ_DIR = .build/
 SRCS = $(addsuffix .cpp,$(FILES))

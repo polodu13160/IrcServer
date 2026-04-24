@@ -131,11 +131,10 @@ void Server::EpollInstance()
 					continue;
 				}
 				getMsg(*this, buffer, userEvent[i].data.fd);
-#if (DEBUG == 1)
-// std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
-// std::cout << buffer << std::endl;
-// std::cout << CYAN << "END OF MSG " << RESET << std::endl;
-#endif // DEBUG
+			//
+			// std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
+			// std::cout << buffer << std::endl;
+			// std::cout << CYAN << "END OF MSG " << RESET << std::endl;
 			}
 		}
 	}
