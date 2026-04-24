@@ -92,12 +92,12 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 
 	Channel	*channel = server.findChannel(modeStr[0]);
 	if (channel == NULL) {
-		const std::string line = ":127.0.0.1 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
+		const std::string line = ":" + this->_ip + " 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
 	if (channel->checkUserAdmin(*this) == false) {
-		const std::string line = ":127.0.0.1 482 " + this->_nickname + " " + modeStr[0] + " :You're not channel operator\r\n";
+		const std::string line = ":" + this->_ip + " 482 " + this->_nickname + " " + modeStr[0] + " :You're not channel operator\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
@@ -113,19 +113,19 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 				handleInviteMode(*channel, args[i]);
 				break;
 			case MODE_KEY_SET :
-				handleKeyMode(*channel, args[i], *this);
+				handleKeyMode(*channel, args[i], *this, server);
 				break;
 			case MODE_LIMIT_SET :
 				handleLimitMode(*channel, args[i]);
 				break;
 			case MODE_OPERATOR :
-				handleOperatorMode(*channel, args[i], *this);
+				handleOperatorMode(*channel, args[i], *this, server);
 				break;
 			case MODE_TOPIC_RESTRICT :
 				handleTopicMode(*channel, args[i]);
 				break;
 			default :
-				std::string line = ":127.0.0.1 472 " + this->_nickname + " " + modeStr[0] + " :Bad MODE parameter\r\n";
+				std::string line = ":" + this->_ip + " 472 " + this->_nickname + " " + modeStr[0] + " :Bad MODE parameter\r\n";
 		}
 	}
 }

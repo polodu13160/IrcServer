@@ -30,7 +30,7 @@ void	User::noticeCmd(Server &server, std::vector<std::string> arg){
 				else if(!channel->checkUser(*this))
 					return;
 				else{
-					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 NOTICE " + split[i] + " " + arg[1] + "\r\n";
+					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip + " NOTICE " + split[i] + " " + arg[1] + "\r\n";
 					channel->sendMsgUserForOthersUsersChannel(*this, line);
 				}
 			}
@@ -38,7 +38,7 @@ void	User::noticeCmd(Server &server, std::vector<std::string> arg){
 				User *user = server.getUserbyNickname(split[i]);
 				if(!user)
 					return;
-				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@127.0.0.1 NOTICE " + split[i] + " " + arg[1] + "\r\n";
+				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " NOTICE " + split[i] + " " + arg[1] + "\r\n";
 				Server::sendCheck(user->getUserFd(), line.c_str(), line.size(), 0);
 			}
 		}

@@ -71,3 +71,8 @@ void	User::setMessage(std::string message){
 void	User::setNbChannelRegistered(int nb){
 	this->nbChannelRegistered = nb;
 }
+
+std::string &User::getIp()
+{
+    return this->_ip;
+}

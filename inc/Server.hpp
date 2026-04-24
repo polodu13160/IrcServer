@@ -47,6 +47,9 @@ class Server {
 
 	User	*getUser(int fd, Server &server);
 	User	*getUserbyNickname(std::string nickname);
+	std::string &getIp();
+
+
     static void messageToServer(const char *text, ...);
 
 
@@ -82,6 +85,7 @@ private:
     std::string	_serverPassword;
     SOCKET      _serverFd;
     SOCKADDR_IN _sin;
+	std::string _ip;
 
 	int	_maxChanPerUser;
 

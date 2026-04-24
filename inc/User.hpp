@@ -48,10 +48,10 @@ class User {
 
 	void modeCmd(Server& server, const std::vector<std::string> &modeStr);
 	void joinCmd(Server &server, const std::vector<std::string>& arg);
-	void quitCmd(Server &server, std::vector<std::string> arg);
+	void quitCmd(Server &server, const std::vector<std::string> &arg);
 	void listCmd(Server &server, std::vector<std::string> channels_string);
 	void topicCmd(Server& server, std::vector<std::string> channels_string);
-	void pongCmd(const std::vector<std::string> &arg) const;
+	void pongCmd(Server &server, const std::vector<std::string> &arg) const;
 	void partCmd(Server &server, std::vector<std::string> &arg);
 	void privMsgCmd(Server &server, std::vector<std::string> arg);
 	void whoCmd(Server &server, std::vector<std::string> arg);
@@ -59,6 +59,7 @@ class User {
 	void passCmd(Server &server, std::vector<std::string> &arg);
 	void inviteCmd(Server &server, std::vector<std::string> &arg);
 	void kickCmd(Server &server, std::vector<std::string> &arg);
+	std::string &getIp();
 
 
 	protected :
@@ -82,15 +83,14 @@ class User {
 
 };
 
-void	TokenizeMsg(std::string msg);
 void	getMsg(Server &server, std::string msg, int userFd);
 void	changeMode(unsigned int &checkedMode, const e_modes MODE, bool sign);
 bool	checkMode(const unsigned int &checkedMode, const e_modes MODE);
 void	handleInviteMode(Channel &channel, const s_parseMode &mode);
 void	handleTopicMode(Channel &channel, const s_parseMode &mode);
-void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend);
+void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
 void	handleLimitMode(Channel &channel, const s_parseMode &mode);
-void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend);
+void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
 
 
 #endif

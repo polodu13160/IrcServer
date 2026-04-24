@@ -148,3 +148,10 @@ void	Server::sendCheck(int fd, const void *buf, size_t n, int flags){
 const char* Server::SendFailure::what(void)const throw(){
 	return("Send failed to execute!");
 }
+
+std::string &Server::getIp()
+{
+	return this->_ip;
+}
+
+

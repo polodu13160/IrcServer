@@ -1,12 +1,12 @@
 #include "User.hpp"
 
-void User::quitCmd(Server &server, std::vector<std::string> arg)
+void User::quitCmd(Server &server, const std::vector<std::string> &arg)
 {
     std::string explainMsg;
     if (arg.size() > 0)
     {
-        arg[0].erase(0, 1);
         explainMsg = arg[0];
+        explainMsg.erase(0,1);
     }
     std::string messageSend = "ERROR :You left the server";
     if (explainMsg.empty() == false)
@@ -35,7 +35,7 @@ void User::quitCmd(Server &server, std::vector<std::string> arg)
 
         }
     }
-    messageSend = ":" + this->_nickname  + "!" + this->_username + "@" + HOST+ " QUIT" + " : Good Bye";
+    messageSend = ":" + this->_nickname  + "!" + this->_username + "@" + this->_ip + " QUIT" + " : Good Bye";
     if (explainMsg.empty() == false)
     {
         messageSend +=" and he said :" + explainMsg;

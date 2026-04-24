@@ -15,10 +15,10 @@ static std::vector<std::string>	argSplit(std::string arg){
 	return tab;
 }
 
-static void	nameReply(Channel &channel, User &user){
+static void	nameReply(Channel &channel, User &user, Server &server){
 	// RPL_NAMREPLY
-	std::string line = ":127.0.0.1 353 " + user.getNickname() + " = " + channel.getName() + " :";
-	std::vector<User *> cpyUsersVector =  channel.allUsersInVector();
+	std::string line = ":" + server.getIp() +  " 353 " + user.getNickname() + " = " + channel.getName() + " :";
+	std::vector<User*> cpyUsersVector =  channel.allUsersInVector();
 	std::vector<User*>::const_iterator	it = cpyUsersVector.begin();
 
 	if(channel.checkUserAdmin(*(*it)))
@@ -28,7 +28,7 @@ static void	nameReply(Channel &channel, User &user){
 	Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	it++;
 	for(;it !=cpyUsersVector.end(); it++){
-		line = ":127.0.0.1 353 " + user.getNickname() + " = " + channel.getName() + " :";
+		line = ":" + server.getIp() + " 353 " + user.getNickname() + " = " + channel.getName() + " :";
 		if(channel.checkUserAdmin(*(*it)))
 			line += "@";
 		line.insert(line.size(), (*it)->getNickname());
@@ -37,7 +37,7 @@ static void	nameReply(Channel &channel, User &user){
 	}
 	//line += "\r\n";
 	//Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
-	line = ":127.0.0.1 366 "  + user.getNickname() + " " + channel.getName() +  " :End of /NAMES list\r\n";
+	line = ":" + server.getIp()+ " 366 "  + user.getNickname() + " " + channel.getName() +  " :End of /NAMES list\r\n";
 	// RPL_ENDOFNAMES (366)
 	Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 }
@@ -48,42 +48,42 @@ static void	channelCreation(std::map<std::string, Channel *>& chanMap, std::vect
 		newChan->setPassword(pass[i]);
 	chanMap.insert(std::pair<std::string,Channel*>(newChan->getName(),newChan));
 	newChan->addUser(user, 1);
-	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@127.0.0.1 JOIN " + channel[i] + "\r\n";
+	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@" + user.getIp() + " JOIN " + channel[i] + "\r\n";
 	Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	// RPL_TOPIC
 	std::vector<std::string> topicArg;
 	topicArg.push_back(channel[i]);
 	user.topicCmd(server, topicArg);
-	nameReply(*newChan, user);
+	nameReply(*newChan, user, server);
 }
 
 static void	addUserHandler(Server &server, User &user, Channel *dest){
 	dest->addUser(user, 0);
-	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@127.0.0.1 JOIN " + dest->getName() + "\r\n";
+	std::string line = ":" + user.getNickname() + "!" + user.getUsername() + "@" + user.getIp() +  " JOIN " + dest->getName() + "\r\n";
 	Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	dest->sendMsgUserForOthersUsersChannel(user, line);
 	// RPL_TOPIC
 	std::vector<std::string> topicArg;
 	topicArg.push_back(dest->getName());
 	user.topicCmd(server, topicArg);
-	nameReply(*dest, user);
+	nameReply(*dest, user, server);
 	user.setNbChannelRegistered(user.getnbChannelRegistered() + 1);
 }
 
 static void	channelCheck(Server& server, Channel *dest, User &user, std::vector<std::string> pass, size_t i){
 	// 473 ERR_INVITEONLYCHAN
 	if(dest->getInviteOnly() && dest->getInInviteUsers(user.getNickname()) == false){
-	const std::string line = ":127.0.0.1 473 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel (invite only)\r\n";
+	const std::string line = ":" + server.getIp()+ " 473 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel (invite only)\r\n";
 		Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	}
 	// 471 ERR_CHANNELISFULL
 	else if(dest->getUsers().size() >= dest->getUserLimit()){
-		const std::string line = ":127.0.0.1 471 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel (Channel is full)\r\n";
+		const std::string line = ":" + server.getIp()+ " 471 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel (Channel is full)\r\n";
 		Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	}
 	// 475 ERR_BADCHANNELKEY
 	else if((!dest->getPassword().empty() && pass.size() > i && dest->getPassword().compare(pass[i])) || (!dest->getPassword().empty() && pass.size() <= i)){
-		const std::string	line = ":127.0.0.1 475 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel\r\n";
+		const std::string	line = ":" + server.getIp()+ " 475 " + user.getNickname() + " " + dest->getName() + " :Cannot join channel\r\n";
 		Server::sendCheck(user.getUserFd(), line.c_str(), line.size(), 0);
 	}
 	else if(dest->checkUser(user))
@@ -100,7 +100,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 
 	// 461 ERR_NEEDMOREPARAMS
 	if(arg.size() < 1){
-		std::string	line = ":127.0.0.1 461 " + this->getNickname() + " JOIN :Not enough parameters\r\n";
+		std::string	line = ":" + server.getIp()+ " 461 " + this->getNickname() + " JOIN :Not enough parameters\r\n";
 		Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 		return;
 	}
@@ -117,7 +117,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 		// }
 		if((channel[i][0] != '#' && channel[i][0] != '&') || channel[i].find(" ") != std::string::npos || channel[i].size() > 50){
 			// 403 ERR_NOSUCHCHANNEL
-			const std::string	line = ":127.0.0.1 403 " + channel[i] + " :No such channel\r\n";
+			const std::string	line = ":" + server.getIp()+ " 403 " + channel[i] + " :No such channel\r\n";
 			Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
 		}
 		else{

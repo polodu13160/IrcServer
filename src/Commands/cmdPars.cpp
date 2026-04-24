@@ -77,8 +77,7 @@ void cmdPars::handleMode(Server &server, User &user, std::vector<std::string> ar
 
 void cmdPars::handlePong(Server &server, User &user, std::vector<std::string> arg)
 {
-	(void)server;
-	user.pongCmd(arg);
+	user.pongCmd(server, arg);
 }
 
 void cmdPars::handleTopic(Server &server, User &user, std::vector<std::string> arg)
