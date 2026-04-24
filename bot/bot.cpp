@@ -22,7 +22,7 @@ void Bot::hash(const std::string &str) {
 	_insultTable[hash].push_back(str);
 }
 
-void Bot::unhash(const std::string &str) {
+bool Bot::unhash(const std::string &str) {
 
 
 
@@ -49,10 +49,46 @@ void Bot::unhash(const std::string &str) {
 
 			if (*it == word) {
 				std::cout << "Mot trouve : " << *it << std::endl;
-				break;
+				return true;
 			}
 		}
+	}
+	return false;
+}
 
+void Bot::checkMsg(std::string &msg) {
+
+	if (unhash(msg) == true) {
+
+		std::string channelName = "#tutu";
+		std::string userTo = "kaissot";
+		std::string line = "KICK " + channelName + " " + userTo + "\r\n";
+		send(this->_botSocket, line.c_str(), line.size(), 0);
+	}
+
+}
+
+void	Bot::runBot() {
+
+	char buffer[MAX_SIZE_MSG];
+	std::string handleLine;
+
+	while (1) {
+
+		std::memset(buffer, 0, MAX_SIZE_MSG);
+		size_t	bytes = recv(this->_botSocket, buffer, 1023, 0);
+		if (bytes == 0)
+			std::cerr << "Server Disconnected" << std::endl;
+
+		handleLine += buffer;
+
+		size_t index;
+
+		if ((index = handleLine.find("\r\n")) != std::string::npos) {
+			std::string msg = handleLine.substr(0, index);
+			handleLine.erase(0, index + 1);
+			checkMsg(msg);
+		}
 	}
 }
 
@@ -75,17 +111,20 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 	}
 
 	const std::string password(SERVER_PASS);
-	std::string	passLine = "PASS " + password + "\r\n";
+	const std::string	passLine = "PASS " + password + "\r\n";
 
 	send(this->_botSocket, passLine.c_str(), passLine.size(), 0);
 
 	const std::string botName(BOT_NAME);
-	std::string	nickName = "NICK " + botName + "\r\n";
+	const std::string	nickName = "NICK " + botName + "\r\n";
 	send(this->_botSocket, nickName.c_str(), nickName.size(), 0);
 
-	std::string userName = "USER " + botName + " 0 * :" + botName + "\r\n";
+	const std::string userName = "USER " + botName + " 0 * :" + botName + "\r\n";
 
 	send(this->_botSocket, userName.c_str(), userName.size(), 0);
+
+	const std::string join = "JOIN #tutu\r\n";
+	send(this->_botSocket, join.c_str(), join.size(), 0);
 
 
 	std::string newInsult;
@@ -99,13 +138,8 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 		}
 		hash(newInsult);
 	}
+	runBot();
 
-	std::string tmp = "Salut connard espece de con sale fdp";
-
-
-	unhash(tmp);
-
-	while (1);
 }
 
 Bot::Bot(const Bot &other) {

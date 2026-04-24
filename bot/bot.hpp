@@ -13,7 +13,8 @@
 #include <unistd.h>
 
 #define SERVER_PASS "67"
-#define	BOT_NAME "67bot"
+#define	BOT_NAME "bot"
+#define MAX_SIZE_MSG 1024
 
 class Bot {
 public:
@@ -22,7 +23,11 @@ public:
 
 	void hash(const std::string &str);
 
-	void unhash(const std::string &str);
+	bool unhash(const std::string &str);
+
+	void checkMsg(std::string &msg);
+
+	void runBot();
 
 	Bot(std::ifstream &stream);
 	Bot(const Bot &other);
