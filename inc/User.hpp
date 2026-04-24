@@ -12,6 +12,8 @@
 class Server;
 class Channel;
 
+#define BOTNAME "bot"
+
 struct s_parseMode {
 	mode_t mode;
 	std::string arg;
@@ -76,6 +78,7 @@ class User {
 	bool	hasAUserName;
 	bool	registered;
 	bool	passMatch;
+	bool _isBot;
 
 	__uint32_t		_userMode;
 

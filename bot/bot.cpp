@@ -123,9 +123,9 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 
 	send(this->_botSocket, userName.c_str(), userName.size(), 0);
 
-	const std::string join = "JOIN #tutu\r\n";
-	send(this->_botSocket, join.c_str(), join.size(), 0);
-
+	// const std::string join = "JOIN #tutu\r\n";
+	// send(this->_botSocket, join.c_str(), join.size(), 0);
+	//
 
 	std::string newInsult;
 

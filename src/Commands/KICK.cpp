@@ -38,13 +38,13 @@ void User::kickCmd(Server &server, std::vector<std::string> &arg)
         Server::sendCheck(this->_userFd, sendMessage.c_str(), sendMessage.size(), 0); // RPL = ERR_NOSUCHCHANNEL (403)
         return;
     }
-    if (findChannel->checkUser(*this) == false)
+    if (findChannel->checkUser(*this) == false && this->_isBot == false)
     {
         sendMessage = nameServer + " 442 " + this->_nickname + " " + findChannel->getName() + " :You are not part of the channel \r\n";
         Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_NOTONCHANNEL 442
         return;
     }
-    if (findChannel->checkUserAdmin(*this) == false)
+    if (findChannel->checkUserAdmin(*this) == false && this->_isBot == false)
     {
         sendMessage = nameServer + " 482 " + this->_nickname + " " + findChannel->getName() + " :You are not operator of this channel \r\n";
         Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_CHANOPRIVSNEEDED

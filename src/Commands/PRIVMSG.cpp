@@ -50,6 +50,10 @@ void	User::privMsgCmd(Server &server, std::vector<std::string> arg){
 				else{
 					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " PRIVMSG " + split[i] +" "+ arg[1] + "\r\n";
 					channel->sendMsgUserForOthersUsersChannel(*this, line);
+					if (server.bot != NULL) {
+						std::cout << "GOOOOOG" << std::endl;
+						Server::sendCheck(server.bot->getUserFd(), line.c_str(), line.size(), 0);
+					}
 				}
 			}
 			else{

@@ -48,6 +48,7 @@ class Server {
 	User	*getUser(int fd, Server &server);
 	User	*getUserbyNickname(std::string nickname);
 	std::string &getIp();
+	void	setBot(User &bot);
 
 
     static void messageToServer(const char *text, ...);
@@ -91,6 +92,7 @@ private:
 
     std::map<int, User> _users;
 	std::map<std::string, Channel*> _chanMap;
+	User *bot;
 
 
 	friend class User;

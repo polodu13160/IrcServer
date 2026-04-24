@@ -7,6 +7,7 @@
 
 #include <cstdarg>
 
+
 const std::string Server::timeNow() const
 {
 	std::stringstream ss;
@@ -58,7 +59,7 @@ Channel *Server::findChannel(std::string name)
 bool Server::_isServerWorking = false;
 
 Server::Server(const char *port, const char *password)
-	: _port(0), _serverFd(0), _sin()
+	: _port(0), _serverFd(0), _sin(), bot(NULL)
 {
 	setServerPass(password);
 	setServerPort(port);

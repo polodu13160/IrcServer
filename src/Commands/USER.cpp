@@ -82,4 +82,10 @@ void User::userCmd(Server &server, const std::vector<std::string> &userName)
 	Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 	line = ":" + server._ip + " 376 " + this->_nickname + " :End of MOTD command\r\n";
 	Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+
+	if (this->_nickname == BOTNAME) {
+		std::cout << "Bot conected" << std::endl;
+		this->_isBot = true;
+		server.bot = this;
+	}
 }
