@@ -5,8 +5,8 @@ void User::quitCmd(Server &server, std::vector<std::string> arg)
     std::string explainMsg;
     if (arg.size() > 0)
     {
-        arg[0].erase(0, 1);
         explainMsg = arg[0];
+        explainMsg.erase(0,1);
     }
     std::string messageSend = "ERROR :You left the server";
     if (explainMsg.empty() == false)
