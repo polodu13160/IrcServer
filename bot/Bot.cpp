@@ -29,11 +29,11 @@ void Bot::hash(const std::string &str) {
 bool Bot::unhash(const std::string &str) {
 
 	std::stringstream ss(str);
-	std::string		word;
-	int i = 0;
 
 
-	if (!str.empty()){
+	if (!str.empty()) {
+		int i = 0;
+		std::string word;
 		while (ss >> word ) {
 			i = 0;
 			unsigned long hash = 5381;
@@ -172,7 +172,7 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 		hash(newInsult);
 	}
 
-	std::ifstream	meme("67");
+	std::ifstream	meme("botResponse");
 	if (!meme.is_open())
 		throw Bot::errorBadFile();
 	std::string tmp;
