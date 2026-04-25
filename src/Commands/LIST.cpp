@@ -1,6 +1,6 @@
 #include "User.hpp"
 
-void User::listCmd(Server &server, std::vector<std::string> channels_string)
+void User::listCmd(Server &server, const std::vector<std::string>& channels_string)
 {
 
     std::string serverName = ":" + server._ip;

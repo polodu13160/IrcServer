@@ -1,7 +1,7 @@
 #include "User.hpp"
 #include "Channel.hpp"
 
-void User::inviteCmd(Server &server, std::vector<std::string> &arg)
+void User::inviteCmd(Server &server, const std::vector<std::string> &arg)
 {
     std::string nameServer = ":";
     nameServer += server._ip;
@@ -31,7 +31,7 @@ void User::inviteCmd(Server &server, std::vector<std::string> &arg)
         Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_CHANOPRIVSNEEDED
         return;
     }
-    sendMessage = nameServer + " 341 " + this->_nickname + " " + arg[0] + " " + arg[1] + "\r\n"; //RPL_INVITING (341) 
+    sendMessage = nameServer + " 341 " + this->_nickname + " " + arg[0] + " " + arg[1] + "\r\n"; //RPL_INVITING (341)
     findChannel->addInviteUser(arg[0]);
     Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0);
 

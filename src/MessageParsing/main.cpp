@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../../inc/User.hpp"
-#include "../../inc/cmdPars.hpp"
+#include "../../inc/cmdDispatch.hpp"
 #include "../../inc/Message.hpp"
 #include <vector>
 
@@ -55,9 +55,7 @@ void	TokenizeMsg(Server &server, std::string msg, User &user){
 	if(end < msg.size()){
 		tokenizeParams(&message, msg, start, end);
 	}
-	// message.printParams();
-	cmdPars parser;
-	parser.cmdParser(server, user, message.getCmd(), message.getParam());
+	cmdDispatcher(server, user, message.getCmd(), message.getParam());
 }
 
 void	getMsg(Server &server, std::string msg, int userFd){

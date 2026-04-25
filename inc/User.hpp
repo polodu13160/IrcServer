@@ -45,17 +45,17 @@ class User{
 
 	void modeCmd(Server& server, const std::vector<std::string> &modeStr);
 	void joinCmd(Server &server, const std::vector<std::string>& arg);
-	void quitCmd(Server &server, std::vector<std::string> arg);
-	void listCmd(Server &server, std::vector<std::string> channels_string);
-	void topicCmd(Server& server, std::vector<std::string> channels_string);
-	void pongCmd(Server &server, const std::vector<std::string> &arg) const;
-	void partCmd(Server &server, std::vector<std::string> &arg);
-	void privMsgCmd(Server &server, std::vector<std::string> arg);
-	void whoCmd(Server &server, std::vector<std::string> arg);
-	void noticeCmd(Server &server, std::vector<std::string> arg);
-	void passCmd(Server &server, std::vector<std::string> &arg);
-	void inviteCmd(Server &server, std::vector<std::string> &arg);
-	void kickCmd(Server &server, std::vector<std::string> &arg);
+	void quitCmd(Server &server, const std::vector<std::string>& arg);
+	void listCmd(Server &server, const std::vector<std::string>& channels_string);
+	void topicCmd(Server& server, const std::vector<std::string>& channels_string);
+	void pongCmd(Server &server, const std::vector<std::string> &arg);
+	void partCmd(Server &server, const std::vector<std::string> &arg);
+	void privMsgCmd(Server &server, const std::vector<std::string>& arg);
+	void whoCmd(Server &server, const std::vector<std::string>& arg);
+	void noticeCmd(Server &server, const std::vector<std::string>& arg);
+	void passCmd(Server &server, const std::vector<std::string> &arg);
+	void inviteCmd(Server &server, const std::vector<std::string> &arg);
+	void kickCmd(Server &server, const std::vector<std::string> &arg);
 	std::string &getIp();
 
 
@@ -87,6 +87,7 @@ void	handleTopicMode(Channel &channel, const s_parseMode &mode);
 void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
 void	handleLimitMode(Channel &channel, const s_parseMode &mode);
 void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
+void	cmdDispatcher(Server &server, User &user, std::string cmd, std::vector<std::string> args);
 
 
 #endif

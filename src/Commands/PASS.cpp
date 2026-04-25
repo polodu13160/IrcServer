@@ -2,7 +2,7 @@
 #include "User.hpp"
 
 
-void	User::passCmd(Server &server, std::vector<std::string> &arg) {
+void	User::passCmd(Server &server, const std::vector<std::string> &arg) {
 
 	if (arg.empty()) {
 		const std::string line = ":" + server.getIp() + " 461 PASS :Not enough parameters\r\n";

@@ -1,10 +1,10 @@
-#include "cmdPars.hpp"
+#include "cmdDispatch.hpp"
 #include <sstream>
 #include <ctime>
 
 
 
-void User::topicCmd(Server &server, std::vector<std::string> args)
+void User::topicCmd(Server &server, const std::vector<std::string>& args)
 {
 
     std::string nameServer = ":" + server._ip;
