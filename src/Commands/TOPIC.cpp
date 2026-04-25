@@ -34,8 +34,9 @@ void User::topicCmd(Server &server, const std::vector<std::string>& args)
     if (args.size() >= 2)
     {
         //si il veut modifier le topic
-        if (args[1][0] == ':')
-            args[1].erase(0,1);
+    	std::string tmp = args[1];
+        if (tmp[0] == ':')
+           tmp.erase(0, 1);
 
         if (checkMode(channel->_modeStock, MODE_TOPIC_RESTRICT) == true && channel->checkUserAdmin(*this) == false)
         {
@@ -45,10 +46,10 @@ void User::topicCmd(Server &server, const std::vector<std::string>& args)
             return;
         }
         // si il envoie rien donc juste : (si c lutilisateur qui met :)
-        if (args[1][0] == ':' && args[1].size() == 1)
+        if (tmp[0] == ':' && tmp.size() == 1)
             channel->setTopic("");
         else
-            channel->setTopic(args[1].c_str());
+            channel->setTopic(tmp.c_str());
         //preparation de la modif a envoyer a tout le monde
         sendMessage = this->_nickname + "!" + this->getUsername() + "@" + this->_ip + " TOPIC " + channel->getName() + " :" + channel->getTopic() + "\r\n";
         if (sendMessage.size() >= MAX_SIZE_MESSAGE)

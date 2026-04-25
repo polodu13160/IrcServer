@@ -64,6 +64,7 @@ void Server::setSocketParams()
 		throw errorServerSocket();
 	listen(_serverFd, SOMAXCONN);
 	fcntl(_serverFd, F_SETFL, O_NONBLOCK);
+
 }
 
 void Server::EpollInstance()
