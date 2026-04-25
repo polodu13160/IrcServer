@@ -45,7 +45,7 @@ class User{
 
 	void modeCmd(Server& server, const std::vector<std::string> &modeStr);
 	void joinCmd(Server &server, const std::vector<std::string>& arg);
-	void quitCmd(Server &server, const std::vector<std::string>& arg);
+	void quitCmd(Server &server, const std::vector<std::string> &arg);
 	void listCmd(Server &server, const std::vector<std::string>& channels_string);
 	void topicCmd(Server& server, const std::vector<std::string>& channels_string);
 	void pongCmd(Server &server, const std::vector<std::string> &arg);
@@ -78,7 +78,6 @@ class User{
 
 };
 
-void	TokenizeMsg(std::string msg);
 void	getMsg(Server &server, std::string msg, int userFd);
 void	changeMode(unsigned int &checkedMode, const e_modes MODE, bool sign);
 bool	checkMode(const unsigned int &checkedMode, const e_modes MODE);
