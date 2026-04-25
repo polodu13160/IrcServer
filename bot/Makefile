@@ -2,7 +2,7 @@
 CXX = c++
 FLAGS = -Wall -Wextra  -MMD -MP -g3 -std=c++98 -Iinc -I../inc
 NAME = bot
-FILES =  main bot
+FILES =  main Bot Bot_exceptions
 OBJ_DIR = .build/
 SRCS = $(addsuffix .cpp,$(FILES))
 OBJS = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRCS))

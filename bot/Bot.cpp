@@ -1,4 +1,5 @@
-#include "bot.hpp"
+#include "Bot.hpp"
+#include "Bot.hpp"
 #include <fcntl.h>
 #include <sstream>
 
@@ -6,6 +7,11 @@
 
 Bot::Bot() : _botPassword("123456789") {
 
+}
+
+void Bot::sendMsg(const int fd, const char *str, const size_t size, const int flag) {
+	if (!send(fd, str, size, flag))
+		throw Bot::errorSend();
 }
 
 void Bot::hash(const std::string &str) {
@@ -17,9 +23,6 @@ void Bot::hash(const std::string &str) {
 		hash = ((hash << 5) + hash) + str[i++];
 	}
 	hash = hash % 1000;
-
-	// std::cout << "hash de : " << str << " = " << hash << std::endl;
-
 	_insultTable[hash].push_back(str);
 }
 
@@ -46,7 +49,6 @@ bool Bot::unhash(const std::string &str) {
 			std::list<std::string>::iterator it;
 			for (it = _insultTable[index].begin(); it != _insultTable[index].end(); ++it) {
 				if (*it == word) {
-					std::cout << "Mot trouve : " << *it << std::endl;
 					return true;
 				}
 			}
@@ -61,13 +63,13 @@ void Bot::checkMsg(const s_msg &msg) {
 
 		if (!msg.channel.empty() && !msg.name.empty()) {
 			 std::string line = "KICK " + msg.channel + " " + msg.name + "\r\n";
-			send(this->_botSocket, line.c_str(), line.size(), 0);
+			sendMsg(this->_botSocket, line.c_str(), line.size(), 0);
 			line = "PRIVMSG " + msg.name + " :You've been kicked from channel " + msg.channel + " \r\n";
-			send(this->_botSocket, line.c_str(), line.size(), 0);
+			sendMsg(this->_botSocket, line.c_str(), line.size(), 0);
 
 			for (std::vector<std::string>::iterator it = this->_sixseven.begin(); it != this->_sixseven.end(); ++it) {
 				line = "PRIVMSG " + msg.name + " " + *it + "\r\n";
-				send(this->_botSocket, line.c_str(), line.size(), 0);
+				sendMsg(this->_botSocket, line.c_str(), line.size(), 0);
 			}
 		}
 		else {
@@ -82,7 +84,7 @@ s_msg	parseMsg(std::string &handleLine) {
 	std::string tmp;
 	s_msg	msg;
 
-	int pos = -1;
+	size_t pos = 0;
 
 	ss >> tmp;
 	if (!tmp.empty() && tmp[0] == ':'){
@@ -95,14 +97,12 @@ s_msg	parseMsg(std::string &handleLine) {
 	if (!tmp.empty() && tmp[0] == '#')
 		msg.channel = tmp.substr(0);
 
-	pos = -1;
+	pos = 0;
 	if (getline(ss, tmp)) {
-		std::cout << tmp << std::endl;
 		if ((pos = tmp.find(':')) != std::string::npos) {
 			msg.line = tmp.substr(pos + 1);
 		}
 	}
-	std::cout << "Name = " << msg.name << " Channel = " << msg.channel << " Line = " << msg.line << std::endl;
 	return msg;
 }
 
@@ -141,68 +141,51 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 
 
 	this->_botSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-	std::cout << this->_botSocket << std::endl;
+	if (this->_botSocket < 0)
+		throw Bot::errorSocket();
 
 	this->_serverInfo.sin_family = AF_INET;
 	this->_serverInfo.sin_port = htons(6679);
 	this->_serverInfo.sin_addr.s_addr = INADDR_ANY;
 
-
-	if (connect(this->_botSocket, reinterpret_cast<struct sockaddr*>(&_serverInfo), sizeof(this->_serverInfo)) < 0) {
-		std::cerr << "Bot can't connect : Server isn't on" << std::endl;
-		return;
-	}
+	if (connect(this->_botSocket, reinterpret_cast<struct sockaddr*>(&_serverInfo), sizeof(this->_serverInfo)) < 0)
+		throw Bot::errorConnect();
 
 	const std::string password(SERVER_PASS);
 	const std::string	passLine = "PASS " + password + "\r\n";
 
-	send(this->_botSocket, passLine.c_str(), passLine.size(), 0);
+	sendMsg(this->_botSocket, passLine.c_str(), passLine.size(), 0);
 
 	const std::string botName(BOT_NAME);
 	const std::string	nickName = "NICK " + botName + "\r\n";
-	send(this->_botSocket, nickName.c_str(), nickName.size(), 0);
+	sendMsg(this->_botSocket, nickName.c_str(), nickName.size(), 0);
 
 	const std::string userName = "USER " + botName + " 0 * :" + botName + "\r\n";
 
-	send(this->_botSocket, userName.c_str(), userName.size(), 0);
+	sendMsg(this->_botSocket, userName.c_str(), userName.size(), 0);
 
 	std::string newInsult;
 
-	while (getline(stream, newInsult)) {
-
-		if (newInsult.find('\n')) {
-
+	while (getline(stream, newInsult)){
+		if (newInsult.find('\n'))
 			newInsult = newInsult.erase(newInsult.size());
-
-		}
 		hash(newInsult);
 	}
 
 	std::ifstream	meme("67");
+	if (!meme.is_open())
+		throw Bot::errorBadFile();
 	std::string tmp;
-
 	while (getline(meme, tmp)) {
 		this->_sixseven.push_back(tmp);
 	}
-
 	meme.close();
 	stream.close();
 	runBot();
-}
-
-Bot::Bot(const Bot &other) {
-	_botPassword = "123456789";
-}
-
-Bot &Bot::operator=(const Bot &other) {
-	_botPassword = "123456789";
 }
 
 Bot::~Bot() {
 
 }
 
-const char *Bot::errorBadFile::what() const throw() {
-	return "Error\nBad file provided.";
-}
+

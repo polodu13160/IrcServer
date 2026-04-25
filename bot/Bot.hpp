@@ -30,12 +30,10 @@ public:
 	Bot();
 
 	void hash(const std::string &str);
-
 	bool unhash(const std::string &str);
-
 	void checkMsg(const s_msg &msg);
-
 	void runBot();
+	static void sendMsg(const int fd, const char *str, const size_t size, const int flag);
 
 	Bot(std::ifstream &stream);
 	Bot(const Bot &other);
@@ -44,6 +42,18 @@ public:
 
 
 	class errorBadFile : public std::exception {
+		virtual const char *what(void)const throw();
+	};
+
+	class errorSocket : public std::exception {
+		virtual const char *what(void)const throw();
+	};
+
+	class errorConnect : public std::exception {
+		virtual const char *what(void)const throw();
+	};
+
+	class errorSend : public std::exception {
 		virtual const char *what(void)const throw();
 	};
 
