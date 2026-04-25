@@ -11,6 +11,7 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <exception>
 
 struct s_msg {
 	std::string name;
@@ -32,7 +33,7 @@ public:
 
 	bool unhash(const std::string &str);
 
-	void checkMsg(s_msg &msg);
+	void checkMsg(const s_msg &msg);
 
 	void runBot();
 
@@ -40,6 +41,11 @@ public:
 	Bot(const Bot &other);
 	Bot& operator=(const Bot &other);
 	~Bot();
+
+
+	class errorBadFile : public std::exception {
+		virtual const char *what(void)const throw();
+	};
 
 
 private :

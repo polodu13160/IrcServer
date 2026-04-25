@@ -10,7 +10,12 @@ int	main() {
 		std::cerr << "Error opening the file" << std::endl;
 		return 1;
 	}
-	Bot bot(file);
+	try {
+		Bot bot(file);
+	}
+	catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
 
 
 	return 0;

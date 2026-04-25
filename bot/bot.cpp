@@ -55,27 +55,23 @@ bool Bot::unhash(const std::string &str) {
 	return false;
 }
 
-void Bot::checkMsg(s_msg &msg) {
+void Bot::checkMsg(const s_msg &msg) {
 
 	if (unhash(msg.line) == true) {
 
-		std::string channelName = msg.channel;
-		std::string userTo = msg.name;
-		if (!channelName.empty() && !userTo.empty()) {
-			std::string line = "KICK " + channelName + " " + userTo + "\r\n";
+		if (!msg.channel.empty() && !msg.name.empty()) {
+			 std::string line = "KICK " + msg.channel + " " + msg.name + "\r\n";
 			send(this->_botSocket, line.c_str(), line.size(), 0);
+			line = "PRIVMSG " + msg.name + " :You've been kicked from channel " + msg.channel + " \r\n";
+			send(this->_botSocket, line.c_str(), line.size(), 0);
+
+			for (std::vector<std::string>::iterator it = this->_sixseven.begin(); it != this->_sixseven.end(); ++it) {
+				line = "PRIVMSG " + msg.name + " " + *it + "\r\n";
+				send(this->_botSocket, line.c_str(), line.size(), 0);
+			}
 		}
-
-		std::ifstream	sixsev("67");
-
-		std::string meme;
-		std::string tmp;
-		std::string line2 = "PRIVMSG " + msg.name + " :T'ES KICK \r\n";
-		send(this->_botSocket, line2.c_str(), line2.size(), 0);
-
-		while (getline(sixsev, tmp)) {
-			std::string fullLine = "PRIVMSG " + msg.name + " :" + tmp + "\r\n";
-			send(this->_botSocket, fullLine.c_str(), fullLine.size(), 0);
+		else {
+			std::cerr << "Error\nBad information provided" << std::endl;
 		}
 	}
 }
@@ -171,10 +167,6 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 
 	send(this->_botSocket, userName.c_str(), userName.size(), 0);
 
-	// const std::string join = "JOIN #tutu\r\n";
-	// send(this->_botSocket, join.c_str(), join.size(), 0);
-	//
-
 	std::string newInsult;
 
 	while (getline(stream, newInsult)) {
@@ -209,4 +201,8 @@ Bot &Bot::operator=(const Bot &other) {
 
 Bot::~Bot() {
 
+}
+
+const char *Bot::errorBadFile::what() const throw() {
+	return "Error\nBad file provided.";
 }
