@@ -1,20 +1,20 @@
-#ifndef CMDPARS_HPP
-#define CMDPARS_HPP
+#ifndef CMDDISPATCH_HPP
+#define CMDDISPATCH_HPP
 #include <iostream>
 #include "User.hpp"
 #include <map>
 
 class User;
 
-class cmdPars
+class cmdDispatch
 {
 public:
-	cmdPars(void);
-	~cmdPars(void);
+	cmdDispatch(void);
+	~cmdDispatch(void);
 
-	void cmdParser(Server &server, User &user, std::string cmd, std::vector<std::string> args);
+	void cmdDispatcher(Server &server, User &user, std::string cmd, std::vector<std::string> args);
 
-	std::map<std::string, void (cmdPars::*)(Server &, User &, std::vector<std::string>)> _handlerTab;
+	std::map<std::string, void (User::*)(Server &, std::vector<std::string>&)> _handlerTab;
 
 	void handleKick(Server &server, User &user, std::vector<std::string> args);
 	void handleMode(Server &server, User &user, std::vector<std::string> args);

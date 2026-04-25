@@ -18,7 +18,7 @@ static std::vector<std::string> argSplit(std::string arg)
     return tab;
 }
 
-void User::kickCmd(Server &server, std::vector<std::string> &arg)
+void User::kickCmd(Server &server, const std::vector<std::string> &arg)
 {
     std::string nameServer = ":";
     nameServer += server._ip;
@@ -73,7 +73,7 @@ void User::kickCmd(Server &server, std::vector<std::string> &arg)
             findChannel->deletedUser(*findUser);
             Server::sendCheck(this->_userFd, sendMessage.c_str(), sendMessage.size(), 0);
         }
-        
-        
+
+
     }
 }

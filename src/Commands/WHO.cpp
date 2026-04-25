@@ -1,6 +1,6 @@
 #include "User.hpp"
 
-void	User::whoCmd(Server &server, std::vector<std::string> arg){
+void	User::whoCmd(Server &server, const std::vector<std::string>& arg){
 
 	if(arg.size() == 0){
 		std::map<int, User>::iterator it;

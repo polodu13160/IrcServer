@@ -44,10 +44,6 @@ const int	&User::getUserFd(void)const{
 	return this->_userFd;
 }
 
-const int	&User::getnbChannelRegistered(void){
-	return this->nbChannelRegistered;
-}
-
 void	User::setNickname(std::string nickname){
 	this->_nickname = nickname;
 }
@@ -66,10 +62,6 @@ void	User::setUserFd(int userFd){
 
 void	User::setMessage(std::string message){
 	this->message += message;
-}
-
-void	User::setNbChannelRegistered(int nb){
-	this->nbChannelRegistered = nb;
 }
 
 std::string &User::getIp()

@@ -15,7 +15,7 @@ static std::vector<std::string>	argSplit(std::string arg){
 	return tab;
 }
 
-void	User::noticeCmd(Server &server, std::vector<std::string> arg){
+void	User::noticeCmd(Server &server, const std::vector<std::string>& arg){
 	if(arg.size() < 1)
 		return;
 	else if(arg.size() < 2)
