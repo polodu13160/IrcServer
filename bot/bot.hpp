@@ -12,6 +12,13 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+struct s_msg {
+	std::string name;
+	std::string channel;
+	std::string line;
+};
+
+
 #define SERVER_PASS "67"
 #define	BOT_NAME "bot"
 #define MAX_SIZE_MSG 1024
@@ -25,7 +32,7 @@ public:
 
 	bool unhash(const std::string &str);
 
-	void checkMsg(std::string &msg);
+	void checkMsg(s_msg &msg);
 
 	void runBot();
 

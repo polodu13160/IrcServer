@@ -3,6 +3,7 @@
 #include <sstream>
 
 
+
 Bot::Bot() : _botPassword("123456789") {
 
 }
@@ -24,61 +25,91 @@ void Bot::hash(const std::string &str) {
 
 bool Bot::unhash(const std::string &str) {
 
-
-
 	std::stringstream ss(str);
 	std::string		word;
 	int i = 0;
 
 
-	while (ss >> word ) {
+	if (!str.empty()){
+		while (ss >> word ) {
+			i = 0;
+			unsigned long hash = 5381;
+			while (word[i]) {
+				hash = ((hash << 5) + hash) + word[i++];
+			}
+			const unsigned long index = hash % 1000;
 
-		i = 0;
-		unsigned long hash = 5381;
-		while (word[i]) {
-			hash = ((hash << 5) + hash) + word[i++];
-		}
+			if (_insultTable[index].size() == 1)
+				if (*_insultTable[index].begin() == word)
+					return true;
 
-		const unsigned long index = hash % 1000;
-
-		// std::cout << "hash de : " << word << " = " << index << std::endl;
-
-		std::list<std::string>::iterator it;
-
-		for (it = _insultTable[index].begin(); it != _insultTable[index].end(); ++it) {
-
-			if (*it == word) {
-				std::cout << "Mot trouve : " << *it << std::endl;
-				return true;
+			std::list<std::string>::iterator it;
+			for (it = _insultTable[index].begin(); it != _insultTable[index].end(); ++it) {
+				if (*it == word) {
+					std::cout << "Mot trouve : " << *it << std::endl;
+					return true;
+				}
 			}
 		}
 	}
 	return false;
 }
 
-void Bot::checkMsg(std::string &msg) {
+void Bot::checkMsg(s_msg &msg) {
 
-	if (unhash(msg) == true) {
+	if (unhash(msg.line) == true) {
 
-		std::string channelName = "#tutu";
-		std::string userTo = "kaissot";
-		std::string line = "KICK " + channelName + " " + userTo + "\r\n";
-		send(this->_botSocket, line.c_str(), line.size(), 0);
-
+		std::string channelName = msg.channel;
+		std::string userTo = msg.name;
+		if (!channelName.empty() && !userTo.empty()) {
+			std::string line = "KICK " + channelName + " " + userTo + "\r\n";
+			send(this->_botSocket, line.c_str(), line.size(), 0);
+		}
 
 		std::ifstream	sixsev("67");
 
 		std::string meme;
 		std::string tmp;
-		std::string line2 = "PRIVMSG kaissot :T'ES KICK \r\n";
+		std::string line2 = "PRIVMSG " + msg.name + " :T'ES KICK \r\n";
 		send(this->_botSocket, line2.c_str(), line2.size(), 0);
 
 		while (getline(sixsev, tmp)) {
-			std::string fullLine = "PRIVMSG kaissot :" + tmp + "\r\n";
+			std::string fullLine = "PRIVMSG " + msg.name + " :" + tmp + "\r\n";
 			send(this->_botSocket, fullLine.c_str(), fullLine.size(), 0);
 		}
 	}
 }
+
+s_msg	parseMsg(std::string &handleLine) {
+
+	std::stringstream ss(handleLine);
+	std::string tmp;
+	s_msg	msg;
+
+	int pos = -1;
+
+	ss >> tmp;
+	if (!tmp.empty() && tmp[0] == ':'){
+		if ((pos = tmp.find('!')) != std::string::npos) {
+			msg.name = tmp.substr(1, pos - 1);
+		}
+	}
+	ss >> tmp;
+	ss >> tmp;
+	if (!tmp.empty() && tmp[0] == '#')
+		msg.channel = tmp.substr(0);
+
+	pos = -1;
+	if (getline(ss, tmp)) {
+		std::cout << tmp << std::endl;
+		if ((pos = tmp.find(':')) != std::string::npos) {
+			msg.line = tmp.substr(pos + 1);
+		}
+	}
+	std::cout << "Name = " << msg.name << " Channel = " << msg.channel << " Line = " << msg.line << std::endl;
+	return msg;
+}
+
 
 void	Bot::runBot() {
 
@@ -94,7 +125,7 @@ void	Bot::runBot() {
 			return ;
 		}
 
-		std::cout << "COCO" << std::endl;
+		std::cout << buffer << std::endl;
 
 
 		handleLine += buffer;
@@ -102,10 +133,10 @@ void	Bot::runBot() {
 		size_t index;
 
 		if ((index = handleLine.find("\r\n")) != std::string::npos) {
-			std::string msg = handleLine.substr(0, index);
-			handleLine.erase(0, index + 1);
+			s_msg msg = parseMsg(handleLine);
 			checkMsg(msg);
 		}
+		handleLine = "";
 	}
 }
 
