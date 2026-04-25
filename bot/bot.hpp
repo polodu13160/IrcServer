@@ -45,6 +45,7 @@ public:
 private :
 	std::string					_botPassword;
 	std::list<std::string>      _insultTable[1000];
+	std::vector<std::string>	_sixseven;
 	int							_botSocket;
 	sockaddr_in					_serverInfo;
 

@@ -186,8 +186,17 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 		}
 		hash(newInsult);
 	}
-	runBot();
 
+	std::ifstream	meme("67");
+	std::string tmp;
+
+	while (getline(meme, tmp)) {
+		this->_sixseven.push_back(tmp);
+	}
+
+	meme.close();
+	stream.close();
+	runBot();
 }
 
 Bot::Bot(const Bot &other) {
