@@ -8,7 +8,6 @@ int wordCountInUser(const std::vector<std::string> &ref, User &thisUsr)
 		return 0;
 	std::string params;
 	const std::string invalidChar = " @\n\r";
-	std::vector<std::string> tmp = ref;
 	if (!ref[0].empty() && ref[0].find_first_of(invalidChar) != std::string::npos)
 		return false;
 	if (ref[1].size() != 1 && ref[1][0] != '0')

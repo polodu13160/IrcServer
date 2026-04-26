@@ -18,19 +18,16 @@ void	User::passCmd(Server &server, const std::vector<std::string> &arg) {
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	std::cout << "CACA" << std::endl;
 	if (this->registered == true) {
 		const std::string line = ":" + server.getIp() + " 462 " + this->_nickname + " :You may not reregister\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	std::cout << "LA" << std::endl;
 	if (server._serverPassword != arg[0]) {
 		const std::string line = ":" + server.getIp() + " 464 * :Password Incorrect\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	std::cout << "ICI" << std::endl;
 	this->passMatch = true;
 }
 
