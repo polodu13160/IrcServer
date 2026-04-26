@@ -6,6 +6,7 @@
 #include <fcntl.h>
 
 #include <cstdarg>
+#include "Server.hpp"
 
 
 const std::string Server::timeNow() const
@@ -100,7 +101,10 @@ void Server::setUserFd(int fd, std::string ip)
 	this->_users[fd]._ip = ip;
 }
 
-// SERVER CLASS OUT AND EXCEPTIONS
+void Server::deletedChannel(Channel &channel)
+{
+	this->_chanMap.erase(channel.getName());
+} // SERVER CLASS OUT AND EXCEPTIONS
 
 // std::ostream& operator<<(std::ostream& os, Server& server) {
 //

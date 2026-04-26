@@ -37,6 +37,7 @@ class Server {
 	// Ancienne classe
 
 	void	setUserFd(int fd, std::string ip);
+	void deletedChannel(Channel &channel);
 	SOCKADDR_IN	&getServerSin();
 	std::string getServerPassword();
     void	sockaddrInit();
