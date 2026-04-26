@@ -33,8 +33,8 @@ void Server::setServerPort(const char *str)
 {
 
 	const int newPort = convertPort(str);
-	// if (newPort == -1)
-	// 	throw Server::errorBadPort();
+	if (newPort == -1)
+		throw Server::errorServerSocket();
 	this->_port = newPort;
 }
 

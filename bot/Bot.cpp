@@ -34,6 +34,7 @@ bool Bot::unhash(const std::string &str) {
 			i = 0;
 			unsigned long hash = 5381;
 			while (word[i]) {
+				word[i] = std::tolower(word[i]);
 				hash = ((hash << 5) + hash) + word[i++];
 			}
 			const unsigned long index = hash % 1000;
@@ -157,7 +158,7 @@ void Bot::init() {
 
 	sendMsg(this->_botSocket, userName.c_str(), userName.size(), 0);
 
-	std::ifstream stream("insult");
+	std::ifstream stream("bot/insult");
 	if (!stream.is_open()) {
 		std::cerr << "Error opening the file" << std::endl;
 		throw Bot::errorBadFile();
@@ -169,7 +170,7 @@ void Bot::init() {
 		hash(newInsult);
 	}
 
-	std::ifstream	meme("botResponse");
+	std::ifstream	meme("bot/botResponse");
 	if (!meme.is_open()) {
 		stream.close();
 		throw Bot::errorBadFile();
