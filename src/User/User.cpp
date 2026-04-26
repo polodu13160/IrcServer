@@ -20,7 +20,6 @@ User::~User(void){}
 bool	User::setUserRegistration(Server &server){
 
 
-	std::cout << "Nick = " << this->_nickname << " USER = " << this->_username << " Real = " << this->_realname << " PASS = " << this->passMatch << std::endl;
 	if (!this->_nickname.empty() && !this->_username.empty() && !this->_realname.empty() && this->passMatch == true) {
 		this->registered = true;
 		std::string line = ":" + server._ip + " 001 " + this->_nickname + " :Welcome to the Internet Relay Network\r\n";

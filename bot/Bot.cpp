@@ -109,7 +109,7 @@ void	Bot::runBot() {
 	char buffer[MAX_SIZE_MSG];
 	std::string handleLine;
 
-	while (1) {
+	while (true) {
 
 		std::memset(buffer, 0, MAX_SIZE_MSG);
 		size_t	bytes = recv(this->_botSocket, buffer, 1023, 0);

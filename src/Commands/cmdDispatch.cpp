@@ -25,17 +25,18 @@ void	getTab(std::map<std::string, void (User::*)(Server &, const std::vector<std
 
 void cmdDispatcher(Server &server, User &user, std::string cmd, const std::vector<std::string> args)
 {
-	std::cout << "cmd : " << cmd << std::endl;
-	if (args.size() > 0)
-	{
-		for (size_t i = 0; i < args.size(); i++)
+	if (DEBUG == true) {
+		std::cout << "cmd : " << cmd << std::endl;
+		if (args.size() > 0)
 		{
-			std::cout << "args : " << i << " : " << args[i].c_str() << std::endl;
+			for (size_t i = 0; i < args.size(); i++)
+			{
+				std::cout << "args : " << i << " : " << args[i].c_str() << std::endl;
+			}
+			std::cout << "user : " << " : " << user.getNickname() << std::endl;
 		}
-		std::cout << "user : " << " : " << user.getNickname() << std::endl;
+		std::cout << "-------------------------------------------------------------" << std::endl;
 	}
-	std::cout << "-------------------------------------------------------------" << std::endl;
-
 	std::map<std::string, void (User::*)(Server &, const std::vector<std::string>&)>	functionTab;
 	getTab(functionTab);
 

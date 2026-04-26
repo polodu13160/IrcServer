@@ -1,49 +1,23 @@
 #include "../../inc/User.hpp"
 #include <bitset>
 
-bool checkAndSetMode(int mode, unsigned int &refUserMode)
+int wordCountInUser(const std::vector<std::string> &ref, User &thisUsr)
 {
 
-	if (mode < 0)
-		return false;
-	std::bitset<32> checkMode(mode);
-	std::bitset<32> reelMode(refUserMode);
-
-	for (size_t i = 0; i < checkMode.size(); i++)
-	{
-		if (checkMode.test(i))
-			reelMode.set(i);
-	}
-	refUserMode = static_cast<u_int32_t>(reelMode.to_ulong());
-#if (DEBUG == 1)
-// std::cout << "Mode passé = " << mode << " Mode du user = " << refUserMode << std::endl;
-#endif // DEBUG
-
-	return true;
-}
-
-int wordCountInUser(const std::vector<std::string> &ref, unsigned int &refUserMode)
-{
-
+	if (ref.size() != 4)
+		return 0;
 	std::string params;
-
-	std::string invalidChar = " @\n\r";
-
-	if (ref[0].find_first_of(invalidChar) != std::string::npos)
-	{
-
+	const std::string invalidChar = " @\n\r";
+	std::vector<std::string> tmp = ref;
+	if (!ref[0].empty() && ref[0].find_first_of(invalidChar) != std::string::npos)
 		return false;
-	}
-	std::istringstream ss(ref[1]);
-	std::string garbage;
-	int mode;
-
-	if (!(ss >> mode) || !checkAndSetMode(mode, refUserMode))
+	if (ref[1].size() != 1 && ref[1][0] != '0')
 		return false;
-
-	//	Verif Unused + :
-
-	// Verif REal NAme
+	if (ref[2].size() != 1 && ref[2][0] != '*')
+		return false;
+	if (ref[3].size() < 2 && ref[3][0] != ':')
+		return false;
+	thisUsr.setRealname(ref[3].substr(1));
 	return 4;
 }
 
@@ -59,7 +33,7 @@ void User::userCmd(Server &server, const std::vector<std::string> &userName)
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	if (wordCountInUser(userName, this->_userMode) < 4)
+	if (wordCountInUser(userName, *this) < 4)
 	{
 		const std::string line = ":" + server._ip + " 461 " + name + "USER :Not enough parameters \r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
