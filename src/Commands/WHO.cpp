@@ -24,6 +24,7 @@ void	User::whoCmd(Server &server, const std::vector<std::string>& arg){
 			// 403 ERR_NOSUCHCHANNEL
 			const std::string	line = ":" + server._ip + " 403 " + arg[0] + " :No such channel\r\n";
 			Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
+			return;
 		}
 		std::vector<User *> cpyUsersVector =  channel->allUsersInVector();
 		std::vector<User*>::const_iterator	it = cpyUsersVector.begin();

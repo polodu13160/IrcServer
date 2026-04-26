@@ -1,6 +1,6 @@
 #include "User.hpp"
 
-static std::vector<std::string>	argSplit(std::string arg){
+static std::vector<std::string>	argSplit(const std::string &arg){
 	std::vector<std::string>	tab;
 	size_t	start = 0;
 	size_t	i = 0;
@@ -18,15 +18,15 @@ static std::vector<std::string>	argSplit(std::string arg){
 void	User::noticeCmd(Server &server, const std::vector<std::string>& arg){
 	if (this->checkRegistration(server) == false)
 		return;
-	if(arg.size() < 1)
+	if(arg.empty())
 		return;
 	else if(arg.size() < 2)
 		return;
 	else{
-		std::vector<std::string> split = argSplit(arg[0]);
+		const std::vector<std::string> split = argSplit(arg[0]);
 		for(size_t i = 0; i < split.size(); i++){
 			if(split[i][0] == '#' || split[i][0] == '&'){
-				Channel *channel = server.findChannel(split[i]);
+				const Channel *channel = server.findChannel(split[i]);
 				if(!channel)
 					return;
 				else if(!channel->checkUser(*this))
@@ -37,7 +37,7 @@ void	User::noticeCmd(Server &server, const std::vector<std::string>& arg){
 				}
 			}
 			else{
-				User *user = server.getUserbyNickname(split[i]);
+				const User *user = server.getUserByNickname(split[i]);
 				if(!user)
 					return;
 				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " NOTICE " + split[i] + " " + arg[1] + "\r\n";

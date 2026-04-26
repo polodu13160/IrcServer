@@ -45,9 +45,9 @@ void Server::messageToServer(const char *text, ...)
 	std::cout << std::endl;
 }
 
-Channel *Server::findChannel(std::string name)
+Channel *Server::findChannel(const std::string &channel)
 {
-    std::map<std::string, Channel*>::iterator it = this->_chanMap.find(name);
+    const std::map<std::string, Channel*>::iterator it = this->_chanMap.find(channel);
 
     if (it != this->_chanMap.end())
         return it->second;
@@ -60,7 +60,7 @@ Channel *Server::findChannel(std::string name)
 bool Server::_isServerWorking = false;
 
 Server::Server(const char *port, const char *password)
-	: _port(0), _serverFd(0), _sin(), _epollInstance(), _userEvent(), _maxChanPerUser(), bot(NULL)
+	: _serverFd(0), _sin(), _userEvent(), _port(0), _epollInstance(), _maxChanPerUser(), bot(NULL)
 {
 	setServerPass(password);
 	setServerPort(port);
@@ -99,14 +99,7 @@ void Server::setUserFd(int fd, std::string ip)
 void Server::deletedChannel(Channel &channel)
 {
 	this->_chanMap.erase(channel.getName());
-} // SERVER CLASS OUT AND EXCEPTIONS
-
-// std::ostream& operator<<(std::ostream& os, Server& server) {
-//
-// 	os << "Server socket = " << server.getServerId() << std::endl <<
-// 		"Server Ports = " << server.getServerPort() << std::endl << "Server Password =  " << server.getServerPassword();
-// 	return os;
-// }
+}
 
 User *Server::getUser(int fd, Server &server)
 {
@@ -119,10 +112,9 @@ User *Server::getUser(int fd, Server &server)
 	return NULL;
 }
 
-User *Server::getUserbyNickname(std::string nickname)
+User *Server::getUserByNickname(const std::string &nickname)
 {
-	std::map<int, User>::iterator it;
-	for (it = this->_users.begin(); it != this->_users.end(); ++it)
+	for (std::map<int, User>::iterator it = this->_users.begin(); it != this->_users.end(); ++it)
 	{
 		if (it->second.getNickname() == nickname)
 			return &it->second;
@@ -130,24 +122,11 @@ User *Server::getUserbyNickname(std::string nickname)
 	return NULL;
 }
 
-const char *Server::errorServerSocket::what() const throw()
-{
-	return "Error\nServer Socket ID is equal to SOCKET_ERROR.";
-}
-
-const char *Server::errorSetSockOpt::what() const throw()
-{
-	return "Error\nBad Port provided.";
-}
-
 void	Server::sendCheck(int fd, const void *buf, size_t n, int flags){
 	if(send(fd, buf, n, flags) == -1)
-		throw Server::SendFailure();
+		throw Server::sendFailure();
 }
 
-const char* Server::SendFailure::what(void)const throw(){
-	return("Send failed to execute!");
-}
 
 std::string &Server::getIp()
 {
@@ -168,5 +147,67 @@ Server::~Server() {
 		delete it->second;
 	}
 }
+
+
+
+const char *Server::errorSocket::what() const throw()
+{
+	return "Error\nServer Socket ID is equal to SOCKET_ERROR.";
+}
+
+const char *Server::errorSetSockOpt::what() const throw()
+{
+	return "Error\nsetsockopt function crashed.";
+}
+
+const char *Server::errorBind::what() const throw()
+{
+	return "Error\nbind function crashed.";
+}
+
+const char *Server::errorBadPort::what() const throw()
+{
+	return "Error\nbad port provided.";
+}
+
+const char* Server::sendFailure::what(void)const throw(){
+	return("Send failed to execute!");
+}
+
+const char *Server::errorListen::what() const throw()
+{
+	return "Error\nlisten function crashed.";
+}
+
+const char *Server::errorFcntl::what() const throw()
+{
+	return "Error\nfcntl function crashed.";
+}
+
+const char *Server::errorEpollCreate::what() const throw()
+{
+	return "Error\nepoll_create1 function crashed.";
+}
+
+const char *Server::errorEpollCtl::what() const throw()
+{
+	return "Error\nepoll_ctl function crashed.";
+}
+
+const char *Server::errorEpollWait::what() const throw()
+{
+	return "Error\nepoll_wait function crashed.";
+}
+
+const char *Server::errorAccept::what() const throw()
+{
+	return "Error\naccept function crashed.";
+}
+
+const char *Server::errorRecv::what() const throw()
+{
+	return "Error\nrecv function crashed.";
+}
+
 
 

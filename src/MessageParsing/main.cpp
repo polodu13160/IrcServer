@@ -62,11 +62,6 @@ void	getMsg(Server &server, std::string msg, int userFd){
 	User	*user = server.getUser(userFd, server);
 
 	std::string result;
-	// for (size_t i = 0; i < msg.length(); ++i) {
-	// 	if (msg[i] == '\r') result += "\\r";
-	// 	else if (msg[i] == '\n') result += "\\n";
-	// 	else result += msg[i];
-	// }
 
 	if(!user) {
 		std::cout << "caca";
@@ -77,7 +72,6 @@ void	getMsg(Server &server, std::string msg, int userFd){
 	while (!finalMsg.empty()) {
 		TokenizeMsg(server, finalMsg, *user);
 		finalMsg = user->getMessage();
-		std::cout << finalMsg << std::endl;
 	}
 }
 
@@ -91,34 +85,7 @@ void	validChannelName(std::vector<std::string> arg){
 	for(size_t i = 0; i < arg.size(); i++){
 		if((arg[i][0] != '#' && arg[i][0] != '&') || arg[i].find(" ") != std::string::npos){
 			std::string	line = ":127.0.0.1 403 [channelName] :No such channel";
-			//send
+
 		}
 	}
 }
-
-// std::vector<std::string>	getChannels(const std::vector<std::string> &arg){
-// 	std::vector<std::string>	chanTab;
-// 	int	start = 0;
-// 	int	i = 0;
-
-// 	for(; i < arg[0].size(); i++){
-// 		if(arg[0][i] == ','){
-// 			chanTab.push_back(arg[0].substr(start, i - start));
-// 			start = i + 1;
-// 		}
-// 	}
-// 	chanTab.push_back(arg[0].substr(start, i - start - 1));
-// 	printVector(chanTab);
-// 	return chanTab;
-// }
-
-// int	main(int argc, char **argv){
-// 	(void)argc;
-// 	std::vector<std::string>	arg;
-// 	for(int i = 1; argv[i]; i++){
-// 		std::cout << "arg number " << i << " : " << argv[i] << std::endl;
-// 		arg.push_back(argv[i]);
-// 	}
-// 	getChannels(arg);
-// 	validChannelName(arg);
-// }

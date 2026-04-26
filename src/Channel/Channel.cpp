@@ -66,7 +66,7 @@ const std::vector<User *> Channel::allUsersInVector() const
 {
 	std::vector<User *> allUsers;
 	std::map<User *, bool>::const_iterator itUser;
-	for ( itUser= this->_users.begin(); itUser != this->_users.end(); itUser++)
+	for (itUser= this->_users.begin(); itUser != this->_users.end(); itUser++)
 	{
 		// Server::messageToServer(itUser->first->getUsername().c_str(), NULL);
 		allUsers.push_back(itUser->first);
@@ -194,39 +194,6 @@ bool Channel::checkPassword(std::string &password) const
 {
 	return (password == this->_password ? true : false);
 }
-
-// void Channel::kick(User &user, User &userKick)
-// {
-// }
-
-// void Channel::invite(User &user, User &userInvite)
-// {
-// }
-
-// void Channel::topic(User &user, std::string topic)
-// {
-// }
-
-// void Channel::mode(char type, User &user)
-// {
-// }
-
-// void Channel::join(User &user, std::string _password)
-// {
-// }
-
-// //Don't use
-// Channel::Channel(const Channel &other)
-// {
-// }
-
-// Channel::Channel()
-// {
-// }
-
-// Channel &Channel::operator=(const Channel &other)
-// {
-// }
 
 void Channel::changeUserOp(User &user, bool sign) {
 	if (sign == true)

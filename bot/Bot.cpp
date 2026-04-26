@@ -117,10 +117,6 @@ void	Bot::runBot() {
 			std::cerr << "Server Disconnected" << std::endl;
 			return ;
 		}
-
-		std::cout << buffer << std::endl;
-
-
 		handleLine += buffer;
 
 		size_t index;

@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include <vector>
 #include <sys/epoll.h>
 
 #include "Channel.hpp"
@@ -13,97 +12,99 @@
 
 class User;
 class Channel;
+
 class Server {
 
-  public:
-	//utils pour le timestamp
-	const std::string timeNow() const;
+public:
 
     Server();
-
-
-	Server(const char *port, const char *password);
+    Server(const char *port, const char *password);
     Server(Server &other);
     Server &operator=(Server &other);
     ~Server();
 
 
-	// Nouvelle classe :
+    void setServerPort(const char *str);
+    void setServerPass(const char *password);
+    void sockaddrInit();
+    void setSocketParams();
+    void EpollInstance();
 
-	void setServerPort(const char *str);
-	void setServerPass(const char *password);
-	void setSocketParams();
-	void EpollInstance();
+
+    SOCKADDR_IN       &getServerSin();
+    std::string        getServerPassword();
+    std::string       &getIp();
+    const std::string  timeNow() const;
 
 
-	// Ancienne classe
+    void   setUserFd(int fd, std::string ip);
+    User  *getUser(int fd, Server &server);
+    User  *getUserByNickname(const std::string &nickname);
 
-	void	setUserFd(int fd, std::string ip);
-	void deletedChannel(Channel &channel);
-	SOCKADDR_IN	&getServerSin();
-	std::string getServerPassword();
-    void	sockaddrInit();
-    // User createUserInstance(int userFd, char* info);
 
-    // User	*createUserInstance(int userFd, char *info);
-    Channel	*findChannel(std::string channel);
-
-	User	*getUser(int fd, Server &server);
-	User	*getUserbyNickname(std::string nickname);
-	std::string &getIp();
+    Channel *findChannel(const std::string &channel);
+    void     deletedChannel(Channel &channel);
 
 
     static void messageToServer(const char *text, ...);
+    static void sendCheck(int fd, const void *buf, size_t n, int flags);
 
 
-	class errorServerSocket : public std::exception {
-	public:
-		virtual const char* what() const throw();
-	};
-
-	// class errorBadPort : public std::exception {
-	// public:
-	// 	virtual const char* what() const throw();
-	// };
-
-	class errorSetSockOpt : public std::exception {
-	public:
-		virtual const char* what() const throw();
-	};
-
-	static void	sendCheck(int __fd, const void *__buf, size_t __n, int __flags);
-
-	class SendFailure : public std::exception{
-		virtual const char *what(void)const throw();
-	};
-
-	// class errorBind : public std::exception {
-	// public:
-	// 	virtual const char* what() const throw();
-	// };
+    class errorBind        : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorListen      : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorFcntl       : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorSocket      : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorBadPort     : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorSetSockOpt  : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorEpollCreate : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorEpollCtl    : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorEpollWait   : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorAccept      : public std::exception {
+		public: const char *what() const throw();
+    };
+    class errorRecv        : public std::exception {
+		public: const char *what() const throw();
+    };
+    class sendFailure      : public std::exception {
+		public: const char *what() const throw();
+    };
 
 private:
     static bool _isServerWorking;
-	int			_port;
-    std::string	_serverPassword;
-    SOCKET      _serverFd;
-    SOCKADDR_IN _sin;
+
+	SOCKET      _serverFd;
+	SOCKADDR_IN _sin;
+	std::string _serverPassword;
 	std::string _ip;
-	int			_epollInstance;
 	epoll_event _userEvent[64];
+	int         _port;
+	int         _epollInstance;
+	int         _maxChanPerUser;
 
-	int	_maxChanPerUser;
+	User      *bot;
 
-    std::map<int, User> _users;
-	std::map<std::string, Channel*> _chanMap;
-	User *bot;
-
+	std::map<int, User>              _users;
+	std::map<std::string, Channel *> _chanMap;
 
 	friend class User;
-
 };
-
-// std::ostream&	operator<<(std::ostream& os, Server &server);
-
 
 #endif

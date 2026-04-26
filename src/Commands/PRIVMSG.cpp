@@ -6,7 +6,7 @@
 
 // PRIVMSG <target> <message>
 
-static std::vector<std::string>	argSplit(std::string arg){
+static std::vector<std::string>	argSplit(const std::string &arg){
 	std::vector<std::string>	tab;
 	size_t	start = 0;
 	size_t	i = 0;
@@ -58,7 +58,7 @@ void	User::privMsgCmd(Server &server, const std::vector<std::string>& arg){
 				}
 			}
 			else{
-				User *user = server.getUserbyNickname(split[i]);
+				User *user = server.getUserByNickname(split[i]);
 				if(!user){
 					// 401 ERR_NOSUCHNICK
 					const std::string line = ":" + server._ip + " 401 " + split[i] + " :No such Nickname\r\n";

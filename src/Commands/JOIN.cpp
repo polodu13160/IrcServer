@@ -1,6 +1,6 @@
 #include "User.hpp"
 
-static std::vector<std::string>	argSplit(std::string arg){
+static std::vector<std::string>	argSplit(const std::string &arg){
 	std::vector<std::string>	tab;
 	size_t	start = 0;
 	size_t	i = 0;
