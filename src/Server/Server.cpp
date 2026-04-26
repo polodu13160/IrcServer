@@ -60,12 +60,11 @@ Channel *Server::findChannel(std::string name)
 bool Server::_isServerWorking = false;
 
 Server::Server(const char *port, const char *password)
-	: _port(0), _serverFd(0), _sin(), bot(NULL)
+	: _port(0), _serverFd(0), _sin(), _epollInstance(), _userEvent(), _maxChanPerUser(), bot(NULL)
 {
 	setServerPass(password);
 	setServerPort(port);
-	setSocketParams();
-	EpollInstance();
+
 }
 
 Server::Server(Server &other)
@@ -77,10 +76,6 @@ Server &Server::operator=(Server &other)
 {
 	(void)other;
 	return *this;
-}
-
-Server::~Server()
-{
 }
 
 // SERVER CLASS MEMBER FUNCTIONS
@@ -157,6 +152,21 @@ const char* Server::SendFailure::what(void)const throw(){
 std::string &Server::getIp()
 {
 	return this->_ip;
+}
+
+Server::~Server() {
+
+	if (this->_serverFd > 0)
+		close(_serverFd);
+	if (this->_epollInstance > 0)
+		close(this->_epollInstance);
+	for (int i = 0; i < 64; ++i) {
+		if (this->_userEvent[i].data.fd > 0)
+			close(this->_userEvent[i].data.fd);
+	}
+	for (std::map<std::string, Channel*>::iterator it = this->_chanMap.begin(); it != this->_chanMap.end(); ++it) {
+		delete it->second;
+	}
 }
 
 

@@ -35,6 +35,8 @@ int main (const int ac, char **av) {
 		try {
 			set_signal_action();
 			Server  server(av[1], av[2]);
+			server.setSocketParams();
+			server.EpollInstance();
 		}
 		catch (std::exception &e) {
 			std::cout << e.what() << std::endl;

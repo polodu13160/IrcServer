@@ -5,6 +5,8 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <sys/epoll.h>
+
 #include "Channel.hpp"
 #include "Define.hpp"
 #include "User.hpp"
@@ -87,6 +89,8 @@ private:
     SOCKET      _serverFd;
     SOCKADDR_IN _sin;
 	std::string _ip;
+	int			_epollInstance;
+	epoll_event _userEvent[64];
 
 	int	_maxChanPerUser;
 

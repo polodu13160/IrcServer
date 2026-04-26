@@ -50,9 +50,7 @@ void Server::setSocketParams()
 
 	const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
 	if (serverId == SOCKET_ERROR)
-	{
 		throw Server::errorServerSocket();
-	}
 	this->_serverFd = serverId;
 	const int opt = 1;
 	if (setsockopt(this->_serverFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int)) != 0)
@@ -64,34 +62,26 @@ void Server::setSocketParams()
 		throw errorServerSocket();
 	listen(_serverFd, SOMAXCONN);
 	fcntl(_serverFd, F_SETFL, O_NONBLOCK);
-
 }
 
 void Server::EpollInstance()
 {
 
-	int epollInstance = epoll_create1(EPOLL_CLOEXEC);
+	this->_epollInstance = epoll_create1(EPOLL_CLOEXEC);
 	epoll_event serverEvent = {};
 	serverEvent.events = EPOLLIN;
 	serverEvent.data.fd = this->_serverFd;
 
-	epoll_ctl(epollInstance, EPOLL_CTL_ADD, this->_serverFd, &serverEvent);
-
-	epoll_event userEvent[64];
+	epoll_ctl(this->_epollInstance, EPOLL_CTL_ADD, this->_serverFd, &serverEvent);
 
 	int clientFd = 0;
-	std::string clientIp;
-
-	std::cout << RED << "SERVER INITIALISATION DONE !" << RESET << std::endl;
-
 	while (true)
 	{
-		const int ready = epoll_wait(epollInstance, userEvent, 64, -1);
-
+		const int ready = epoll_wait(this->_epollInstance, this->_userEvent, 64, -1);
 		for (int i = 0; i < ready; i++)
 		{
 
-			if (userEvent[i].data.fd == this->_serverFd)
+			if (this->_userEvent[i].data.fd == this->_serverFd)
 			{
 				struct sockaddr_in clientAddr;
 				socklen_t clientAddrLen = sizeof(clientAddr);
@@ -101,14 +91,13 @@ void Server::EpollInstance()
 					clientFd = accept(this->_serverFd, reinterpret_cast<struct sockaddr *>(&clientAddr), &clientAddrLen);
 					if (clientFd == -1)
 						break;
-					clientIp = inet_ntoa(clientAddr.sin_addr);
-					fcntl(clientFd, F_SETFL, O_NONBLOCK); 
-
+					std::string clientIp = inet_ntoa(clientAddr.sin_addr);
+					fcntl(clientFd, F_SETFL, O_NONBLOCK);
 					struct epoll_event ev;
 					std::memset(&ev, 0, sizeof(ev));
 					ev.events = EPOLLIN;
 					ev.data.fd = clientFd;
-					epoll_ctl(epollInstance, EPOLL_CTL_ADD, clientFd, &ev);
+					epoll_ctl(this->_epollInstance, EPOLL_CTL_ADD, clientFd, &ev);
 
 					this->setUserFd(clientFd, clientIp); 
 					std::cout << GREEN << "NEW USER CONNECTED: " << clientIp << " (FD: " << clientFd << ")" << RESET << std::endl;
@@ -120,24 +109,17 @@ void Server::EpollInstance()
 
 				std::memset(buffer, 0, MAX_SIZE_MESSAGE);
 
-				size_t bytes = recv(userEvent[i].data.fd, buffer, MAX_SIZE_MESSAGE, 0);
+				size_t bytes = recv(this->_userEvent[i].data.fd, buffer, MAX_SIZE_MESSAGE, 0);
 
 				if (bytes == 0)
 				{
 					std::cout << RED << "CLient deco" << RESET << std::endl;
-					epoll_ctl(epollInstance, EPOLL_CTL_DEL, userEvent[i].data.fd, NULL);
-					close(userEvent[i].data.fd);
-					// kais important de faire ca sinon pas supprimer totalement et ca rentre quand meme dans
-					// getmessage jai deja eu un segfault a cause de ca
-					// normalement comme ca c good
-					this->_users.erase(userEvent[i].data.fd);
+					epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, this->_userEvent[i].data.fd, NULL);
+					close(this->_userEvent[i].data.fd);
+					this->_users.erase(this->_userEvent[i].data.fd);
 					continue;
 				}
-				getMsg(*this, buffer, userEvent[i].data.fd);
-			//
-			// std::cout << CYAN << "NEW MSG FROM CLIENT FD " << clientFd << " : " << RESET << std::endl;
-			// std::cout << buffer << std::endl;
-			// std::cout << CYAN << "END OF MSG " << RESET << std::endl;
+				getMsg(*this, buffer, this->_userEvent[i].data.fd);
 			}
 		}
 	}
