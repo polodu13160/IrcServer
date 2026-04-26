@@ -26,8 +26,8 @@ public:
     const std::string            &getName() const;
     const std::string            &getPassword() const;
     const std::string            &getTopic() const;
-    const std::string             getNickNameModifTopicLast() const;
-    const std::string             getTimeUnixModifTopicLast() const;
+    std::string             getNickNameModifTopicLast() const;
+    std::string             getTimeUnixModifTopicLast() const;
     unsigned int                  getUserLimit() const;
 
     void         setInviteOnly(bool val);

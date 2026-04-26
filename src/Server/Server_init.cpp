@@ -101,7 +101,7 @@ void Server::EpollInstance()
                     if (clientFd == -1)
                     {
                         if (errno == EAGAIN || errno == EWOULDBLOCK)
-                            break;           // plus de clients en attente
+                            break;
                         throw Server::errorAccept();
                     }
 

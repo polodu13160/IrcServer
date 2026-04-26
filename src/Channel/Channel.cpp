@@ -30,7 +30,7 @@ void Channel::sendMsgUserForOthersUsersChannel(User &user, std::string &msg) con
 
 }
 
-const std::string Channel::getNickNameModifTopicLast() const
+std::string Channel::getNickNameModifTopicLast() const
 {
     return this->_nickNameLastModifTopic;
 }
@@ -40,7 +40,7 @@ void Channel::setNickNameModifTopicLast(std::string &lastNickName)
 	this->_nickNameLastModifTopic = lastNickName;
 }
 
-const std::string Channel::getTimeUnixModifTopicLast() const
+std::string Channel::getTimeUnixModifTopicLast() const
 {
     return this->_lastTimeUnixModifTopic;
 }
