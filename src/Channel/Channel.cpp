@@ -2,8 +2,7 @@
 #include "string"
 
 void Channel::printChannelOperator() {
-	std::map<User *,bool>::iterator it = this->_users.begin();
-	for (; it != this->_users.end(); it++) {
+	for (std::map<User *,bool>::iterator it = this->_users.begin(); it != this->_users.end(); ++it) {
 		if (it->second == true)
 			std::cout << "Operator : " << it->first->getNickname() << std::endl;
 	}
@@ -15,7 +14,7 @@ void Channel::sendMsgUserForOthersUsersChannel(User &user, std::string &msg) con
 	{
 		msg.insert(0,":");
 	}
-	std::vector<User *> usersChannel = this->allUsersInVector();
+	const std::vector<User *> usersChannel = this->allUsersInVector();
 	for (size_t i = 0; i < usersChannel.size(); i++)
 	{
 		if (user.getNickname() != usersChannel[i]->getNickname())
@@ -51,22 +50,21 @@ void Channel::setTimeUnixModifTopicLast(const std::string &time_val)
 	this->_lastTimeUnixModifTopic = time_val;
 }
 
-void Channel::setTopic(const char *value)
+void Channel::setTopic(const char *val)
 {
-	this->_topic = value;
+	this->_topic = val;
 }
 
 void Channel::deletedUser(User &user)
 {
-	std::map<User *, bool>::const_iterator itUser = this->_users.find(&user);
+	const std::map<User *, bool>::const_iterator itUser = this->_users.find(&user);
 	this->_users.erase(itUser->first);
 }
 
-const std::vector<User *> Channel::allUsersInVector() const
+std::vector<User *> Channel::allUsersInVector() const
 {
 	std::vector<User *> allUsers;
-	std::map<User *, bool>::const_iterator itUser;
-	for (itUser= this->_users.begin(); itUser != this->_users.end(); itUser++)
+	for (std::map<User *, bool>::const_iterator itUser = this->_users.begin(); itUser != this->_users.end(); ++itUser)
 	{
 		// Server::messageToServer(itUser->first->getUsername().c_str(), NULL);
 		allUsers.push_back(itUser->first);
@@ -87,7 +85,7 @@ bool Channel::checkUserAdmin(User &user) const
 {
 	if (checkUser(user) == true)
 	{
-		std::map<User *, bool>::const_iterator itUser = this->_users.find(&user);
+		const std::map<User *, bool>::const_iterator itUser = this->_users.find(&user);
 		if (itUser->second == true)
 			return true;
 		else
@@ -103,25 +101,25 @@ const std::map<User *, bool> &Channel::getUsers() const
 	return this->_users;
 }
 
-void Channel::addInviteUser(std::string user)
+void Channel::addInviteUser(const std::string& user)
 {
 	this->_usersInvite.insert(user);
 }
 
-bool Channel::getInInviteUsers(std::string user)
+bool Channel::getInInviteUsers(const std::string& user)
 {
 	if (this->_usersInvite.find(user) != this->_usersInvite.end())
 		return true;
     return false;
 }
 
-Channel::Channel(std::string name) : _name(name){
+Channel::Channel(const std::string& name) : _modeStock(), _name(name){
 	this->_userLimit = -1;
 	this->_inviteOnly = false;
 	this->_topicRestrictions = false;
 }
 
-Channel::Channel(const Channel &other)
+Channel::Channel(const Channel &other) : _modeStock(), _inviteOnly(), _topicRestrictions(), _userLimit()
 {
 	*this = other;
 }
@@ -134,7 +132,7 @@ Channel &Channel::operator=(const Channel &other)
 
 Channel::~Channel() {}
 
-void Channel::setName(std::string name)
+void Channel::setName(const std::string& name)
 {
 	this->_name = name;
 }
@@ -144,43 +142,43 @@ void Channel::setInviteOnly(bool val)
 	this->_inviteOnly = val;
 }
 
-void Channel::setPassword(std::string password)
+void Channel::setPassword(const std::string& password)
 {
 	this->_password = password;
 }
 
-void Channel::setUserLimit(unsigned int val)
+void Channel::setUserLimit(const unsigned int val)
 {
 	this->_userLimit = val;
 }
 
-void Channel::addUser(User &user, bool admin)
+void Channel::addUser(User &user, const bool admin)
 {
-	std::pair<User *, bool> insertUser(&user, admin);
+	const std::pair<User *, bool> insertUser(&user, admin);
 	this->_users.insert(insertUser);
 }
 
-const std::string &Channel::getName(void) const
+const std::string &Channel::getName() const
 {
 	return this->_name;
 }
 
-const std::string &Channel::getPassword(void) const
+const std::string &Channel::getPassword() const
 {
 	return this->_password;
 }
 
-const std::string &Channel::getTopic(void) const
+const std::string &Channel::getTopic() const
 {
 	return this->_topic;
 }
 
-bool Channel::getInviteOnly(void) const
+bool Channel::getInviteOnly() const
 {
 	return this->_inviteOnly;
 }
 
-bool Channel::getTopicRestrictions(void) const
+bool Channel::getTopicRestrictions() const
 {
 	return this->_topicRestrictions;
 }
@@ -190,12 +188,12 @@ unsigned int Channel::getUserLimit() const
 	return this->_userLimit;
 }
 
-bool Channel::checkPassword(std::string &password) const
+bool Channel::checkPassword(const std::string &password) const
 {
 	return (password == this->_password ? true : false);
 }
 
-void Channel::changeUserOp(User &user, bool sign) {
+void Channel::changeUserOp(User &user, const bool sign) {
 	if (sign == true)
 		this->_users[&user] = true;
 	else
@@ -203,8 +201,7 @@ void Channel::changeUserOp(User &user, bool sign) {
 }
 
 User *Channel::getUserByNickname(const std::string &nickname){
-	std::map<User *, bool>::iterator	it;
-	for(it = this->_users.begin(); it != this->_users.end(); ++it){
+	for(std::map<User *, bool>::iterator it = this->_users.begin(); it != this->_users.end(); ++it){
 		if(it->first->getNickname() == nickname) {
 
 			User *usr = it->first;
