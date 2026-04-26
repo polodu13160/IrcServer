@@ -16,6 +16,8 @@ static std::vector<std::string>	argSplit(std::string arg){
 }
 
 void	User::noticeCmd(Server &server, const std::vector<std::string>& arg){
+	if (this->checkRegistration(server) == false)
+		return;
 	if(arg.size() < 1)
 		return;
 	else if(arg.size() < 2)

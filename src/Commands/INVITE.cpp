@@ -6,12 +6,15 @@ void User::inviteCmd(Server &server, const std::vector<std::string> &arg)
     std::string nameServer = ":";
     nameServer += server._ip;
     std::string sendMessage;
+	if (this->checkRegistration(server) == false)
+		return;
     if (arg.size() < 2)
     {
         sendMessage += nameServer + " 461 " + this->getNickname() + " INVITE :Not enough parameters\r\n";
         Server::sendCheck(this->_userFd, sendMessage.c_str(), sendMessage.size(), 0); // RPL = ERR_NEEDMOREPARAMS (461)
         return;
     }
+
     Channel *findChannel = server.findChannel(arg[1]);
     if (findChannel == NULL)
     {

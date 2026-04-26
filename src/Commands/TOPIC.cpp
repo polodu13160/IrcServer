@@ -6,7 +6,8 @@
 
 void User::topicCmd(Server &server, const std::vector<std::string>& args)
 {
-
+	if (this->checkRegistration(server) == false)
+		return;
     std::string nameServer = ":" + server._ip;
     std::string sendMessage;
     if (args[0].empty())

@@ -96,6 +96,8 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 	// Exemple : :karamire!karamire@127.0.0.1 JOIN #lol
 
 	// 461 ERR_NEEDMOREPARAMS
+	if (this->checkRegistration(server) == false)
+		return;
 	if(arg.size() < 1){
 		std::string	line = ":" + server.getIp()+ " 461 " + this->getNickname() + " JOIN :Not enough parameters\r\n";
 		Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);

@@ -24,6 +24,8 @@ void User::kickCmd(Server &server, const std::vector<std::string> &arg)
     nameServer += server._ip;
     std::string sendMessage;
 
+	if (this->checkRegistration(server) == false)
+		return;
     if (arg.size() < 2)
     {
         sendMessage += nameServer + " 461 " + this->getNickname() + " QUICK :Not enough parameters\r\n";

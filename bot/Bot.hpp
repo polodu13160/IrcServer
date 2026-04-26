@@ -20,7 +20,7 @@ struct s_msg {
 };
 
 
-#define SERVER_PASS "67"
+#define SERVER_PASS "tete"
 #define	BOT_NAME "bot"
 #define MAX_SIZE_MSG 1024
 
@@ -28,14 +28,15 @@ class Bot {
 public:
 
 	Bot();
-
 	void hash(const std::string &str);
 	bool unhash(const std::string &str);
 	void checkMsg(const s_msg &msg);
 	void runBot();
+
+	void init();
+
 	static void sendMsg(const int fd, const char *str, const size_t size, const int flag);
 
-	Bot(std::ifstream &stream);
 	Bot(const Bot &other);
 	Bot& operator=(const Bot &other);
 	~Bot();

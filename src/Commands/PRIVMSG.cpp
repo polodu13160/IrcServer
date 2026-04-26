@@ -22,6 +22,8 @@ static std::vector<std::string>	argSplit(std::string arg){
 }
 
 void	User::privMsgCmd(Server &server, const std::vector<std::string>& arg){
+	if (this->checkRegistration(server) == false)
+		return;
 	if(arg.size() < 1){
 		// 411 ERR_NORECIPIENT
 		const std::string line = ":" + server._ip + " 411 " + this->getNickname() + " :No recipient given\r\n";

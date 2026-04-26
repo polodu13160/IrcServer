@@ -17,6 +17,37 @@ User::User() {
 
 User::~User(void){}
 
+bool	User::setUserRegistration(Server &server){
+
+
+	std::cout << "Nick = " << this->_nickname << " USER = " << this->_username << " Real = " << this->_realname << " PASS = " << this->passMatch << std::endl;
+	if (!this->_nickname.empty() && !this->_username.empty() && !this->_realname.empty() && this->passMatch == true) {
+		this->registered = true;
+		std::string line = ":" + server._ip + " 001 " + this->_nickname + " :Welcome to the Internet Relay Network\r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+		line = ":" + server.getIp() + " 002 " + this->getNickname() + " :Your host is " + server.getIp() + ", running version 0.1\r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+		line = ":" + server._ip + " 003 " + this->_nickname + " :This Server was created a while ago \r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+		line = ":" + server.getIp() + " 004 " + this->getNickname() + " " + server.getIp() + " 1.0 o i\r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+		line = ":" + server._ip + " 375 " + this->_nickname + " :- " + server._ip + " Message of the day - \r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+		line = ":" + server._ip + " 372 " + this->_nickname + " :- WELCOME LES BB ! \r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+		line = ":" + server._ip + " 376 " + this->_nickname + " :End of MOTD command\r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+
+		if (this->_nickname == BOTNAME) {
+			std::cout << "Bot connected" << std::endl;
+			this->_isBot = true;
+			server.bot = this;
+		}
+		return true;
+	}
+	return false;
+}
+
 const std::string	&User::getNickname(void)const{
 	return this->_nickname;
 }

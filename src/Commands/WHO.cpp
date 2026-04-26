@@ -2,6 +2,8 @@
 
 void	User::whoCmd(Server &server, const std::vector<std::string>& arg){
 
+	if (this->checkRegistration(server) == false)
+		return;
 	if(arg.size() == 0){
 		std::map<int, User>::iterator it;
 		std::stringstream line;

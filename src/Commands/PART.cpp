@@ -16,6 +16,8 @@ std::vector<std::string>	getChannels(const std::vector<std::string> &arg){
 }
 
 void	User::partCmd(Server &server, const std::vector<std::string> &arg){
+	if (this->checkRegistration(server) == false)
+		return;
 	if(arg.size() < 1){
 		// 461 ERR_NEEDMOREPARAMS
 		std::string	line = ":" + server.getIp() + " 461 " + this->getNickname() + " PART :Not enough parameters\r\n";

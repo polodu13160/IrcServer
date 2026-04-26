@@ -5,10 +5,6 @@
 
 
 
-Bot::Bot() : _botPassword("123456789") {
-
-}
-
 void Bot::sendMsg(const int fd, const char *str, const size_t size, const int flag) {
 	if (!send(fd, str, size, flag))
 		throw Bot::errorSend();
@@ -136,14 +132,11 @@ void	Bot::runBot() {
 	}
 }
 
-
-Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
-
+void Bot::init() {
 
 	this->_botSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if (this->_botSocket < 0)
 		throw Bot::errorSocket();
-
 	this->_serverInfo.sin_family = AF_INET;
 	this->_serverInfo.sin_port = htons(6679);
 	this->_serverInfo.sin_addr.s_addr = INADDR_ANY;
@@ -164,8 +157,12 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 
 	sendMsg(this->_botSocket, userName.c_str(), userName.size(), 0);
 
+	std::ifstream stream("insult");
+	if (!stream.is_open()) {
+		std::cerr << "Error opening the file" << std::endl;
+		throw Bot::errorBadFile();
+	}
 	std::string newInsult;
-
 	while (getline(stream, newInsult)){
 		if (newInsult.find('\n'))
 			newInsult = newInsult.erase(newInsult.size());
@@ -173,19 +170,26 @@ Bot::Bot(std::ifstream &stream) : _botPassword("123456789"), _serverInfo() {
 	}
 
 	std::ifstream	meme("botResponse");
-	if (!meme.is_open())
+	if (!meme.is_open()) {
+		stream.close();
 		throw Bot::errorBadFile();
+	}
 	std::string tmp;
 	while (getline(meme, tmp)) {
 		this->_sixseven.push_back(tmp);
 	}
+
 	meme.close();
 	stream.close();
-	runBot();
+}
+
+
+Bot::Bot() : _botPassword("123456789"), _botSocket(-1), _serverInfo() {
+
 }
 
 Bot::~Bot() {
-
+	close(this->_botSocket);
 }
 
 

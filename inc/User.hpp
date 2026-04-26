@@ -26,6 +26,7 @@ class User {
 	User(int userfd, std::string nickname, std::string username);
 	~User(void);
 
+
 	const std::string	&getNickname(void)const;
 	const std::string	&getUsername(void)const;
 	const std::string	&getRealname(void)const;
@@ -55,6 +56,11 @@ class User {
 	void privMsgCmd(Server &server, const std::vector<std::string>& arg);
 	void whoCmd(Server &server, const std::vector<std::string>& arg);
 	void noticeCmd(Server &server, const std::vector<std::string>& arg);
+
+	bool checkRegistration(Server &server) const;
+	bool setUserRegistration(Server &server);
+
+
 	void passCmd(Server &server, const std::vector<std::string> &arg);
 	void inviteCmd(Server &server, const std::vector<std::string> &arg);
 	void kickCmd(Server &server, const std::vector<std::string> &arg);

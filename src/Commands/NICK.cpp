@@ -2,6 +2,8 @@
 
 #include "../../inc/User.hpp"
 
+
+
 bool	nickInvalidChar(std::string nickName) {
 
 	const std::string firstValidChar = "[]\\`_^{|}";
@@ -27,6 +29,7 @@ bool	nickAlreadyUsed(const std::string& nickName, std::map<int, User>& _users) {
 }
 
 void	User::nickCmd(Server &server, const std::vector<std::string>& nickName) {
+
 	if (nickName.empty()) {
 
 		const std::string line = ":" + server.getIp() + " 431 * :No nickname given\r\n";
@@ -46,16 +49,13 @@ void	User::nickCmd(Server &server, const std::vector<std::string>& nickName) {
 	}
 
 	if (this->_nickname.empty()) {
-		// std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 		this->setNickname(nickName[0]);
-		return;
+		if (this->setUserRegistration(server) == true)
+			return;
 	}
-	// std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 	if (!this->_nickname.empty()) {
 		const std::string line = ":" + this->_nickname + "!" + this->_username + "@" + this->_ip + " NICK :" + nickName[0] + "\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		this->setNickname(nickName[0]);
 	}
-	this->setNickname(nickName[0]);
-	// std::cout << RED << "USER NICKNAME = " << nickName[0] << RESET << std::endl;
 }

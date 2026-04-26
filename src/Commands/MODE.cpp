@@ -90,6 +90,8 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 
 void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 
+	if (this->checkRegistration(server) == false)
+		return;
 	Channel	*channel = server.findChannel(modeStr[0]);
 	if (channel == NULL) {
 		const std::string line = ":" + this->_ip + " 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";
