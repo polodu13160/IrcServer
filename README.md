@@ -1,6 +1,22 @@
 # IrcServer
 
+``` mermaid
+flowchart TD
+    subgraph Client_Side
+        C[Client IRC]
+    end
 
+    subgraph Server_Logic
+        A[Socket Listener] -->|Accept| B[Client Handler]
+        B -->|Signal SIGINT/SIGQUIT| S[Cleanup & Shutdown]
+        B -->|Commandes| D{Parsing}
+        D -->|NICK/USER| E[Authentification]
+        D -->|JOIN| F[Gestion des Channels]
+        D -->|PRIVMSG| G[Relai Messages]
+    end
+
+    C <-->|Protocol TCP| A
+```
 
 
 
