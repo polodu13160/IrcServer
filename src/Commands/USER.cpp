@@ -10,6 +10,7 @@ int wordCountInUser(const std::vector<std::string> &ref, User &thisUsr)
 	const std::string invalidChar = " @\n\r";
 	if (!ref[0].empty() && ref[0].find_first_of(invalidChar) != std::string::npos)
 		return false;
+	thisUsr.setUsername(ref[0]);
 	if (ref[1].size() != 1 && ref[1][0] != '0')
 		return false;
 	if (ref[2].size() != 1 && ref[2][0] != '*')
@@ -38,7 +39,5 @@ void User::userCmd(Server &server, const std::vector<std::string> &userName)
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	this->_realname = "caca";
-	this->_username = userName[0];
 	setUserRegistration(server);
 }

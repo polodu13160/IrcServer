@@ -42,6 +42,7 @@ bool	User::setUserRegistration(Server &server){
 			this->_isBot = true;
 			server.bot = this;
 		}
+		std::cout << this->_username << "   " << this->_nickname << "  " << this->_realname << std::endl;
 		return true;
 	}
 	return false;
