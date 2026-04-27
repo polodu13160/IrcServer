@@ -13,25 +13,5 @@ public:
 	~cmdDispatch(void);
 
 	void cmdDispatcher(Server &server, User &user, std::string cmd, std::vector<std::string> args);
-
-	std::map<std::string, void (User::*)(Server &, std::vector<std::string>&)> _handlerTab;
-
-	void handleKick(Server &server, User &user, std::vector<std::string> args);
-	void handleMode(Server &server, User &user, std::vector<std::string> args);
-	void handleInvite(Server &server, User &user, std::vector<std::string> args);
-	void handlePart(Server &server, User &user, std::vector<std::string> args);
-	void handleNick(Server &server, User &user, std::vector<std::string> args);
-	void handleQuit(Server &server, User &user, std::vector<std::string> args);
-	void handleJoin(Server &server, User &user, std::vector<std::string> args);
-	void handleHelp(Server &server, User &user, std::vector<std::string> args);
-	void handleUser(Server &server, User &user, std::vector<std::string> arg);
-	void handleList(Server &server, User &user, std::vector<std::string> arg);
-	void handleTopic(Server &server, User &user, std::vector<std::string> arg);
-	void handlePong(Server &server, User &user, std::vector<std::string> arg);
-	void handlePass(Server &server, User &user, std::vector<std::string> arg);
-
-	void handleWho(Server &server, User &user, std::vector<std::string> arg);
-	void handlePrivmsg(Server &server, User &user, std::vector<std::string> arg);
-	void handleNotice(Server &server, User &user, std::vector<std::string> arg);
 };
 #endif
