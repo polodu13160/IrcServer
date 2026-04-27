@@ -70,7 +70,7 @@ void Server::EpollInstance()
     if (this->_epollInstance == -1)
         throw Server::errorEpollCreate();
 
-    epoll_event serverEvent = {};
+    epoll_event serverEvent = {}; // a cahnger
     serverEvent.events   = EPOLLIN;
     serverEvent.data.fd  = this->_serverFd;
     if (epoll_ctl(this->_epollInstance, EPOLL_CTL_ADD, this->_serverFd, &serverEvent) == -1)
@@ -139,6 +139,7 @@ void Server::EpollInstance()
                     std::cout << RED << "Client disconnected (fd=" << fd << ")" << RESET << std::endl;
                     epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, fd, NULL);
                     close(fd);
+                	this->_userEvent[i].data.fd = -1;
                     this->_users.erase(fd);
                     continue;
                 }
@@ -149,6 +150,7 @@ void Server::EpollInstance()
 
                     epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, fd, NULL);
                     close(fd);
+                	this->_userEvent[i].data.fd = -1;
                     this->_users.erase(fd);
                     continue;
                 }

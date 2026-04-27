@@ -7,15 +7,16 @@ User::User(int userfd, std::string nickname, std::string username)
 		_nickname(nickname),
 		_username(username) {
 	this->registered = false;
+	this->passMatch = false;
 	this->_userMode = 0;
 }
 
 
 User::User() {
-
 }
 
-User::~User(void){}
+User::~User(void) {
+}
 
 bool	User::setUserRegistration(Server &server){
 

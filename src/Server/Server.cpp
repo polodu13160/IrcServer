@@ -60,11 +60,11 @@ Channel *Server::findChannel(const std::string &channel)
 bool Server::_isServerWorking = false;
 
 Server::Server(const char *port, const char *password)
-	: _serverFd(0), _sin(), _userEvent(), _port(0), _epollInstance(), _maxChanPerUser(), bot(NULL)
+	: _serverFd(0), _sin(), _port(0), _epollInstance(), _maxChanPerUser(), bot(NULL)
 {
 	setServerPass(password);
 	setServerPort(port);
-
+	std::memset(this->_userEvent, 0, sizeof(this->_userEvent));
 }
 
 Server::Server(Server &other)
@@ -135,13 +135,17 @@ std::string &Server::getIp()
 
 Server::~Server() {
 
-	if (this->_serverFd > 0)
-		close(_serverFd);
+	for (std::map<int, User>::iterator it = this->_users.begin(); it != this->_users.end(); ++it) {
+		epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, it->first, NULL);
+		close(it->first);
+	}
+	this->_users.clear();
 	if (this->_epollInstance > 0)
 		close(this->_epollInstance);
-	for (int i = 0; i < 64; ++i) {
-		if (this->_userEvent[i].data.fd > 0)
-			close(this->_userEvent[i].data.fd);
+	    this->_users.clear();
+	if (this->_serverFd > 0) {
+		close(this->_serverFd);
+		this->_serverFd = -1;
 	}
 	for (std::map<std::string, Channel*>::iterator it = this->_chanMap.begin(); it != this->_chanMap.end(); ++it) {
 		delete it->second;
