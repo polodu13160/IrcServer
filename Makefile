@@ -3,10 +3,10 @@ CXX = c++
 FLAGS = -Wall -Wextra  -MMD -MP -g3 -std=c++98 -Iinc
 NAME = IrcServer
 FILES =  src/main src/Channel/Channel src/MessageParsing/Message src/Server/Server src/Commands/JOIN \
-       src/Commands/USER src/Commands/NICK src/User/User src/MessageParsing/main src/Commands/cmdDispatch src/Commands/LIST \
+       src/Commands/USER src/Commands/NICK src/User/User src/Commands/cmdDispatch src/Commands/LIST \
        src/Server/Server_init src/Commands/PASS src/Commands/MODE_utils \
        src/Commands/QUIT src/Commands/TOPIC src/Commands/PART src/Commands/PINGPONG src/Commands/WHO \
-       src/Commands/MODE src/Commands/PRIVMSG src/Commands/NOTICE src/Commands/INVITE src/Commands/KICK
+       src/Commands/MODE src/Commands/PRIVMSG src/Commands/NOTICE src/Commands/INVITE src/Commands/KICK src/MessageParsing/messageParsing
 
 BOT_NAME = IrcBot
 BOT_FILES = main Bot Bot_exceptions
