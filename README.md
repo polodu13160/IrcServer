@@ -1,4 +1,4 @@
-<i> This project has been created as part of the 42 curriculum by pde-petr, karamire, lpaysant <i> 
+<i> This project has been created as part of the 42 curriculum by pde-petr, karamire, lpaysant </i> 
 
 # IrcServer
 
@@ -10,26 +10,31 @@ IRC (Internet Relay Chat) is a text discussion protocol. It allows different cli
 The project we created is the development of an IRC server, based on the [RFC 2119](https://datatracker.ietf.org/doc/html/rfc2119) standard. The client we selected for our tests is HexChat, which is quite complete.
 
 ### Our project
-On this server we can:
-    - set up a password for connection
-    - create and/or `JOIN` a channel
-    - communicate on the channel or privately to a user (`PRIVMSG`)
-    - get the `LIST` of channels 
-    - have operators (channel administrators) on channels
-                    the commands operators(`MODE`) : 
-                        - `i`: Set/remove Invite-only channel
-                        - `t`: Set/remove the restrictions of the TOPIC command to channel operators
-                        - `k`: Set/remove the channel key (password)
-                        - `o`: Give/take channel operator privilege
-                        - `l`: Set/remove the user limit to channel
-    - `INVITE` other server clients to join a channel
-    - `KICK` users from a channel
-
-In parallel we have a bot (automated client) that can kick users if they send obscenities
-- The bot monitors `PRIVMSG` messages.
-- If a user sends a forbidden word (list in `bot/insult`):
-  - the bot sends a `KICK` on the channel,
-  - then sends a `PRIVMSG` to the expelled user.
+<ul>
+<li> set up a password for connection</li>
+<li> create and/or <code>JOIN</code> a channel</li>
+<li> communicate on the channel or privately to a user (<code>PRIVMSG</code>)</li>
+<li> get the <code>LIST</code> of channels </li>
+<li> have operators (channel administrators) on channels</li>
+<li>the commands operators(<code>MODE</code>):</li> 
+<li><code>i</code>: Set/remove Invite-only channel</li>
+<ul>
+<li><code>t</code>: Set/remove the restrictions of the TOPIC command to channel operators</li>
+<li><code>k</code>: Set/remove the channel key (password)</li>
+<li><code>o</code>: Give/take channel operator privilege</li>
+<li><code>l</code>: Set/remove the user limit to channel</li>
+<li><code>INVITE</code> other server clients to join a channel</li>
+<li><code>KICK</code> users from a channel</li>
+</ul>
+<br>
+In parallel we have a bot (automated client) that can kick users if they send obscenities:
+<br>
+<ul>
+<li>The bot monitors <code>PRIVMSG</code> messages</li>
+<li>If a user sends a forbidden word (list in <code>bot/insult</code>):</li>
+<li>the bot sends a <code>KICK</code> on the channel</li>
+<li>then sends a <code>PRIVMSG</code> to the expelled user</li>
+</ul>
 
 ### Architecture
 
@@ -125,15 +130,19 @@ graph TD
 - `PONG`
 
 
-## Sources
+## Ressources
+
+
 
 https://www.codequoi.com/envoyer-et-intercepter-un-signal-en-c/
 
 https://www.undernet.org/docs/irc-quit-message-faq
 
-https://modern.ircdocs.horse/#rpltopicwhotime-333
+https://modern.ircdocs.horse/
 
-https://mathieu-lemoine.developpez.com/tutoriels/irc/protocole/?page=generalites
+<font size="1">IA is use for help comprehension protocol IRC, comprehension error with our code and traduction Readme but not to generate it.</font>
+
+
 
 
 
