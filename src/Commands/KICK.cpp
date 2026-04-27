@@ -24,8 +24,8 @@ void User::kickCmd(Server &server, const std::vector<std::string> &arg)
     nameServer += server._ip;
     std::string sendMessage;
 
-	if (this->checkRegistration(server) == false)
-		return;
+    if (this->checkRegistration(server) == false)
+        return;
     if (arg.size() < 2)
     {
         sendMessage += nameServer + " 461 " + this->getNickname() + " QUICK :Not enough parameters\r\n";
@@ -57,11 +57,13 @@ void User::kickCmd(Server &server, const std::vector<std::string> &arg)
     for (size_t i = 0; i < usersKick.size(); i++)
     {
         User *findUser = findChannel->getUserByNickname(arg[1]);
-        if (findUser == NULL)
+        if (findUser == NULL || findUser == this)
         {
-            sendMessage = nameServer + " 441 " + this->_nickname + " " + usersKick[i] + " " + findChannel->getName() + " :this user does not exist on this channel \r\n";
-            Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0);
-            // :pol1212!pol@127.0.0.1 KICK #tutu pol13 :T'es moche
+            if (findUser != this)
+            {
+                sendMessage = nameServer + " 441 " + this->_nickname + " " + usersKick[i] + " " + findChannel->getName() + " :this user does not exist on this channel \r\n";
+                Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0);
+            }
         }
         else
         {
@@ -77,7 +79,5 @@ void User::kickCmd(Server &server, const std::vector<std::string> &arg)
             if (findChannel->getUsers().empty())
                 server.deletedChannel(*findChannel);
         }
-
-
     }
 }
