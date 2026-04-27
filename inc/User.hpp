@@ -87,7 +87,7 @@ class User {
 
 };
 
-void	getMsg(Server &server, std::string msg, int userFd);
+void	getMsgFD(Server &server, std::string msg, int userFd);
 void	changeMode(unsigned int &checkedMode, const e_modes MODE, bool sign);
 bool	checkMode(const unsigned int &checkedMode, const e_modes MODE);
 void	handleInviteMode(Channel &channel, const s_parseMode &mode);

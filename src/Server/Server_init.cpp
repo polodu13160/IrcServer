@@ -155,7 +155,7 @@ void Server::EpollInstance()
                     continue;
                 }
 
-                getMsg(*this, buffer, fd);
+                getMsgFD(*this, buffer, fd);
             }
         }
     }

@@ -58,7 +58,7 @@ void	TokenizeMsg(Server &server, std::string msg, User &user){
 	cmdDispatcher(server, user, message.getCmd(), message.getParam());
 }
 
-void	getMsg(Server &server, std::string msg, int userFd){
+void	getMsgFD(Server &server, std::string msg, int userFd){
 	User	*user = server.getUser(userFd, server);
 
 	std::string result;
