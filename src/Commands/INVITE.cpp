@@ -28,6 +28,19 @@ void User::inviteCmd(Server &server, const std::vector<std::string> &arg)
         Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_NOTONCHANNEL 442
         return;
     }
+	User *tmp = server.getUserByNickname(arg[0]);
+	if(tmp == NULL){
+		// ERR_NOSUCHNICK (401)
+		const std::string line = ":" + server._ip + " 401 "" " + arg[0] + " " + findChannel->getName() + " :No such Nickname\r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
+		return;
+	}
+	if(findChannel->checkUser(*tmp)){
+		// ERR_USERONCHANNEL (443) caca
+		const std::string line = ":" + server._ip + " 443 "" " + arg[0] + " " + findChannel->getName() + " :is already on channel\r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
+		return;
+	}
     if (findChannel->getInviteOnly() == true && findChannel->checkUserAdmin(*this) == false)
     {
         sendMessage = nameServer + " 482 " + this->_nickname + " " + findChannel->getName() + " :You are not operator of this channel \r\n";

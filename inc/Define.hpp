@@ -23,8 +23,8 @@
 #ifndef HOST
 #define HOST			"127.0.0.1"
 #endif
-#ifndef DEBUG 
-#define DEBUG          0
+#ifndef DEBUG
+#define DEBUG          1
 #endif
 #ifndef MAX_SIZE_MESSAGE
 #define MAX_SIZE_MESSAGE 512

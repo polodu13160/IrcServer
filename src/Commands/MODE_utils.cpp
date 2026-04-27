@@ -63,16 +63,16 @@ void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Se
 
 void	handleLimitMode(Channel &channel, const s_parseMode &mode) {
 
-	std::stringstream ss;
 	std::string			rest;
-	ss << mode.arg;
 
 	unsigned int tmp;
 
-	ss >> tmp;
-	if (!tmp || (ss >> rest)) {
-		// Bad User Lmit
-		return;
+	if (!mode.arg.empty()) {
+		std::stringstream ss(mode.arg);
+		ss >> tmp;
+		if (!tmp || (ss >> rest)) {
+			return;
+		}
 	}
 	if (mode.sign == true) {
 		channel.setUserLimit(tmp);
