@@ -61,25 +61,25 @@ void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Se
 // CHANNEL LIMIT HANDLE
 
 
-void	handleLimitMode(Channel &channel, const s_parseMode &mode) {
-
-	std::string			rest;
-
-	unsigned int tmp;
-
-	if (!mode.arg.empty()) {
-		std::stringstream ss(mode.arg);
-		ss >> tmp;
-		if (!tmp || (ss >> rest)) {
+void handleLimitMode(Channel &channel, const s_parseMode &mode, const User &userSend, Server &server) {
+	if (mode.sign == true) {
+		std::string rest;
+		unsigned int tmp = 0;
+		if (mode.arg.empty()) {
+			const std::string line = ":" + server.getIp() + " 461 " + userSend.getNickname()
+				+ " l MODE " + channel.getName() + " +l :Not enough parameter\r\n";
+			send(userSend.getUserFd(), line.c_str(), line.size(), 0);
 			return;
 		}
-	}
-	if (mode.sign == true) {
+		std::stringstream ss(mode.arg);
+		ss >> tmp;
+		if (!tmp || (ss >> rest))
+			return;
 		channel.setUserLimit(tmp);
 		changeMode(channel._modeStock, MODE_LIMIT_SET, true);
-	}
-	else
+	} else {
 		changeMode(channel._modeStock, MODE_LIMIT_SET, false);
+	}
 }
 
 

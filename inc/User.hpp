@@ -93,7 +93,7 @@ bool	checkMode(const unsigned int &checkedMode, const e_modes MODE);
 void	handleInviteMode(Channel &channel, const s_parseMode &mode);
 void	handleTopicMode(Channel &channel, const s_parseMode &mode);
 void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
-void	handleLimitMode(Channel &channel, const s_parseMode &mode);
+void	handleLimitMode(Channel &channel, const s_parseMode &mode, const User &userSend, Server &server);
 void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
 void	cmdDispatcher(Server &server, User &user, std::string cmd, std::vector<std::string> args);
 

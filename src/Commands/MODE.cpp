@@ -118,7 +118,7 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 				handleKeyMode(*channel, args[i], *this, server);
 				break;
 			case MODE_LIMIT_SET :
-				handleLimitMode(*channel, args[i]);
+				handleLimitMode(*channel, args[i], *this, server);
 				break;
 			case MODE_OPERATOR :
 				handleOperatorMode(*channel, args[i], *this, server);
@@ -128,6 +128,7 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 				break;
 			default :
 				std::string line = ":" + this->_ip + " 472 " + this->_nickname + " " + modeStr[0] + " :Bad MODE parameter\r\n";
+				Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		}
 	}
 }
