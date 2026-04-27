@@ -23,6 +23,7 @@ struct s_msg {
 #define SERVER_PASS "tete"
 #define	BOT_NAME "bot"
 #define MAX_SIZE_MSG 1024
+#define SERVER_PORT 6679
 
 class Bot {
 public:

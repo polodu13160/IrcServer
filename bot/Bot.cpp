@@ -135,7 +135,7 @@ void Bot::init() {
 	if (this->_botSocket < 0)
 		throw Bot::errorSocket();
 	this->_serverInfo.sin_family = AF_INET;
-	this->_serverInfo.sin_port = htons(6679);
+	this->_serverInfo.sin_port = htons(SERVER_PORT);
 	this->_serverInfo.sin_addr.s_addr = INADDR_ANY;
 
 	if (connect(this->_botSocket, reinterpret_cast<struct sockaddr*>(&_serverInfo), sizeof(this->_serverInfo)) < 0)
