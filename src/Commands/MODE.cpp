@@ -92,6 +92,12 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 
 	if (this->checkRegistration(server) == false)
 		return;
+	if (modeStr.empty()) {
+		const std::string line = ":" + server.getIp() + " 461 " + this->getNickname()
+				+ " MODE :Not enough parameter\r\n";
+		send(this->getUserFd(), line.c_str(), line.size(), 0);
+		return;
+	}
 	Channel	*channel = server.findChannel(modeStr[0]);
 	if (channel == NULL) {
 		const std::string line = ":" + this->_ip + " 403 " + this->_nickname + " " + modeStr[0] + " :No such channel\r\n";

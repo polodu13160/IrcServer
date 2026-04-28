@@ -9,7 +9,6 @@ User::User(int userfd, std::string nickname, std::string username)
 	this->registered = false;
 	this->passMatch = false;
 	this->_isBot = false;
-	this->_userMode = 0;
 	this->_isBot = false;
 }
 

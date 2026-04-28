@@ -60,7 +60,7 @@ Channel *Server::findChannel(const std::string &channel)
 bool Server::_isServerWorking = false;
 
 Server::Server(const char *port, const char *password)
-	: _serverFd(0), _sin(), _port(0), _epollInstance(), _maxChanPerUser(), bot(NULL)
+	: _serverFd(0), _sin(), _userEvent(), _port(0), _epollInstance(), _maxChanPerUser(), bot(NULL)
 {
 	setServerPass(password);
 	setServerPort(port);

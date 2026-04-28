@@ -81,7 +81,6 @@ class User {
 	bool	passMatch;
 	bool _isBot;
 
-	__uint32_t		_userMode;
 
 	friend class Server;
 

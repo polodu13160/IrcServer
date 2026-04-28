@@ -6,7 +6,7 @@
 
 
 void Bot::sendMsg(const int fd, const char *str, const size_t size, const int flag) {
-	if (!send(fd, str, size, flag))
+	if (send(fd, str, size, flag) == -1)
 		throw Bot::errorSend();
 }
 

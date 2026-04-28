@@ -41,8 +41,8 @@ void Server::setServerPass(const char *password)
 
 void Server::setSocketParams()
 {
-    const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
-    if (serverId == SOCKET_ERROR)
+	const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
+	if (serverId == SOCKET_ERROR)
         throw Server::errorSocket();
     this->_serverFd = serverId;
 
@@ -119,11 +119,11 @@ void Server::EpollInstance()
                         close(clientFd);
                         throw Server::errorEpollCtl();
                     }
-
                     const std::string clientIp = inet_ntoa(clientAddr.sin_addr);
                     this->setUserFd(clientFd, clientIp);
-                    std::cout << GREEN << "New client: " << clientIp
-                              << " (fd=" << clientFd << ")" << RESET << std::endl;
+					if (DEBUG == true)
+						std::cout << GREEN << "New client: " << clientIp
+								<< " (fd=" << clientFd << ")" << RESET << std::endl;
                 }
             }
             else
@@ -154,7 +154,6 @@ void Server::EpollInstance()
                     this->_users.erase(fd);
                     continue;
                 }
-
                 getMsgFD(*this, buffer, fd);
             }
         }
