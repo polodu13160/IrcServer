@@ -17,12 +17,14 @@ The project we created is the development of an IRC server, based on the [RFC 21
 <li> get the <code>LIST</code> of channels </li>
 <li> have operators (channel administrators) on channels</li>
 <li>the commands operators(<code>MODE</code>):</li> 
-<li><code>i</code>: Set/remove Invite-only channel</li>
 <ul>
+<li><code>i</code>: Set/remove Invite-only channel</li>
+
 <li><code>t</code>: Set/remove the restrictions of the TOPIC command to channel operators</li>
 <li><code>k</code>: Set/remove the channel key (password)</li>
 <li><code>o</code>: Give/take channel operator privilege</li>
 <li><code>l</code>: Set/remove the user limit to channel</li>
+</ul>
 <li><code>INVITE</code> other server clients to join a channel</li>
 <li><code>KICK</code> users from a channel</li>
 </ul>
@@ -45,7 +47,7 @@ graph TD
     subgraph Compilation ["1. Compilation (Makefile)"]
         M[Makefile]
         HOST[define.cpp <br/><i>Defines the HOST</i>]
-        PORT[define.cpp <br/><i>Defines the Server Port</i>]
+        PORT[define.cpp <br/><i>Defines the Server Port <br/> and the server's password </i>]
         
         M --->|make| S_BIN["Executable: IrcServer"]
         M --->|make bots| B_BIN["Executable: IrcBot"]
