@@ -19,8 +19,6 @@ public:
 
     Server();
     Server(const char *port, const char *password);
-    Server(Server &other);
-    Server &operator=(Server &other);
     ~Server();
 
 

@@ -75,8 +75,6 @@ class User {
 	std::string _ip;
 	std::string	message;
 
-	bool	hasANickName;
-	bool	hasAUserName;
 	bool	registered;
 	bool	passMatch;
 	bool _isBot;

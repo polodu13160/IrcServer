@@ -16,6 +16,7 @@ void	User::passCmd(Server &server, const std::vector<std::string> &arg) {
 	if (arg.empty()) {
 		const std::string line = ":" + server.getIp() + " 461 PASS :Not enough parameters\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+		std::cout << "La" << std::endl;
 		return;
 	}
 	if (this->registered == true) {
@@ -28,6 +29,7 @@ void	User::passCmd(Server &server, const std::vector<std::string> &arg) {
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
+	std::cout << "ici" << std::endl;
 	this->passMatch = true;
 }
 

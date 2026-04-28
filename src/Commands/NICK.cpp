@@ -29,7 +29,7 @@ bool	nickAlreadyUsed(const std::string& nickName, std::map<int, User>& _users) {
 
 void	User::nickCmd(Server &server, const std::vector<std::string>& nickName) {
 
-	if (this->passMatch == true) {
+	if (this->passMatch == false) {
 
 		const std::string line = ":" + server.getIp() + " 431 * :Can't connect without password\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);

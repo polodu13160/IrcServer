@@ -67,16 +67,6 @@ Server::Server(const char *port, const char *password)
 	std::memset(this->_userEvent, 0, sizeof(this->_userEvent));
 }
 
-Server::Server(Server &other)
-{
-	(void)other;
-}
-
-Server &Server::operator=(Server &other)
-{
-	(void)other;
-	return *this;
-}
 
 // SERVER CLASS MEMBER FUNCTIONS
 

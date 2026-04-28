@@ -9,14 +9,13 @@ User::User(int userfd, std::string nickname, std::string username)
 	this->registered = false;
 	this->passMatch = false;
 	this->_isBot = false;
-	this->_isBot = false;
 }
 
 
-User::User() {
+User::User() : _userFd(), registered(), passMatch(), _isBot() {
 }
 
-User::~User(void) {
+User::~User() {
 }
 
 bool	User::setUserRegistration(Server &server){
