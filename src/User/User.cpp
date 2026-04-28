@@ -66,6 +66,11 @@ const std::string	&User::getRealname(void)const{
 std::string	User::getMessage(void){
 	size_t pos = this->message.find("\r\n");
 	if (pos != std::string::npos) {
+		if(this->message.size() > 512){
+			this->message = "";
+			//send err_msgtoolong
+			return this->message;
+		}
 		std::string cmd = this->message.substr(0, pos);
 		this->message.erase(0, pos + 2);
 		return cmd;
