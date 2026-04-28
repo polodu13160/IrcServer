@@ -23,6 +23,10 @@ void	getTab(std::map<std::string, void (User::*)(Server &, const std::vector<std
 	functionTab["PASS"] = &User::passCmd;
 }
 
+// void	cmdSpecialKit(Server &server, User &user, std::string cmd, const std::vector<std::string> args){
+
+// }
+
 void cmdDispatcher(Server &server, User &user, std::string cmd, const std::vector<std::string> args)
 {
 	if (DEBUG == true) {

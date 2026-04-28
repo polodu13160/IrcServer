@@ -65,9 +65,10 @@ class User {
 	void inviteCmd(Server &server, const std::vector<std::string> &arg);
 	void kickCmd(Server &server, const std::vector<std::string> &arg);
 	std::string &getIp();
+	bool	hasDisconnected;
 
 
-	protected :
+	private :
 	int			_userFd;
 	std::string	_nickname;
 	std::string	_username;
