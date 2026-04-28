@@ -10,7 +10,7 @@ void User::topicCmd(Server &server, const std::vector<std::string>& args)
 		return;
     std::string nameServer = ":" + server._ip;
     std::string sendMessage;
-    if (args[0].empty())
+    if (args.size() < 1)
     {
         // si pas d'arguments ce fou envoie juste topic sans rien
         sendMessage = nameServer + " 461 " + this->_nickname + " TOPIC" + " :Not enough parameters [#channel] optionnel: :NewTopic \r\n";
