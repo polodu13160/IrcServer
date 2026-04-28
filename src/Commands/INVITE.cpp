@@ -41,7 +41,7 @@ void User::inviteCmd(Server &server, const std::vector<std::string> &arg)
 		Server::sendCheck(this->_userFd, line.c_str(), line.size(), 0);
 		return;
 	}
-    if (findChannel->getInviteOnly() == true && findChannel->checkUserAdmin(*this) == false)
+    if (checkMode(findChannel->_modeStock, MODE_INVITE_O) == true && findChannel->checkUserAdmin(*this) == false)
     {
         sendMessage = nameServer + " 482 " + this->_nickname + " " + findChannel->getName() + " :You are not operator of this channel \r\n";
         Server::sendCheck(this->getUserFd(), sendMessage.c_str(), sendMessage.size(), 0); // ERR_CHANOPRIVSNEEDED
