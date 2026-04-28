@@ -138,10 +138,10 @@ void Server::EpollInstance()
                 {
                     std::cout << RED << "Client disconnected (fd=" << fd << ")" << RESET << std::endl;
                     epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, fd, NULL);
-                    close(fd);
-                	this->_userEvent[i].data.fd = -1;
-                    this->_users.erase(fd);
-                    continue;
+                	User &u = this->_users[fd];
+                	std::vector<std::string> tutu;
+                	u.quitCmd(*this, tutu);;
+                	continue;
                 }
                 if (bytes == -1)
                 {
@@ -149,10 +149,10 @@ void Server::EpollInstance()
                         continue;
 
                     epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, fd, NULL);
-                    close(fd);
-                	this->_userEvent[i].data.fd = -1;
-                    this->_users.erase(fd);
-                    continue;
+                	User &u = this->_users[fd];
+                	std::vector<std::string> tutu;
+                	u.quitCmd(*this, tutu);
+                	continue;
                 }
                 getMsgFD(*this, buffer, fd);
             }
