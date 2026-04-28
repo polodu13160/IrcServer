@@ -90,6 +90,12 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 
 void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 
+	if (this->passMatch == true) {
+
+		const std::string line = ":" + server.getIp() + " 431 * :Can't connect without password\r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
+		return;
+	}
 	if (this->checkRegistration(server) == false)
 		return;
 	if (modeStr.empty()) {
