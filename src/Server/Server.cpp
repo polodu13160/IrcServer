@@ -86,9 +86,10 @@ void Server::setUserFd(int fd, std::string ip)
 	this->_users[fd]._ip = ip;
 }
 
-void Server::deletedChannel(Channel &channel)
+void Server::deletedChannel(Channel *channel)
 {
-	this->_chanMap.erase(channel.getName());
+	this->_chanMap.erase(channel->getName());
+	delete channel;
 }
 
 User *Server::getUser(int fd, Server &server)

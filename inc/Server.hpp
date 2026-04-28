@@ -41,7 +41,7 @@ public:
 
 
     Channel *findChannel(const std::string &channel);
-    void     deletedChannel(Channel &channel);
+    void     deletedChannel(Channel *channel);
 
 
     static void messageToServer(const char *text, ...);

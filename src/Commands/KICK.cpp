@@ -77,7 +77,11 @@ void User::kickCmd(Server &server, const std::vector<std::string> &arg)
             findChannel->deletedUser(*findUser);
             Server::sendCheck(this->_userFd, sendMessage.c_str(), sendMessage.size(), 0);
             if (findChannel->getUsers().empty())
-                server.deletedChannel(*findChannel);
+            {
+                Server::messageToServer("ok on rentre ou pas ", NULL);
+                server.deletedChannel(findChannel);
+            }
+                
         }
     }
 }
