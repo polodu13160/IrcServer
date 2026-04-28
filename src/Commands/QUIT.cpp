@@ -46,8 +46,9 @@ void User::quitCmd(Server &server, const std::vector<std::string> &arg)
         messageSend.erase(510);
         messageSend += " \r\n";
     }
-    for (std::set<User *>::iterator it = concernedUsers.begin(); it != concernedUsers.end(); it++)
+    for (std::set<User *>::iterator it = concernedUsers.begin(); it != concernedUsers.end(); it++){
         Server::sendCheck((*it)->_userFd, messageSend.c_str(), messageSend.size(), 0);
+	}
 
-    //Kaissot supprime utilisateur du channel
+	this->hasDisconnected = true;
 }

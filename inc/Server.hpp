@@ -48,6 +48,8 @@ public:
 
     static void messageToServer(const char *text, ...);
     static void sendCheck(int fd, const void *buf, size_t n, int flags);
+	void	getMsgFD(Server &server, std::string msg, int userFd);
+
 
 
     class errorBind        : public std::exception {

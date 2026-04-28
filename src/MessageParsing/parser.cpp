@@ -58,10 +58,17 @@ void	TokenizeMsg(Server &server, std::string msg, User &user){
 	cmdDispatcher(server, user, message.getCmd(), message.getParam());
 }
 
-void	getMsgFD(Server &server, std::string msg, int userFd){
+void	Server::getMsgFD(Server &server, std::string msg, int userFd){
 	User	*user = server.getUser(userFd, server);
 
 	std::string result;
+
+	if (user->hasDisconnected == true) {
+		epoll_ctl(server._epollInstance , EPOLL_CTL_DEL, user->_userFd, NULL);
+		close(user->_userFd);
+		server._users.erase(user->_userFd);
+		return;
+	}
 
 	if(!user) {
 		std::cout << "caca";

@@ -109,7 +109,7 @@ void	User::joinCmd(Server &server, const std::vector<std::string>& arg){
 	if(arg.size() > 1)
 		pass = argSplit(arg[1]);
 	for(size_t i = 0; i < channel.size(); i++){
-		if((channel[i][0] != '#' && channel[i][0] != '&') || channel[i].find(" ") != std::string::npos || channel[i].size() > 50){
+		if((channel[i][0] != '#' && channel[i][0] != '&') || channel[i].find(" ") != std::string::npos || channel[i].size() > 50 || channel[i].size() < 2){
 			// 403 ERR_NOSUCHCHANNEL
 			const std::string	line = ":" + server.getIp()+ " 403 " + channel[i] + " :No such channel\r\n";
 			Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
