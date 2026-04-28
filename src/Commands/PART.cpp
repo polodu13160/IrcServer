@@ -43,7 +43,7 @@ void	User::partCmd(Server &server, const std::vector<std::string> &arg){
 				else{
 					std::string line;
 					if(arg.size() > 1)
-						line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip + " PART " + channel[i] + " :" + arg[1] + "\r\n";
+						line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip + " PART " + channel[i] + " " + arg[1] + "\r\n";
 					else
 						line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip + " PART " + channel[i] + "\r\n";
 					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
@@ -66,3 +66,8 @@ void	User::partCmd(Server &server, const std::vector<std::string> &arg){
 
 // ERR_NEEDMOREPARAMS (X)             ERR_NOSUCHCHANNEL (X)
 // 442 ERR_NOTONCHANNEL
+
+
+
+// USER <arg> 8 * :<arg> => not enough parameters
+// USER <arg> 0 * :<arg> => marche

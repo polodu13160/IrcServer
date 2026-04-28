@@ -27,21 +27,17 @@ void	User::noticeCmd(Server &server, const std::vector<std::string>& arg){
 		for(size_t i = 0; i < split.size(); i++){
 			if(split[i][0] == '#' || split[i][0] == '&'){
 				const Channel *channel = server.findChannel(split[i]);
-				if(!channel)
-					return;
-				else if(!channel->checkUser(*this))
-					return;
-				else{
+				if(channel && channel->checkUser(*this)){
 					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip + " NOTICE " + split[i] + " " + arg[1] + "\r\n";
 					channel->sendMsgUserForOthersUsersChannel(*this, line);
 				}
 			}
 			else{
 				const User *user = server.getUserByNickname(split[i]);
-				if(!user)
-					return;
-				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " NOTICE " + split[i] + " " + arg[1] + "\r\n";
-				Server::sendCheck(user->getUserFd(), line.c_str(), line.size(), 0);
+				if(user){
+					const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " NOTICE " + split[i] + " " + arg[1] + "\r\n";
+					Server::sendCheck(user->getUserFd(), line.c_str(), line.size(), 0);
+				}
 			}
 		}
 	}

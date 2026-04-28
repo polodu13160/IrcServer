@@ -63,10 +63,11 @@ void	User::privMsgCmd(Server &server, const std::vector<std::string>& arg){
 					// 401 ERR_NOSUCHNICK
 					const std::string line = ":" + server._ip + " 401 " + split[i] + " :No such Nickname\r\n";
 					Server::sendCheck(this->getUserFd(), line.c_str(), line.size(), 0);
-					return;
 				}
-				const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " PRIVMSG " + split[i] +" "+  arg[1] + "\r\n";
-				Server::sendCheck(user->getUserFd(), line.c_str(), line.size(), 0);
+				else{
+					const std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " PRIVMSG " + split[i] +" "+  arg[1] + "\r\n";
+					Server::sendCheck(user->getUserFd(), line.c_str(), line.size(), 0);
+				}
 			}
 		}
 	}
