@@ -136,7 +136,9 @@ void Server::EpollInstance()
 
                 if (bytes == 0)
                 {
-                    std::cout << RED << "Client disconnected (fd=" << fd << ")" << RESET << std::endl;
+                    #if (DEBUG==1) 
+                        std::cout << RED << "Client disconnected (fd=" << fd << ")" << RESET << std::endl;
+                    #endif //DEBUG
                     epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, fd, NULL);
                 	User &u = this->_users[fd];
                 	std::vector<std::string> tutu;
