@@ -78,17 +78,11 @@ void	Server::getMsgFD(Server &server, std::string msg, int userFd){
 	user->setMessage(msg);
 	std::string finalMsg = user->getMessage();
 	while (!finalMsg.empty()) {
-		#if (DEBUG==1) 
-		Server::messageToServer(" 	ici ", NULL );
-		#endif //DEBUG
 		TokenizeMsg(server, finalMsg, *user);
 		finalMsg = user->getMessage();
 	}
 }
 
-
-}
-}
 
 void	printVector(std::vector<std::string> arg){
 	for(size_t i = 0; i < arg.size(); i++){
