@@ -8,14 +8,14 @@ void Server::sockaddrInit()
 {
     std::memset(&this->_sin, 0, sizeof(SOCKADDR_IN));
     this->_sin.sin_addr.s_addr = INADDR_ANY;
-    this->_sin.sin_family      = AF_INET;
-    this->_sin.sin_port        = htons(this->_port);
+    this->_sin.sin_family = AF_INET;
+    this->_sin.sin_port = htons(this->_port);
 }
 
 static int convertPort(const char *arg)
 {
     std::stringstream ss;
-    int  tmp = 0;
+    int tmp = 0;
     char rest;
 
     ss << arg;
@@ -41,8 +41,8 @@ void Server::setServerPass(const char *password)
 
 void Server::setSocketParams()
 {
-	const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
-	if (serverId == SOCKET_ERROR)
+    const SOCKET serverId = socket(AF_INET, SOCK_STREAM, 0);
+    if (serverId == SOCKET_ERROR)
         throw Server::errorSocket();
     this->_serverFd = serverId;
 
@@ -70,9 +70,9 @@ void Server::EpollInstance()
     if (this->_epollInstance == -1)
         throw Server::errorEpollCreate();
 
-    epoll_event serverEvent = {}; 
-    serverEvent.events   = EPOLLIN;
-    serverEvent.data.fd  = this->_serverFd;
+    epoll_event serverEvent = {};
+    serverEvent.events = EPOLLIN;
+    serverEvent.data.fd = this->_serverFd;
     if (epoll_ctl(this->_epollInstance, EPOLL_CTL_ADD, this->_serverFd, &serverEvent) == -1)
         throw Server::errorEpollCtl();
 
@@ -91,12 +91,12 @@ void Server::EpollInstance()
             if (this->_userEvent[i].data.fd == this->_serverFd)
             {
                 struct sockaddr_in clientAddr;
-				socklen_t          clientAddrLen = sizeof(clientAddr);
-				std::memset(&clientAddr, 0, clientAddrLen);
+                socklen_t clientAddrLen = sizeof(clientAddr);
+                std::memset(&clientAddr, 0, clientAddrLen);
 
-				while (true)
+                while (true)
                 {
-                    const int clientFd = accept(this->_serverFd, reinterpret_cast<struct sockaddr *>(&clientAddr),&clientAddrLen);
+                    const int clientFd = accept(this->_serverFd, reinterpret_cast<struct sockaddr *>(&clientAddr), &clientAddrLen);
 
                     if (clientFd == -1)
                     {
@@ -112,7 +112,7 @@ void Server::EpollInstance()
                     }
 
                     epoll_event ev = {};
-                    ev.events  = EPOLLIN;
+                    ev.events = EPOLLIN;
                     ev.data.fd = clientFd;
                     if (epoll_ctl(this->_epollInstance, EPOLL_CTL_ADD, clientFd, &ev) == -1)
                     {
@@ -121,40 +121,35 @@ void Server::EpollInstance()
                     }
                     const std::string clientIp = inet_ntoa(clientAddr.sin_addr);
                     this->setUserFd(clientFd, clientIp);
-					if (DEBUG == true)
-						std::cout << GREEN << "New client: " << clientIp
-								<< " (fd=" << clientFd << ")" << RESET << std::endl;
+                    if (DEBUG == true)
+                        std::cout << GREEN << "New client: " << clientIp
+                                  << " (fd=" << clientFd << ")" << RESET << std::endl;
                 }
             }
             else
             {
                 const int fd = this->_userEvent[i].data.fd;
-                char      buffer[MAX_SIZE_MESSAGE + 1];
+                char buffer[MAX_SIZE_MESSAGE + 1];
                 std::memset(buffer, 0, sizeof(buffer));
 
                 const ssize_t bytes = recv(fd, buffer, MAX_SIZE_MESSAGE, 0);
 
-                if (bytes == 0)
+                if (bytes <= 0)
                 {
-                    #if (DEBUG==1) 
-                        std::cout << RED << "Client disconnected (fd=" << fd << ")" << RESET << std::endl;
-                    #endif //DEBUG
-                    epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, fd, NULL);
-                	User &u = this->_users[fd];
-                	std::vector<std::string> tutu;
-                	u.quitCmd(*this, tutu);;
-                	continue;
-                }
-                if (bytes == -1)
-                {
-                    if (errno == EAGAIN || errno == EWOULDBLOCK)
+                    if (bytes == -1 && (errno == EAGAIN || errno == EWOULDBLOCK))
                         continue;
-
+                    std::cout << RED << "Client disconnected (fd=" << fd << ")" << RESET << std::endl;
+                    std::map<int, User>::iterator userFind = this->_users.find(fd);
                     epoll_ctl(this->_epollInstance, EPOLL_CTL_DEL, fd, NULL);
-                	User &u = this->_users[fd];
-                	std::vector<std::string> tutu;
-                	u.quitCmd(*this, tutu);
-                	continue;
+                    if (userFind != this->_users.end())
+                    {
+                        std::vector<std::string> emptyArgs;
+                        if (userFind->second.hasDisconnected == false)
+                            this->_users[fd].quitCmd(*this, emptyArgs);
+                        this->_users.erase(fd);
+                    }
+                    close(fd);
+                    continue;
                 }
                 getMsgFD(*this, buffer, fd);
             }
