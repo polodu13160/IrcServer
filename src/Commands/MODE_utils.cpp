@@ -1,4 +1,4 @@
-#include "../../inc/User.hpp"
+#include "User.hpp"
 #include <bitset>
 
 
@@ -12,7 +12,6 @@ static bool	checkArgs(const Channel &channel, const s_parseMode &mode, const Use
 	return true;
 }
 
-// CHANNEL INVITE ONLY HANDLE
 
 
 void	handleInviteMode(Channel &channel, const s_parseMode &mode) {
@@ -23,8 +22,6 @@ void	handleInviteMode(Channel &channel, const s_parseMode &mode) {
 		changeMode(channel._modeStock, MODE_INVITE_O, false);
 }
 
-// CHANNEL TOPC HANDLE
-
 
 void	handleTopicMode(Channel &channel, const s_parseMode &mode) {
 
@@ -33,8 +30,6 @@ void	handleTopicMode(Channel &channel, const s_parseMode &mode) {
 	else
 		changeMode(channel._modeStock, MODE_TOPIC_RESTRICT, false);
 }
-
-// CHANNEL PASSWORD HANDLE
 
 void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server) {
 
@@ -58,7 +53,6 @@ void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Se
 	}
 }
 
-// CHANNEL LIMIT HANDLE
 
 
 void handleLimitMode(Channel &channel, const s_parseMode &mode, const User &userSend, Server &server) {
@@ -82,8 +76,6 @@ void handleLimitMode(Channel &channel, const s_parseMode &mode, const User &user
 	}
 }
 
-
-// OPERATOR HANDLE
 
 void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server) {
 	User *user = channel.getUserByNickname(mode.arg);

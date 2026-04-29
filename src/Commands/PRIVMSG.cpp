@@ -1,10 +1,5 @@
 #include "User.hpp"
 
-// :expediteur!Username@Host PRIVMSG <target> :message\r\n
-// 411 ERR_NORECIPIENT		412 ERR_NOTEXTTOSEND
-// 401 ERR_NOSUCHNICK		404 ERR_CANNOTSENDTOCHAN
-
-// PRIVMSG <target> <message>
 
 static std::vector<std::string>	argSplit(const std::string &arg){
 	std::vector<std::string>	tab;

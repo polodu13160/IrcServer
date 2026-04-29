@@ -67,16 +67,18 @@ std::string	User::getMessage(void){
 	size_t pos = this->message.find("\r\n");
 	if (pos != std::string::npos) {
 		if(this->message.size() > 512){
-			this->message = "";
-			//send err_msgtoolong
-			return this->message;
+			this->message = ":";
+			this->message += HOST;
+			this->message += " 417 " + this->_nickname + " : Your message is too long \r\n" ;
+			Server::sendCheck(this->_userFd, this->message.c_str(), this->message.size(), 0);
+			return this->message = "";
 		}
 		std::string cmd = this->message.substr(0, pos);
 		this->message.erase(0, pos + 2);
 		return cmd;
 	}
-	std::string str("");
-	return str;
+	this->message = "";
+	return this->message;
 }
 
 const int	&User::getUserFd(void)const{

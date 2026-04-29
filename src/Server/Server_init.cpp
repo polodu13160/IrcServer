@@ -70,7 +70,7 @@ void Server::EpollInstance()
     if (this->_epollInstance == -1)
         throw Server::errorEpollCreate();
 
-    epoll_event serverEvent = {}; // a cahnger
+    epoll_event serverEvent = {}; 
     serverEvent.events   = EPOLLIN;
     serverEvent.data.fd  = this->_serverFd;
     if (epoll_ctl(this->_epollInstance, EPOLL_CTL_ADD, this->_serverFd, &serverEvent) == -1)

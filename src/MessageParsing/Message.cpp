@@ -1,7 +1,4 @@
-#include "../../inc/Message.hpp"
-
-#include <cstring>
-// #include "../cmd/cmd.hpp"
+#include "Message.hpp"
 
 Message::Message(void) : fullParams(0){}
 

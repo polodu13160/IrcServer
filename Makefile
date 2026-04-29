@@ -5,7 +5,7 @@ NAME = IrcServer
 FILES =  src/main src/Channel/Channel src/MessageParsing/Message src/Server/Server src/Commands/JOIN \
        src/Commands/USER src/Commands/NICK src/User/User src/MessageParsing/parser src/Commands/cmdDispatch src/Commands/LIST \
        src/Server/Server_init src/Commands/PASS src/Commands/MODE_utils \
-       src/Commands/QUIT src/Commands/TOPIC src/Commands/PART src/Commands/PINGPONG src/Commands/WHO \
+       src/Commands/QUIT src/Commands/TOPIC src/Commands/PART src/Commands/PONG src/Commands/WHO \
        src/Commands/MODE src/Commands/PRIVMSG src/Commands/NOTICE src/Commands/INVITE src/Commands/KICK
 
 BOT_NAME = IrcBot

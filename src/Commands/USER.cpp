@@ -1,4 +1,4 @@
-#include "../../inc/User.hpp"
+#include "User.hpp"
 #include <bitset>
 
 int wordCountInUser(const std::vector<std::string> &ref, User &thisUsr)

@@ -1,8 +1,8 @@
-#include "../../inc/User.hpp"
+#include "User.hpp"
 #include "Server.hpp"
-#include "../../inc/cmdDispatch.hpp"
+#include "cmdDispatch.hpp"
 #include <functional>
-#include "../../inc/User.hpp"
+#include "User.hpp"
 
 void	getTab(std::map<std::string, void (User::*)(Server &, const std::vector<std::string>&)>& functionTab)
 {
@@ -22,10 +22,6 @@ void	getTab(std::map<std::string, void (User::*)(Server &, const std::vector<std
 	functionTab["NOTICE"] = &User::noticeCmd;
 	functionTab["PASS"] = &User::passCmd;
 }
-
-// void	cmdSpecialKit(Server &server, User &user, std::string cmd, const std::vector<std::string> args){
-
-// }
 
 void cmdDispatcher(Server &server, User &user, std::string cmd, const std::vector<std::string> args)
 {

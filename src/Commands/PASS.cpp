@@ -1,4 +1,3 @@
-#include "../../inc/User.hpp"
 #include "User.hpp"
 
 bool	User::checkRegistration(Server &server) const {

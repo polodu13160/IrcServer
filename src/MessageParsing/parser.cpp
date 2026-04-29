@@ -1,8 +1,7 @@
 #include <iostream>
-#include "../../inc/User.hpp"
-#include "../../inc/cmdDispatch.hpp"
-#include "../../inc/Message.hpp"
-#include <vector>
+#include "User.hpp"
+#include "cmdDispatch.hpp"
+#include "Message.hpp"
 
 void	tokenizeParams(Message *message, std::string msg, int start, int end){
 	std::string	tmp;
@@ -58,6 +57,8 @@ void	TokenizeMsg(Server &server, std::string msg, User &user){
 	cmdDispatcher(server, user, message.getCmd(), message.getParam());
 }
 
+
+
 void	Server::getMsgFD(Server &server, std::string msg, int userFd){
 	User	*user = server.getUser(userFd, server);
 
@@ -77,9 +78,16 @@ void	Server::getMsgFD(Server &server, std::string msg, int userFd){
 	user->setMessage(msg);
 	std::string finalMsg = user->getMessage();
 	while (!finalMsg.empty()) {
+		#if (DEBUG==1) 
+		Server::messageToServer(" 	ici ", NULL );
+		#endif //DEBUG
 		TokenizeMsg(server, finalMsg, *user);
 		finalMsg = user->getMessage();
 	}
+}
+
+
+}
 }
 
 void	printVector(std::vector<std::string> arg){

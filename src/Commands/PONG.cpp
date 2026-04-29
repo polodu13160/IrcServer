@@ -1,4 +1,4 @@
-#include "../../inc/User.hpp"
+#include "User.hpp"
 
 
 void	User::pongCmd(Server &server, const std::vector<std::string> &arg) {
