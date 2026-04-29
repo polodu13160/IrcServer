@@ -28,7 +28,10 @@ void	User::passCmd(Server &server, const std::vector<std::string> &arg) {
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
 	}
-	std::cout << "ici" << std::endl;
+	#if (DEBUG==1) 
+	 	std::cout << "ici" << std::endl;
+	#endif //DEBUG
+	
 	this->passMatch = true;
 }
 

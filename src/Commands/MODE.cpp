@@ -111,7 +111,10 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 	}
 	const std::vector<s_parseMode> args = parseArgsNb(modeStr);
 	if (args.empty()) {
-		std::cout << "Not good args" << std::endl;
+		#if (DEBUG==1) 
+		std::cout << "Not good args with mode" << std::endl;
+		#endif //DEBUG
+		
 		return;
 	}
 	std::cout << "Arguments is : " << args[0].arg << std::endl;
