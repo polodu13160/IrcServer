@@ -23,7 +23,7 @@ void set_signal_action(void)
 {
 
 	struct sigaction act;
-	bzero(&act, sizeof(act));
+	std::memset(&act, 0, sizeof(act));;
 	act.sa_handler = &sigint_handler;
 	sigaction(SIGINT, &act, NULL);
 }
@@ -31,7 +31,7 @@ void set_signal_action(void)
 void ignore_sigpipe()
 {
 	struct sigaction act;
-	bzero(&act, sizeof(act));
+	std::memset(&act, 0, sizeof(act));;
 	act.sa_handler = SIG_IGN;
 	sigaction(SIGPIPE, &act, NULL);
 }
