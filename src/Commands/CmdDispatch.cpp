@@ -1,7 +1,6 @@
 #include "User.hpp"
 #include "Server.hpp"
-#include "cmdDispatch.hpp"
-#include <functional>
+#include "CmdDispatch.hpp"
 #include "User.hpp"
 
 void	getTab(std::map<std::string, void (User::*)(Server &, const std::vector<std::string>&)>& functionTab)
@@ -23,7 +22,7 @@ void	getTab(std::map<std::string, void (User::*)(Server &, const std::vector<std
 	functionTab["PASS"] = &User::passCmd;
 }
 
-void cmdDispatcher(Server &server, User &user, std::string cmd, const std::vector<std::string> args)
+void CmdDispatch::cmdDispatcher(Server &server, User &user, std::string cmd, const std::vector<std::string> args)
 {
 	if (DEBUG == true) {
 		std::cout << "cmd : " << cmd << std::endl;

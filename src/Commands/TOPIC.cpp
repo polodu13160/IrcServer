@@ -1,4 +1,4 @@
-#include "cmdDispatch.hpp"
+#include "CmdDispatch.hpp"
 #include <sstream>
 #include <ctime>
 

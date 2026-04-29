@@ -1,4 +1,5 @@
 #include "../../inc/User.hpp"
+#include "User.hpp"
 
 
 
@@ -6,15 +7,15 @@ User::User(int userfd, std::string nickname, std::string username)
 		: _userFd(userfd),
 		_nickname(nickname),
 		_username(username) {
-	this->registered = false;
-	this->passMatch = false;
+	this->_registered = false;
+	this->_passMatch = false;
 	this->_isBot = false;
 
-	this->hasDisconnected = false;
+	this->setHasDisconnected(false);
 }
 
 
-User::User() : _userFd(), registered(), passMatch(), _isBot() {
+User::User() : _userFd(), _registered(), _passMatch(), _isBot() {
 }
 
 User::~User() {
@@ -23,8 +24,8 @@ User::~User() {
 bool	User::setUserRegistration(Server &server){
 
 
-	if (!this->_nickname.empty() && !this->_username.empty() && !this->_realname.empty() && this->passMatch == true) {
-		this->registered = true;
+	if (!this->_nickname.empty() && !this->_username.empty() && !this->_realname.empty() && this->_passMatch == true) {
+		this->_registered = true;
 		std::string line = ":" + server._ip + " 001 " + this->_nickname + " :Welcome to the Internet Relay Network\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		line = ":" + server.getIp() + " 002 " + this->getNickname() + " :Your host is " + server.getIp() + ", running version 0.1\r\n";
@@ -43,7 +44,7 @@ bool	User::setUserRegistration(Server &server){
 		if (this->_nickname == BOTNAME) {
 			std::cout << "Bot connected" << std::endl;
 			this->_isBot = true;
-			server.bot = this;
+			server._bot = this;
 		}
 		std::cout << this->_username << "   " << this->_nickname << "  " << this->_realname << std::endl;
 		return true;
@@ -64,21 +65,21 @@ const std::string	&User::getRealname(void)const{
 }
 
 std::string	User::getMessage(void){
-	size_t pos = this->message.find("\r\n");
+	size_t pos = this->_message.find("\r\n");
 	if (pos != std::string::npos) {
-		if(this->message.size() > 512){
-			this->message = ":";
-			this->message += HOST;
-			this->message += " 417 " + this->_nickname + " : Your message is too long \r\n" ;
-			Server::sendCheck(this->_userFd, this->message.c_str(), this->message.size(), 0);
-			return this->message = "";
+		if(this->_message.size() > 512){
+			this->_message = ":";
+			this->_message += HOST;
+			this->_message += " 417 " + this->_nickname + " : Your message is too long \r\n" ;
+			Server::sendCheck(this->_userFd, this->_message.c_str(), this->_message.size(), 0);
+			return this->_message = "";
 		}
-		std::string cmd = this->message.substr(0, pos);
-		this->message.erase(0, pos + 2);
+		std::string cmd = this->_message.substr(0, pos);
+		this->_message.erase(0, pos + 2);
 		return cmd;
 	}
-	this->message = "";
-	return this->message;
+	this->_message = "";
+	return this->_message;
 }
 
 const int	&User::getUserFd(void)const{
@@ -102,10 +103,20 @@ void	User::setUserFd(int userFd){
 }
 
 void	User::setMessage(std::string message){
-	this->message += message;
+	this->_message += message;
 }
 
 std::string &User::getIp()
 {
     return this->_ip;
+}
+
+void User::setHasDisconnected(bool val)
+{
+    this->_hasDisconnected = val;
+}
+
+bool User::getHasDisconnected()
+{
+    return this->_hasDisconnected;
 }

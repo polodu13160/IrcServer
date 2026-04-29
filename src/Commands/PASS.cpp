@@ -2,7 +2,7 @@
 
 bool	User::checkRegistration(Server &server) const {
 
-	if (this->registered == false) {
+	if (this->_registered == false) {
 		const std::string line = ":" + server.getIp() + " 451 : You have not registered.\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return false;
@@ -18,7 +18,7 @@ void	User::passCmd(Server &server, const std::vector<std::string> &arg) {
 		std::cout << "La" << std::endl;
 		return;
 	}
-	if (this->registered == true) {
+	if (this->_registered == true) {
 		const std::string line = ":" + server.getIp() + " 462 " + this->_nickname + " :You may not reregister\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		return;
@@ -32,7 +32,7 @@ void	User::passCmd(Server &server, const std::vector<std::string> &arg) {
 	 	std::cout << "ici" << std::endl;
 	#endif //DEBUG
 	
-	this->passMatch = true;
+	this->_passMatch = true;
 }
 
 

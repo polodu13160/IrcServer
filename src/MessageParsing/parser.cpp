@@ -1,6 +1,6 @@
 #include <iostream>
 #include "User.hpp"
-#include "cmdDispatch.hpp"
+#include "CmdDispatch.hpp"
 #include "Message.hpp"
 
 void	tokenizeParams(Message *message, std::string msg, int start, int end){
@@ -54,7 +54,7 @@ void	TokenizeMsg(Server &server, std::string msg, User &user){
 	if(end < msg.size()){
 		tokenizeParams(&message, msg, start, end);
 	}
-	cmdDispatcher(server, user, message.getCmd(), message.getParam());
+	CmdDispatch::cmdDispatcher(server, user, message.getCmd(), message.getParam());
 }
 
 
@@ -64,7 +64,7 @@ void	Server::getMsgFD(Server &server, std::string msg, int userFd){
 
 	std::string result;
 
-	if (user->hasDisconnected == true) {
+	if (user->getHasDisconnected() == true) {
 		epoll_ctl(server._epollInstance , EPOLL_CTL_DEL, user->_userFd, NULL);
 		close(user->_userFd);
 		server._users.erase(user->_userFd);

@@ -47,8 +47,8 @@ void	User::privMsgCmd(Server &server, const std::vector<std::string>& arg){
 				else{
 					std::string line = ":" + this->getNickname() + "!" + this->getUsername() + "@" + this->_ip +  " PRIVMSG " + split[i] +" "+ arg[1] + "\r\n";
 					channel->sendMsgUserForOthersUsersChannel(*this, line);
-					if (server.bot != NULL) {
-						Server::sendCheck(server.bot->getUserFd(), line.c_str(), line.size(), 0);
+					if (server._bot != NULL) {
+						Server::sendCheck(server._bot->getUserFd(), line.c_str(), line.size(), 0);
 					}
 				}
 			}

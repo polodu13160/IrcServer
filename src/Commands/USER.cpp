@@ -24,7 +24,7 @@ int wordCountInUser(const std::vector<std::string> &ref, User &thisUsr)
 void User::userCmd(Server &server, const std::vector<std::string> &userName)
 {
 
-	if (this->passMatch == false) {
+	if (this->_passMatch == false) {
 
 		const std::string line = ":" + server.getIp() + " 431 * :Can't connect without password\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
@@ -33,7 +33,7 @@ void User::userCmd(Server &server, const std::vector<std::string> &userName)
 	std::string name = this->_nickname;
 	if (name.empty())
 		name = "*";
-	if (this->registered == true)
+	if (this->_registered == true)
 	{
 		const std::string line = ":" + server._ip + " 462 " + name + " :Unauthorized command (already registered) \r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);

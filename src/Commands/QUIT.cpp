@@ -61,5 +61,5 @@ void User::quitCmd(Server &server, const std::vector<std::string> &arg)
         Server::sendCheck((*it)->_userFd, messageSend.c_str(), messageSend.size(), 0);
     }
 
-    this->hasDisconnected = true;
+    this->_hasDisconnected = true;
 }

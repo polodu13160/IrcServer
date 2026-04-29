@@ -144,7 +144,7 @@ void Server::EpollInstance()
                     if (userFind != this->_users.end())
                     {
                         std::vector<std::string> emptyArgs;
-                        if (userFind->second.hasDisconnected == false)
+                        if (userFind->second.getHasDisconnected() == false)
                             this->_users[fd].quitCmd(*this, emptyArgs);
                         this->_users.erase(fd);
                     }

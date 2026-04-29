@@ -99,7 +99,7 @@ private:
 	int         _epollInstance;
 	int         _maxChanPerUser;
 
-	User      *bot;
+	User      *_bot;
 
 	std::map<int, User>              _users;
 	std::map<std::string, Channel *> _chanMap;

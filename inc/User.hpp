@@ -1,5 +1,5 @@
 #ifndef USER_HPP
-# define USER_HPP
+#define USER_HPP
 
 #include <iostream>
 #include <sstream>
@@ -14,86 +14,81 @@ class Channel;
 
 #define BOTNAME "bot"
 
-struct s_parseMode {
+struct s_parseMode
+{
 	mode_t mode;
 	std::string arg;
 	bool sign;
 };
 
-class User {
-	public :
+class User
+{
+public:
 	User();
 	User(int userfd, std::string nickname, std::string username);
 	~User(void);
 
+	const std::string &getNickname(void) const;
+	const std::string &getUsername(void) const;
+	const std::string &getRealname(void) const;
+	const int &getUserFd(void) const;
+	std::string getMessage(void);
 
-	const std::string	&getNickname(void)const;
-	const std::string	&getUsername(void)const;
-	const std::string	&getRealname(void)const;
-	const int			&getUserFd(void)const;
-	std::string			getMessage(void);
-
-	void	setNickname(std::string nickname);
-	void	setUsername(std::string username);
-	void	setRealname(std::string realname);
-	void	setUserFd(int userFd);
-	void	setMessage(std::string realname);
-
+	void setNickname(std::string nickname);
+	void setUsername(std::string username);
+	void setRealname(std::string realname);
+	void setUserFd(int userFd);
+	void setMessage(std::string realname);
 
 	// CMD
 
-	void nickCmd(Server& server, const std::vector<std::string> &nickName);
-	void userCmd(Server& server, const std::vector<std::string> &userName);
+	void nickCmd(Server &server, const std::vector<std::string> &nickName);
+	void userCmd(Server &server, const std::vector<std::string> &userName);
 
-
-	void modeCmd(Server& server, const std::vector<std::string> &modeStr);
-	void joinCmd(Server &server, const std::vector<std::string>& arg);
+	void modeCmd(Server &server, const std::vector<std::string> &modeStr);
+	void joinCmd(Server &server, const std::vector<std::string> &arg);
 	void quitCmd(Server &server, const std::vector<std::string> &arg);
-	void listCmd(Server &server, const std::vector<std::string>& channels_string);
-	void topicCmd(Server& server, const std::vector<std::string>& channels_string);
+	void listCmd(Server &server, const std::vector<std::string> &channels_string);
+	void topicCmd(Server &server, const std::vector<std::string> &channels_string);
 	void pongCmd(Server &server, const std::vector<std::string> &arg);
 	void partCmd(Server &server, const std::vector<std::string> &arg);
-	void privMsgCmd(Server &server, const std::vector<std::string>& arg);
-	void whoCmd(Server &server, const std::vector<std::string>& arg);
-	void noticeCmd(Server &server, const std::vector<std::string>& arg);
+	void privMsgCmd(Server &server, const std::vector<std::string> &arg);
+	void whoCmd(Server &server, const std::vector<std::string> &arg);
+	void noticeCmd(Server &server, const std::vector<std::string> &arg);
 
 	bool checkRegistration(Server &server) const;
 	bool setUserRegistration(Server &server);
-
 
 	void passCmd(Server &server, const std::vector<std::string> &arg);
 	void inviteCmd(Server &server, const std::vector<std::string> &arg);
 	void kickCmd(Server &server, const std::vector<std::string> &arg);
 	std::string &getIp();
-	bool	hasDisconnected;
+	bool getHasDisconnected();
+	void setHasDisconnected(bool val);
 
-
-	private :
-	int			_userFd;
-	std::string	_nickname;
-	std::string	_username;
-	std::string	_realname;
+private:
+	int _userFd;
+	std::string _nickname;
+	std::string _username;
+	std::string _realname;
 	std::string _ip;
-	std::string	message;
+	std::string _message;
 
-	bool	registered;
-	bool	passMatch;
+	bool _registered;
+	bool _passMatch;
 	bool _isBot;
-
+	bool _hasDisconnected;
 
 	friend class Server;
-
 };
 
-void	getMsgFD(Server &server, std::string msg, int userFd);
-void	changeMode(unsigned int &checkedMode, const e_modes MODE, bool sign);
-bool	checkMode(const unsigned int &checkedMode, const e_modes MODE);
-void	handleInviteMode(Channel &channel, const s_parseMode &mode);
-void	handleTopicMode(Channel &channel, const s_parseMode &mode);
-void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
-void	handleLimitMode(Channel &channel, const s_parseMode &mode, const User &userSend, Server &server);
-void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
-void	cmdDispatcher(Server &server, User &user, std::string cmd, std::vector<std::string> args);
-
+void changeMode(unsigned int &checkedMode, const e_modes MODE, bool sign);
+bool checkMode(const unsigned int &checkedMode, const e_modes MODE);
+void handleInviteMode(Channel &channel, const s_parseMode &mode);
+void handleTopicMode(Channel &channel, const s_parseMode &mode);
+void handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
+void handleLimitMode(Channel &channel, const s_parseMode &mode, const User &userSend, Server &server);
+void handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSend, Server &server);
+void cmdDispatcher(Server &server, User &user, std::string cmd, std::vector<std::string> args);
 
 #endif
