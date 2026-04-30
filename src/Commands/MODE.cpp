@@ -117,7 +117,6 @@ void User::modeCmd(Server& server, const std::vector<std::string> &modeStr) {
 		
 		return;
 	}
-	std::cout << "Arguments is : " << args[0].arg << std::endl;
 	for (size_t i = 0; i < args.size(); i++) {
 		switch (args[i].mode) {
 			case MODE_INVITE_O :

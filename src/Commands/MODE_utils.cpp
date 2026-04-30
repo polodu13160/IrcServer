@@ -39,8 +39,8 @@ void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Se
 		return;
 	for (size_t i = 0; i < mode.arg.size(); i++) {
 		if (mode.arg[i] == ':' || mode.arg[i] == ',' || mode.arg[i] <= 32) {
-			std::string line = ":" + server.getIp() + " 696 ";
-			//err return SEND
+			std::string line = ":" + server.getIp() + " 696 " + userSend.getNickname() + " +k " + mode.arg +  " :Bad Mode parameter\r\n";
+			Server::sendCheck(userSend.getUserFd(), line.c_str(), line.size(), 0);
 			return;
 		}
 	}
@@ -48,8 +48,14 @@ void	handleKeyMode(Channel &channel, const s_parseMode &mode, User &userSend, Se
 		changeMode(channel._modeStock, MODE_KEY_SET, true);
 		channel.setPassword(mode.arg);
 	}
-	else {
+	else if (mode.sign == false && mode.arg == channel.getPassword()) {
 		changeMode(channel._modeStock, MODE_KEY_SET, false);
+	}
+	else {
+		std::string line = ":" + server.getIp() + " 696 " + userSend.getNickname() + " +k " + mode.arg +  " :Bad password\r\n";
+		Server::sendCheck(userSend.getUserFd(), line.c_str(), line.size(), 0);
+		return;
+
 	}
 }
 
@@ -67,8 +73,11 @@ void handleLimitMode(Channel &channel, const s_parseMode &mode, const User &user
 		}
 		std::stringstream ss(mode.arg);
 		ss >> tmp;
-		if (!tmp || (ss >> rest))
+		if (!tmp || (ss >> rest)) {
+			std::string line = ":" + server.getIp() + " 696 " + userSend.getNickname() + " l " + mode.arg +  " :Bad limit\r\n";
+			Server::sendCheck(userSend.getUserFd(), line.c_str(), line.size(), 0);
 			return;
+		}
 		channel.setUserLimit(tmp);
 		changeMode(channel._modeStock, MODE_LIMIT_SET, true);
 	} else {
