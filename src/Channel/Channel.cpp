@@ -2,9 +2,11 @@
 #include "string"
 
 void Channel::printChannelOperator() {
-	for (std::map<User *,bool>::iterator it = this->_users.begin(); it != this->_users.end(); ++it) {
-		if (it->second == true)
-			std::cout << "Operator : " << it->first->getNickname() << std::endl;
+	if(DEBUG == 1){
+		for (std::map<User *,bool>::iterator it = this->_users.begin(); it != this->_users.end(); ++it) {
+			if (it->second == true)
+				std::cout << "Operator : " << it->first->getNickname() << std::endl;
+		}
 	}
 }
 

@@ -1,4 +1,5 @@
 #include "Message.hpp"
+#include "Define.hpp"
 
 Message::Message(void) : fullParams(0){}
 
@@ -31,11 +32,13 @@ std::vector<std::string>	Message::getParam(void)const{
 }
 
 void	Message::printParams(void){
-	std::cout << "printParams" << std::endl;
+	if(DEBUG == 1){
+		std::cout << "printParams" << std::endl;
 
 
 
-	for(int i = 0; !this->_params[i].empty(); i++){
-		std::cout << "Param number " << i << " : " << this->_params[i] << std::endl;
+		for(int i = 0; !this->_params[i].empty(); i++){
+			std::cout << "Param number " << i << " : " << this->_params[i] << std::endl;
+		}
 	}
 }
