@@ -66,7 +66,6 @@ void	Server::getMsgFD(Server &server, std::string msg, int userFd){
 	}
 
 	if(!user) {
-		std::cout << "caca";
 		return;
 	}
 	user->setMessage(msg);
