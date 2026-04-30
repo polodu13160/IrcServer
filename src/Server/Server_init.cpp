@@ -49,11 +49,9 @@ void Server::setSocketParams()
     if (serverId == SOCKET_ERROR)
         throw Server::errorSocket();
     this->_serverFd = serverId;
-
     const int opt = 1;
     if (setsockopt(this->_serverFd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(int)) != 0)
         throw Server::errorSetSockOpt();
-
     this->sockaddrInit();
     this->_ip = HOST;
     std::cout << RED << "Server IP: " << this->_ip << RESET << std::endl;
