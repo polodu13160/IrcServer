@@ -90,7 +90,6 @@ void	handleOperatorMode(Channel &channel, const s_parseMode &mode, User &userSen
 	User *user = channel.getUserByNickname(mode.arg);
 
 	if (!user) {
-		std::cout << "Y A PAS " << std::endl;
 		std::string	signStr = mode.sign ? "+" : "-";
 		const std::string line = ":" + server.getIp() + " 441 " + userSend.getNickname() + " " + mode.arg + " " + channel.getName() + " :They aren't on that channel\r\n";
 		send(userSend.getUserFd(), line.c_str(), line.size(), 0);
