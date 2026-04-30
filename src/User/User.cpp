@@ -79,8 +79,8 @@ std::string	User::getMessage(void){
 		this->_message.erase(0, pos + 2);
 		return cmd;
 	}
-	this->_message = "";
-	return this->_message;
+	std::string value("");
+	return value;
 }
 
 const int	&User::getUserFd(void)const{
