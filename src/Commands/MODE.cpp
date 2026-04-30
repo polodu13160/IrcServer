@@ -48,7 +48,6 @@ std::vector<s_parseMode> parseArgsNb(const std::vector<std::string> &modeStr) {
 	if (modeStr.size() == 1)
 		return args;
 	for (size_t i = 0; i < modeStr[1].size(); i++) {
-		std::cout << "Current mode  : " << modeStr[1][i] << std::endl;
 		if (modeStr[1][i] == '+')
 			sign = true;
 		else if (modeStr[1][i] == '-')

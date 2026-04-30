@@ -1,6 +1,6 @@
 .PHONY : init all re clean fclean debug bot
 CXX = c++
-FLAGS = -Wall -Wextra  -MMD -MP -g3 -std=c++98 -Iinc
+FLAGS = -Wall -Wextra -Werror  -MMD -MP -std=c++98 -Iinc
 NAME = IrcServer
 FILES =  src/main src/Channel/Channel src/MessageParsing/Message src/Server/Server src/Commands/JOIN \
        src/Commands/USER src/Commands/NICK src/User/User src/MessageParsing/parser src/Commands/CmdDispatch src/Commands/LIST \

@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/karamire/Documents/IrcServer/src/Server",
-      "program": "/home/karamire/Documents/IrcServer/src/Server/build/Debug/outDebug",
+      "cwd": "/home/karamire/Documents/IrcServer/src/Commands",
+      "program": "/home/karamire/Documents/IrcServer/src/Commands/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
