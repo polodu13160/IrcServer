@@ -36,7 +36,11 @@ void Server::setServerPort(const char *str)
 
 void Server::setServerPass(const char *password)
 {
-    this->_serverPassword = std::string(password);
+	std::string pass(password);
+	if(!pass.empty())
+		this->_serverPassword = std::string(password);
+	else
+		throw Server::errorBadPassword();
 }
 
 void Server::setSocketParams()

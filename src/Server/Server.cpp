@@ -208,5 +208,9 @@ const char *Server::errorRecv::what() const throw()
 	return "Error\nrecv function crashed.";
 }
 
+const char *Server::errorBadPassword::what() const throw()
+{
+	return "Error\nBad password provided.";
+}
 
 

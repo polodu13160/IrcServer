@@ -86,6 +86,9 @@ public:
     class sendFailure      : public std::exception {
 		public: const char *what() const throw();
     };
+	class errorBadPassword     : public std::exception {
+		public: const char *what() const throw();
+    };
 
 private:
     static bool _isServerWorking;
