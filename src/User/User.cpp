@@ -21,32 +21,33 @@ User::User() : _userFd(), _registered(), _passMatch(), _isBot() {
 User::~User() {
 }
 
-bool	User::setUserRegistration(Server &server){
-
-
+bool User::setUserRegistration(Server &server) {
 	if (!this->_nickname.empty() && !this->_username.empty() && !this->_realname.empty() && this->_passMatch == true) {
 		this->_registered = true;
-		std::string line = ":" + server._ip + " 001 " + this->_nickname + " :Welcome to the Internet Relay Network\r\n";
+		std::string line = ":" + server._ip + " 001 " + this->_nickname + " :Welcome to the Internet Relay Network " + this->_nickname + "!\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
-		line = ":" + server.getIp() + " 002 " + this->getNickname() + " :Your host is " + server.getIp() + ", running version 0.1\r\n";
+		line = ":" + server.getIp() + " 002 " + this->getNickname() + " :Your host is " + server.getIp() + ", running version 1.0\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
-		line = ":" + server._ip + " 003 " + this->_nickname + " :This Server was created a while ago \r\n";
+		line = ":" + server._ip + " 003 " + this->_nickname + " :This server was created on " + __DATE__ + "\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		line = ":" + server.getIp() + " 004 " + this->getNickname() + " " + server.getIp() + " 1.0 o i\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
-		line = ":" + server._ip + " 375 " + this->_nickname + " :- " + server._ip + " Message of the day - \r\n";
+		line = ":" + server._ip + " 375 " + this->_nickname + " :- " + server._ip + " Message of the Day -\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
-		line = ":" + server._ip + " 372 " + this->_nickname + " :- WELCOME LES BB ! \r\n";
+		line = ":" + server._ip + " 372 " + this->_nickname + " :- Welcome to " + server._ip + ". Please be respectful and enjoy your stay.\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
-		line = ":" + server._ip + " 376 " + this->_nickname + " :End of MOTD command\r\n";
+		line = ":" + server._ip + " 372 " + this->_nickname + " :- Type /LIST to browse available channels.\r\n";
 		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
-
+		line = ":" + server._ip + " 376 " + this->_nickname + " :End of /MOTD command.\r\n";
+		Server::sendCheck(this->_userFd, line.c_str(), line.length(), 0);
 		if (this->_nickname == BOTNAME) {
-			std::cout << "Bot connected" << std::endl;
+			std::cout << "[BOT] " << BOTNAME << " has connected to the server." << std::endl;
 			this->_isBot = true;
 			server._bot = this;
 		}
-		std::cout << this->_username << "   " << this->_nickname << "  " << this->_realname << std::endl;
+		std::cout << "[INFO] New user registered — nick: " << this->_nickname
+				  << " | user: " << this->_username
+				  << " | real: " << this->_realname << std::endl;
 		return true;
 	}
 	return false;
