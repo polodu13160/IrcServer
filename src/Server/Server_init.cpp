@@ -74,7 +74,8 @@ void Server::EpollInstance()
     if (this->_epollInstance == -1)
         throw Server::errorEpollCreate();
 
-    epoll_event serverEvent = {};
+    epoll_event serverEvent;
+    std::memset(&serverEvent, 0, sizeof(epoll_event));
     serverEvent.events = EPOLLIN;
     serverEvent.data.fd = this->_serverFd;
     if (epoll_ctl(this->_epollInstance, EPOLL_CTL_ADD, this->_serverFd, &serverEvent) == -1)
@@ -115,7 +116,8 @@ void Server::EpollInstance()
                         throw Server::errorFcntl();
                     }
 
-                    epoll_event ev = {};
+                    epoll_event ev ;
+                    std::memset(&ev, 0, sizeof(epoll_event));
                     ev.events = EPOLLIN;
                     ev.data.fd = clientFd;
                     if (epoll_ctl(this->_epollInstance, EPOLL_CTL_ADD, clientFd, &ev) == -1)
@@ -135,7 +137,6 @@ void Server::EpollInstance()
                 const int fd = this->_userEvent[i].data.fd;
                 char buffer[MAX_SIZE_MESSAGE + 1];
                 std::memset(buffer, 0, sizeof(buffer));
-
                 const ssize_t bytes = recv(fd, buffer, MAX_SIZE_MESSAGE, 0);
 
                 if (bytes <= 0)
